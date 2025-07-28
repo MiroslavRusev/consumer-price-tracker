@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { formFields, utilityItems } from '$lib/constants';
 	import type { ChartData, FormCalculationResult } from '$lib/interfaces';
-	import { selectedFuels, currentFuelPrice, historicalFuelPrice } from '$lib/stores';
+	import { selectedFuels, currentFuelPrice, historicalFuelPrice, selectedUtilityItems } from '$lib/stores';
 	import { fuelItems } from '$lib/constants';
 
 	let loading: boolean = false;
@@ -43,7 +43,6 @@
 		datasets: []
 	};
 
-	// Optional: Add separate prop for utility data
 	export let utilityData: ChartData = {
 		labels: [],
 		datasets: []
@@ -85,6 +84,13 @@
 		return { periodString, productsString };
 	}
 
+	function getSelectedUtilityItemsString(selectedUtilityIds: string[]) {
+		return utilityItems
+			.filter((item) => selectedUtilityIds.includes(item.id))
+			.map((item) => item.name)
+			.join(', ');
+	}
+
 	// Calculate inflation rate when data changes
 	$: inflationRate = calculateInflationRate(data);
 	$: utilityPrice = returnUtilityPrice(utilityData);
@@ -93,6 +99,7 @@
 	$: selectedFuelsString = $selectedFuels
 		? fuelItems.find((fuel) => fuel.id === $selectedFuels)?.name
 		: 'Не е избрано гориво';
+	$: selectedUtilityItemsString = getSelectedUtilityItemsString($selectedUtilityItems);
 </script>
 
 <h3 class="text-2xl font-bold mb-2">
@@ -105,6 +112,7 @@
 	<p class="text-amber-600 underline text-base mt-2">Избраният период е: {periodString}</p>
 	<p class="text-amber-600 underline text-base mt-2 mb-2">Избрани продукти: {productsString}</p>
 	<p class="text-amber-600 underline text-base mt-2 mb-2">Избрано гориво: {selectedFuelsString}</p>
+	<p class="text-amber-600 underline text-base mt-2 mb-2">Избрани услуги: {selectedUtilityItemsString}</p>
 </div>
 <div class="space-y-6">
 	<form on:submit={handleSubmit} class="grid grid-cols-1 gap-6 border-2 border-gray-200 rounded-md p-6">
@@ -178,24 +186,30 @@
 		<input
 			type="hidden"
 			name="electricityHistoricalPrice"
-			value={utilityPrice.length > 0
+			value={$selectedUtilityItems.includes('electricity')
 				? utilityPrice.find((item) => item.id === 'electricity')?.historicalPrice
 				: 0}
 		/>
 		<input
 			type="hidden"
 			name="electricityCurrentPrice"
-			value={utilityPrice.length > 0 ? utilityPrice.find((item) => item.id === 'electricity')?.currentPrice : 0}
+			value={$selectedUtilityItems.includes('electricity')
+				? utilityPrice.find((item) => item.id === 'electricity')?.currentPrice
+				: 0}
 		/>
 		<input
 			type="hidden"
 			name="waterHistoricalPrice"
-			value={utilityPrice.length > 0 ? utilityPrice.find((item) => item.id === 'water')?.historicalPrice : 0}
+			value={$selectedUtilityItems.includes('water')
+				? utilityPrice.find((item) => item.id === 'water')?.historicalPrice
+				: 0}
 		/>
 		<input
 			type="hidden"
 			name="waterCurrentPrice"
-			value={utilityPrice.length > 0 ? utilityPrice.find((item) => item.id === 'water')?.currentPrice : 0}
+			value={$selectedUtilityItems.includes('water')
+				? utilityPrice.find((item) => item.id === 'water')?.currentPrice
+				: 0}
 		/>
 		<input type="hidden" name="fuelAmount" value={fuelAmount} />
 		<button

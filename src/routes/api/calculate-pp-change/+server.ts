@@ -9,7 +9,7 @@ export const POST: RequestHandler = async ({ request }) => {
 
 		// Validation constants
 		const MAX_VALUE = 1000000; // 1 million limit
-		const MIN_POSITIVE_VALUE = 0.01; // Minimum positive value
+		const MIN_POSITIVE_VALUE = 0; // Minimum positive value
 
 		// Extract and validate all form values
 		const values: Record<string, number> = {};
@@ -21,7 +21,7 @@ export const POST: RequestHandler = async ({ request }) => {
 				return json({ error: `${field.label} не е валидно число` }, { status: 400 });
 			}
 			if (value < MIN_POSITIVE_VALUE) {
-				return json({ error: `${field.label} трябва да има стойност по-голяма от 0` }, { status: 400 });
+				return json({ error: `${field.label} трябва да има положителна стойност` }, { status: 400 });
 			}
 			if (value > MAX_VALUE) {
 				return json({ error: `${field.label} не може да надвишава 1,000,000` }, { status: 400 });
@@ -69,24 +69,37 @@ export const POST: RequestHandler = async ({ request }) => {
 			waterHistoricalPrice
 		} = values;
 
-		// Calculate purchasing power change
-		// This is a simplified calculation
+		// This is a simplified calculation of current expenses
 		const totalExpensesNow = foodExpense + fuelExpense + electricityExpense + waterExpense;
 
+		// Handle optional expenses
 		// Calculate fuel expense at the start of the period
-		const fuelExpenseThen = historicalFuelPrice * fuelAmount;
+		let fuelExpenseThen = 0;
+		let fuelInflationRate = 0;
+		if (fuelExpense > 0) {
+			fuelExpenseThen = historicalFuelPrice * fuelAmount;
+			fuelInflationRate = (fuelExpense - fuelExpenseThen) / fuelExpenseThen;
+		}
 		// Calculate utility expense at the start of the period
-		const electricityExpenseThen = (electricityExpense / electricityCurrentPrice) * electricityHistoricalPrice;
-		const waterExpenseThen = (waterExpense / waterCurrentPrice) * waterHistoricalPrice;
+		let electricityExpenseThen = 0;
+		let electricityInflationRate = 0;
+		if (electricityExpense > 0) {
+			electricityExpenseThen = (electricityExpense / electricityCurrentPrice) * electricityHistoricalPrice;
+			electricityInflationRate = (electricityExpense - electricityExpenseThen) / electricityExpenseThen;
+		}
+		// Calculate water expense at the start of the period
+		let waterExpenseThen = 0;
+		let waterInflationRate = 0;
+		if (waterExpense > 0) {
+			waterExpenseThen = (waterExpense / waterCurrentPrice) * waterHistoricalPrice;
+			waterInflationRate = (waterExpense - waterExpenseThen) / waterExpenseThen;
+		}
 
 		// Calculate total expenses at the start of the period
 		const totalExpensesThen =
 			foodExpense / (1 + inflationRate) + fuelExpenseThen + electricityExpenseThen + waterExpenseThen;
-
-		// Calculate the combined inflation rate
-		const fuelInflationRate = (fuelExpense - fuelExpenseThen) / fuelExpenseThen;
-		const electricityInflationRate = (electricityExpense - electricityExpenseThen) / electricityExpenseThen;
-		const waterInflationRate = (waterExpense - waterExpenseThen) / waterExpenseThen;
+		
+		
 		// Return the average of the three inflation rates so that we can use it to calculate the purchasing power change
 		const combinedInflationRate =
 			(inflationRate + fuelInflationRate + electricityInflationRate + waterInflationRate) / 4;
