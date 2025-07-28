@@ -13,23 +13,6 @@ export const getUtilityChartData = async (
 		return { labels: [], datasets: [] };
 	}
 
-	let data: UtilityApiResponse;
-	if (selectedUtilityItems.includes('electricity')) {
-		data = (await fetchApiData({ url: '/api/electricity-prices' })) as UtilityApiResponse;
-	} else if (selectedUtilityItems.includes('water')) {
-		data = (await fetchApiData({ url: '/api/water-prices' })) as UtilityApiResponse;
-	} else {
-		return { labels: [], datasets: [] };
-	}
-	// Validate that the response is from the correct type
-	if (!('utilityItem' in data)) {
-		throw new Error('Invalid API response: electricityItem not found');
-	}
-
-	if (!data.utilityItem || !data.labels.length) {
-		return { labels: [], datasets: [] };
-	}
-
 	// Calculate how many data points to show based on the range
 	// Data points are semestrial (half-year), so we need to adjust calculations
 	let dataPointsToShow: number;
@@ -46,28 +29,72 @@ export const getUtilityChartData = async (
 			break;
 		case 'years':
 			// For years, multiply by 2 since we have 2 data points per year
-			dataPointsToShow = Math.min(range.length * 2, data.labels.length);
+			dataPointsToShow = range.length * 2;
 			break;
 		default:
-			dataPointsToShow = data.labels.length;
+			dataPointsToShow = range.length;
+	}
+
+	// Check what utilities are selected
+
+	if (selectedUtilityItems.length === 0) {
+		return { labels: [], datasets: [] };
+	}
+
+	// Fetch data for selected utilities and combine them
+	const combinedData: UtilityApiResponse = {
+		utilityItems: selectedUtilityItems,
+		labels: [],
+		priceData: {}
+	};
+
+	let labelsSet = false;
+
+	// Fetch data for each selected utility item dynamically
+	for (const utilityItem of selectedUtilityItems) {
+		if (utilityItem === 'electricity' || utilityItem === 'water') {
+			const utilityResponse = (await fetchApiData({
+				url: `/api/utility-prices?utilityItem=${utilityItem}`
+			})) as UtilityApiResponse;
+
+			// Validate response
+			if (!utilityResponse || !utilityResponse.labels || !utilityResponse.labels.length) {
+				continue; // Skip this utility if invalid response
+			}
+
+			// Set labels from the first valid response
+			if (!labelsSet) {
+				combinedData.labels = utilityResponse.labels;
+				labelsSet = true;
+			}
+
+			// Add utility price data
+			combinedData.priceData[utilityItem] = utilityResponse.priceData[utilityItem] || [];
+		}
+	}
+
+	// If no valid data was found
+	if (!combinedData.labels.length) {
+		return { labels: [], datasets: [] };
 	}
 
 	// Get the most recent data points
-	const recentLabels = data.labels.slice(-dataPointsToShow);
+	const recentLabels = combinedData.labels.slice(-dataPointsToShow);
 	const datasets: UtilityPriceData[] = [];
 
 	selectedUtilityItems.forEach((utilityId) => {
 		const utility = utilityItems.find((item) => item.id === utilityId);
-		const prices = data.priceData[utility!.id];
-		if (utility && prices) {
+		const prices = combinedData.priceData[utilityId];
+
+		if (utility && prices && prices.length > 0) {
 			// Get the most recent price data
 			const recentPrices = prices.slice(-dataPointsToShow);
 
 			datasets.push({
-				label: utility!.name,
+				label: utility.name,
 				data: recentPrices,
-				backgroundColor: utility!.color,
-				borderColor: utility!.color
+				backgroundColor: utility.color,
+				borderColor: utility.color
 			});
 		}
 	});

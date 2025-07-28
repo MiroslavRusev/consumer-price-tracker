@@ -81,7 +81,8 @@ interface FoodApiResponse {
 }
 
 interface UtilityApiResponse {
-	utilityItem?: string;
+	utilityItem?: string; // For individual utility API responses (electricity or water)
+	utilityItems?: string[]; // For combined utility responses
 	labels: string[];
 	priceData: { [key: string]: number[] };
 }

@@ -37,9 +37,9 @@ export const fetchApiData = async ({
 				labels: [],
 				priceData: {}
 			} as FoodApiResponse;
-		} else if (url.includes('electricity-prices')) {
+		} else if (url.includes('utility-prices')) {
 			return {
-				electricityItem: '',
+				utilityItems: [],
 				labels: [],
 				priceData: {}
 			} as UtilityApiResponse;

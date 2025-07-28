@@ -315,15 +315,15 @@
 						</div>
 						{#if result.previousSalaryValueMatchingCurrentPurchasingPower > result.monthlyBudgetThen}
 							<div class="text-green-600 font-semibold border-2 border-green-600 rounded-md p-2 mb-2">
-								Новата заплата изпреварва инфлацията с {(
+								Покупателната сила на настоящия доход е по-голяма с {(
 									result.previousSalaryValueMatchingCurrentPurchasingPower - result.monthlyBudgetThen
-								).toFixed(2)} лв. (в стара валута)
+								).toFixed(2)} лв.
 							</div>
 						{:else}
 							<div class="text-red-600 font-semibold border-2 border-red-600 rounded-md p-2 mb-2">
-								Новата заплата изостава спрямо инфлацията с {(
+								Покупателната сила на настоящия доход е по-малка с {(
 									result.monthlyBudgetThen - result.previousSalaryValueMatchingCurrentPurchasingPower
-								).toFixed(2)} лв. (в стара валута)
+								).toFixed(2)} лв.
 							</div>
 						{/if}
 					</div>
