@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { formFields } from '$lib/constants';
+	import { formFields, utilityItems } from '$lib/constants';
 	import type { ChartData, FormCalculationResult } from '$lib/interfaces';
 	import { selectedFuels, currentFuelPrice, historicalFuelPrice } from '$lib/stores';
 	import { fuelItems } from '$lib/constants';
@@ -62,8 +62,9 @@
 		// Process utility data for utility calculations
 		return data.datasets.map((dataset) => {
 			const values = dataset.data;
+			const id = utilityItems.find((item) => item.name === dataset.label)?.id;
 			// Return the first value which is the oldest known price
-			return { currentPrice: values[values.length - 1], historicalPrice: values[0] };
+			return { currentPrice: values[values.length - 1], historicalPrice: values[0], id };
 		});
 	}
 
@@ -176,13 +177,23 @@
 		/>
 		<input
 			type="hidden"
-			name="utilityHistoricalPrice"
-			value={utilityPrice.length > 0 ? utilityPrice[0].historicalPrice : 0}
+			name="electricityHistoricalPrice"
+			value={utilityPrice.length > 0 ? utilityPrice.find((item) => item.id === 'electricity')?.historicalPrice : 0}
 		/>
 		<input
 			type="hidden"
-			name="utilityCurrentPrice"
-			value={utilityPrice.length > 0 ? utilityPrice[0].currentPrice : 0}
+			name="electricityCurrentPrice"
+			value={utilityPrice.length > 0 ? utilityPrice.find((item) => item.id === 'electricity')?.currentPrice : 0}
+		/>
+		<input
+			type="hidden"
+			name="waterHistoricalPrice"
+			value={utilityPrice.length > 0 ? utilityPrice.find((item) => item.id === 'water')?.historicalPrice : 0}
+		/>
+		<input
+			type="hidden"
+			name="waterCurrentPrice"
+			value={utilityPrice.length > 0 ? utilityPrice.find((item) => item.id === 'water')?.currentPrice : 0}
 		/>
 		<input type="hidden" name="fuelAmount" value={fuelAmount} />
 		<button
@@ -283,7 +294,7 @@
 							<div class="text-orange-600 font-semibold">{result.inflationRate.toFixed(2)}%</div>
 						</div>
 						<div class="bg-white p-3 rounded border">
-							<div class="font-medium text-gray-900">Нетна разлика в разходите към днешна дата</div>
+							<div class="font-medium text-gray-900">Нетна разлика в разходите (приравнени към днешна дата)</div>
 							<div class="text-gray-900 font-normal text-sm italic mt-2 mb-2">
 								Положителна стойност означава, че разходите са се увеличили, а отрицателна означава, че
 								са се смалили.

@@ -30,9 +30,11 @@ export const POST: RequestHandler = async ({ request }) => {
 		// Inflation rate and historical prices calculated programmatically not from user input, so it's not part of form fields
 		values['inflationRate'] = parseFloat(formData.get('inflationRate') as string);
 		values['historicalFuelPrice'] = parseFloat(formData.get('historicalFuelPrice') as string);
-		values['utilityHistoricalPrice'] = parseFloat(formData.get('utilityHistoricalPrice') as string);
+		values['electricityHistoricalPrice'] = parseFloat(formData.get('electricityHistoricalPrice') as string);
+		values['waterHistoricalPrice'] = parseFloat(formData.get('waterHistoricalPrice') as string);
 		values['fuelAmount'] = parseFloat(formData.get('fuelAmount') as string);
-		values['utilityCurrentPrice'] = parseFloat(formData.get('utilityCurrentPrice') as string);
+		values['electricityCurrentPrice'] = parseFloat(formData.get('electricityCurrentPrice') as string);
+		values['waterCurrentPrice'] = parseFloat(formData.get('waterCurrentPrice') as string);
 
 		if (isNaN(values['inflationRate'])) {
 			return json({ error: 'Инфлацията не е валидно число' }, { status: 400 });
@@ -40,13 +42,13 @@ export const POST: RequestHandler = async ({ request }) => {
 		if (isNaN(values['historicalFuelPrice'])) {
 			return json({ error: 'Историческите цени на горивото не са валидни' }, { status: 400 });
 		}
-		if (isNaN(values['utilityHistoricalPrice'])) {
+		if (isNaN(values['electricityHistoricalPrice'])) {
 			return json({ error: 'Историческите цени на комуналните услуги не са валидни' }, { status: 400 });
 		}
 		if (isNaN(values['fuelAmount'])) {
 			return json({ error: 'Количеството гориво не е валидно число' }, { status: 400 });
 		}
-		if (isNaN(values['utilityCurrentPrice'])) {
+		if (isNaN(values['electricityCurrentPrice'])) {
 			return json({ error: 'Текущата цена на комуналните услуги не е валидна' }, { status: 400 });
 		}
 
@@ -57,30 +59,35 @@ export const POST: RequestHandler = async ({ request }) => {
 			foodExpense,
 			fuelExpense,
 			fuelAmount,
-			utilityExpense,
+			electricityExpense,
+			waterExpense,
 			inflationRate,
 			historicalFuelPrice,
-			utilityCurrentPrice,
-			utilityHistoricalPrice
+			electricityCurrentPrice,
+			electricityHistoricalPrice,
+			waterCurrentPrice,
+			waterHistoricalPrice
 		} = values;
 
 		// Calculate purchasing power change
 		// This is a simplified calculation
-		const totalExpensesNow = foodExpense + fuelExpense + utilityExpense;
+		const totalExpensesNow = foodExpense + fuelExpense + electricityExpense + waterExpense;
 
 		// Calculate fuel expense at the start of the period
 		const fuelExpenseThen = historicalFuelPrice * fuelAmount;
 		// Calculate utility expense at the start of the period
-		const utilityExpenseThen = (utilityExpense / utilityCurrentPrice) * utilityHistoricalPrice;
+		const electricityExpenseThen = (electricityExpense / electricityCurrentPrice) * electricityHistoricalPrice;
+		const waterExpenseThen = (waterExpense / waterCurrentPrice) * waterHistoricalPrice;
 
 		// Calculate total expenses at the start of the period
-		const totalExpensesThen = foodExpense / (1 + inflationRate) + fuelExpenseThen + utilityExpenseThen;
+		const totalExpensesThen = foodExpense / (1 + inflationRate) + fuelExpenseThen + electricityExpenseThen + waterExpenseThen;
 
 		// Calculate the combined inflation rate
 		const fuelInflationRate = (fuelExpense - fuelExpenseThen) / fuelExpenseThen;
-		const utilityInflationRate = (utilityExpense - utilityExpenseThen) / utilityExpenseThen;
+		const electricityInflationRate = (electricityExpense - electricityExpenseThen) / electricityExpenseThen;
+		const waterInflationRate = (waterExpense - waterExpenseThen) / waterExpenseThen;
 		// Return the average of the three inflation rates so that we can use it to calculate the purchasing power change
-		const combinedInflationRate = (inflationRate + fuelInflationRate + utilityInflationRate) / 3;
+		const combinedInflationRate = (inflationRate + fuelInflationRate + electricityInflationRate + waterInflationRate) / 4;
 
 		// Calculate the remaining budget for each period
 		const currentDisposableIncome = monthlyBudget - totalExpensesNow;
