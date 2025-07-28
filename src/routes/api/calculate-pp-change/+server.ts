@@ -80,14 +80,16 @@ export const POST: RequestHandler = async ({ request }) => {
 		const waterExpenseThen = (waterExpense / waterCurrentPrice) * waterHistoricalPrice;
 
 		// Calculate total expenses at the start of the period
-		const totalExpensesThen = foodExpense / (1 + inflationRate) + fuelExpenseThen + electricityExpenseThen + waterExpenseThen;
+		const totalExpensesThen =
+			foodExpense / (1 + inflationRate) + fuelExpenseThen + electricityExpenseThen + waterExpenseThen;
 
 		// Calculate the combined inflation rate
 		const fuelInflationRate = (fuelExpense - fuelExpenseThen) / fuelExpenseThen;
 		const electricityInflationRate = (electricityExpense - electricityExpenseThen) / electricityExpenseThen;
 		const waterInflationRate = (waterExpense - waterExpenseThen) / waterExpenseThen;
 		// Return the average of the three inflation rates so that we can use it to calculate the purchasing power change
-		const combinedInflationRate = (inflationRate + fuelInflationRate + electricityInflationRate + waterInflationRate) / 4;
+		const combinedInflationRate =
+			(inflationRate + fuelInflationRate + electricityInflationRate + waterInflationRate) / 4;
 
 		// Calculate the remaining budget for each period
 		const currentDisposableIncome = monthlyBudget - totalExpensesNow;

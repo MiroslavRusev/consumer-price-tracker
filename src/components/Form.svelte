@@ -178,7 +178,9 @@
 		<input
 			type="hidden"
 			name="electricityHistoricalPrice"
-			value={utilityPrice.length > 0 ? utilityPrice.find((item) => item.id === 'electricity')?.historicalPrice : 0}
+			value={utilityPrice.length > 0
+				? utilityPrice.find((item) => item.id === 'electricity')?.historicalPrice
+				: 0}
 		/>
 		<input
 			type="hidden"
@@ -294,7 +296,9 @@
 							<div class="text-orange-600 font-semibold">{result.inflationRate.toFixed(2)}%</div>
 						</div>
 						<div class="bg-white p-3 rounded border">
-							<div class="font-medium text-gray-900">Нетна разлика в разходите (приравнени към днешна дата)</div>
+							<div class="font-medium text-gray-900">
+								Нетна разлика в разходите (приравнени към днешна дата)
+							</div>
 							<div class="text-gray-900 font-normal text-sm italic mt-2 mb-2">
 								Положителна стойност означава, че разходите са се увеличили, а отрицателна означава, че
 								са се смалили.
