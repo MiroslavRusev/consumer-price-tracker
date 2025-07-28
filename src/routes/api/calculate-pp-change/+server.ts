@@ -14,7 +14,13 @@ export const POST: RequestHandler = async ({ request }) => {
 		// Extract and validate all form values
 		const values: Record<string, number> = {};
 		for (const field of formFields) {
-			const value = parseFloat(formData.get(field.id) as string);
+			const rawValue = formData.get(field.id) as string;
+			if (!rawValue || rawValue.trim() === '') {
+				values[field.key] = 0;
+				continue;
+			}
+
+			const value = parseFloat(rawValue);
 			values[field.key] = value;
 			// Validate each value
 			if (isNaN(value)) {
