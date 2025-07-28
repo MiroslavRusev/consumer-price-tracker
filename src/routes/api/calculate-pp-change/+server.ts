@@ -98,8 +98,7 @@ export const POST: RequestHandler = async ({ request }) => {
 		// Calculate total expenses at the start of the period
 		const totalExpensesThen =
 			foodExpense / (1 + inflationRate) + fuelExpenseThen + electricityExpenseThen + waterExpenseThen;
-		
-		
+
 		// Return the average of the three inflation rates so that we can use it to calculate the purchasing power change
 		const combinedInflationRate =
 			(inflationRate + fuelInflationRate + electricityInflationRate + waterInflationRate) / 4;
