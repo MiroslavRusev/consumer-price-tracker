@@ -69,9 +69,15 @@ export const formFields = [
 		key: 'fuelExpense'
 	},
 	{
-		id: 'utility-expense',
-		label: 'Разход ток и вода към днешна дата',
+		id: 'electricity-expense',
+		label: 'Разход електричество към днешна дата',
 		type: 'text',
-		key: 'utilityExpense'
+		key: 'electricityExpense'
+	},
+	{
+		id: 'water-expense',
+		label: 'Разход вода към днешна дата',
+		type: 'text',
+		key: 'waterExpense'
 	}
 ];

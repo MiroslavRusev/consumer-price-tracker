@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { formFields } from '$lib/constants';
+	import { formFields, utilityItems } from '$lib/constants';
 	import type { ChartData, FormCalculationResult } from '$lib/interfaces';
-	import { selectedFuels, currentFuelPrice, historicalFuelPrice } from '$lib/stores';
+	import { selectedFuels, currentFuelPrice, historicalFuelPrice, selectedUtilityItems } from '$lib/stores';
 	import { fuelItems } from '$lib/constants';
 
 	let loading: boolean = false;
@@ -43,7 +43,6 @@
 		datasets: []
 	};
 
-	// Optional: Add separate prop for utility data
 	export let utilityData: ChartData = {
 		labels: [],
 		datasets: []
@@ -58,12 +57,13 @@
 		});
 	}
 
-	function returnHistoricalUtilityPrice(data: ChartData) {
+	function returnUtilityPrice(data: ChartData) {
 		// Process utility data for utility calculations
 		return data.datasets.map((dataset) => {
 			const values = dataset.data;
+			const id = utilityItems.find((item) => item.name === dataset.label)?.id;
 			// Return the first value which is the oldest known price
-			return values[0];
+			return { currentPrice: values[values.length - 1], historicalPrice: values[0], id };
 		});
 	}
 
@@ -84,14 +84,22 @@
 		return { periodString, productsString };
 	}
 
+	function getSelectedUtilityItemsString(selectedUtilityIds: string[]) {
+		return utilityItems
+			.filter((item) => selectedUtilityIds.includes(item.id))
+			.map((item) => item.name)
+			.join(', ');
+	}
+
 	// Calculate inflation rate when data changes
 	$: inflationRate = calculateInflationRate(data);
-	$: utilityHistoricalPrice = returnHistoricalUtilityPrice(utilityData);
+	$: utilityPrice = returnUtilityPrice(utilityData);
 	// Should selected period, products and fuel on top of the form
 	$: ({ periodString, productsString } = handleSelectedProductsAndPeriod(data));
 	$: selectedFuelsString = $selectedFuels
 		? fuelItems.find((fuel) => fuel.id === $selectedFuels)?.name
 		: 'Не е избрано гориво';
+	$: selectedUtilityItemsString = getSelectedUtilityItemsString($selectedUtilityItems);
 </script>
 
 <h3 class="text-2xl font-bold mb-2">
@@ -104,6 +112,7 @@
 	<p class="text-amber-600 underline text-base mt-2">Избраният период е: {periodString}</p>
 	<p class="text-amber-600 underline text-base mt-2 mb-2">Избрани продукти: {productsString}</p>
 	<p class="text-amber-600 underline text-base mt-2 mb-2">Избрано гориво: {selectedFuelsString}</p>
+	<p class="text-amber-600 underline text-base mt-2 mb-2">Избрани услуги: {selectedUtilityItemsString}</p>
 </div>
 <div class="space-y-6">
 	<form on:submit={handleSubmit} class="grid grid-cols-1 gap-6 border-2 border-gray-200 rounded-md p-6">
@@ -172,15 +181,37 @@
 		<input
 			type="hidden"
 			name="historicalFuelPrice"
-			value={$currentFuelPrice.price !== 0 && fuelAmount !== '' && fuelAmount !== null
-				? (Number($historicalFuelPrice.price) * Number(fuelAmount)).toFixed(2)
-				: ''}
+			value={$currentFuelPrice.price !== 0 ? $historicalFuelPrice.price : ''}
 		/>
 		<input
 			type="hidden"
-			name="utilityHistoricalPrice"
-			value={utilityHistoricalPrice.length > 0 ? utilityHistoricalPrice[0] : 0}
+			name="electricityHistoricalPrice"
+			value={$selectedUtilityItems.includes('electricity')
+				? utilityPrice.find((item) => item.id === 'electricity')?.historicalPrice
+				: 0}
 		/>
+		<input
+			type="hidden"
+			name="electricityCurrentPrice"
+			value={$selectedUtilityItems.includes('electricity')
+				? utilityPrice.find((item) => item.id === 'electricity')?.currentPrice
+				: 0}
+		/>
+		<input
+			type="hidden"
+			name="waterHistoricalPrice"
+			value={$selectedUtilityItems.includes('water')
+				? utilityPrice.find((item) => item.id === 'water')?.historicalPrice
+				: 0}
+		/>
+		<input
+			type="hidden"
+			name="waterCurrentPrice"
+			value={$selectedUtilityItems.includes('water')
+				? utilityPrice.find((item) => item.id === 'water')?.currentPrice
+				: 0}
+		/>
+		<input type="hidden" name="fuelAmount" value={fuelAmount !== '' && fuelAmount !== null ? fuelAmount : 0} />
 		<button
 			type="submit"
 			class="bg-slate-800 text-white px-4 py-2 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
@@ -279,7 +310,9 @@
 							<div class="text-orange-600 font-semibold">{result.inflationRate.toFixed(2)}%</div>
 						</div>
 						<div class="bg-white p-3 rounded border">
-							<div class="font-medium text-gray-900">Нетна разлика в разходите към днешна дата</div>
+							<div class="font-medium text-gray-900">
+								Нетна разлика в разходите (приравнени към днешна дата)
+							</div>
 							<div class="text-gray-900 font-normal text-sm italic mt-2 mb-2">
 								Положителна стойност означава, че разходите са се увеличили, а отрицателна означава, че
 								са се смалили.
@@ -311,14 +344,14 @@
 						</div>
 						{#if result.previousSalaryValueMatchingCurrentPurchasingPower > result.monthlyBudgetThen}
 							<div class="text-green-600 font-semibold border-2 border-green-600 rounded-md p-2 mb-2">
-								Новата заплата изпреварва инфлацията с {(
+								Покупателната сила на настоящия доход е по-голяма с {(
 									result.previousSalaryValueMatchingCurrentPurchasingPower - result.monthlyBudgetThen
 								).toFixed(2)} лв.
 							</div>
 						{:else}
 							<div class="text-red-600 font-semibold border-2 border-red-600 rounded-md p-2 mb-2">
-								Новата заплата изостава спрямо инфлацията с {(
-									result.previousSalaryValueMatchingCurrentPurchasingPower - result.monthlyBudgetThen
+								Покупателната сила на настоящия доход е по-малка с {(
+									result.monthlyBudgetThen - result.previousSalaryValueMatchingCurrentPurchasingPower
 								).toFixed(2)} лв.
 							</div>
 						{/if}
