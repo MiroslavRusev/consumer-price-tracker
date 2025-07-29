@@ -1,4 +1,3 @@
-import { timeRanges } from '$lib/constants';
 import { fetchApiData } from '$lib/dataFetcher/dataFetch';
 import type { FoodPriceData, ChartData, FoodItem } from '$lib/interfaces';
 import { getMonthlyPointsToShow } from '$lib/utils/datesAndRanges';
