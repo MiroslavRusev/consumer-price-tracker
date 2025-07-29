@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { BASE_API_URL_FOOD } from '$env/static/private';
+import { EUROSTAT_API } from '$env/static/private';
 import { productCodes } from '$lib/constants';
 import { processEurostatData } from '$lib/dataProcessing/dataProcessing';
 import type { RequestHandler } from '@sveltejs/kit';
@@ -23,7 +23,16 @@ export const GET: RequestHandler = async () => {
 		// Get all product codes as comma-separated string
 		const allProductCodes = Object.values(productCodes).join(',');
 
-		const apiUrl = `${BASE_API_URL_FOOD}=${allProductCodes}&c[geo]=BG&c[TIME_PERIOD]=${generateYearMonthRange(120)}&compress=false&format=json&lang=en`;
+		const apiUrl = `${EUROSTAT_API}/prc_fsc_idx/1.0/*.*.*.*.*` +
+			`?c[freq]=M` +
+			`&c[unit]=I15` +
+			`&c[indx]=HICP` +
+			`&c[coicop]=${allProductCodes}` +
+			`&c[geo]=BG` +
+			`&c[TIME_PERIOD]=${generateYearMonthRange(120)}` +
+			`&compress=false` +
+			`&format=json` +
+			`&lang=en`;
 		const response = await fetch(apiUrl);
 
 		if (!response.ok) {

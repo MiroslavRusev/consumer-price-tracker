@@ -6,7 +6,7 @@
 	import { getChartData } from '$lib/dataFetcher/foodDataFetcher';
 	import { getFuelBarChartData } from '$lib/dataFetcher/fuelDataFetcher';
 	import { getUtilityChartData } from '$lib/dataFetcher/utilityDataFetcher';
-	import { selectedFoods, selectedFuels, selectedUtilityItems } from '$lib/stores';
+	import { selectedFoods, selectedFuel, selectedUtilityItems } from '$lib/stores';
 
 	// Only prop we need is selectedRange since it's shared between components
 	export let selectedRange: string;
@@ -27,7 +27,7 @@
 
 	// Reactive statement to update chart data when selections change
 	$: if (!$loading && $foodItems.length > 0) {
-		(selectedRange, $selectedFoods, $selectedUtilityItems, $selectedFuels); // Watch the store values
+		(selectedRange, $selectedFoods, $selectedUtilityItems, $selectedFuel); // Watch the store values
 		updateChartData();
 	}
 
@@ -38,7 +38,7 @@
 			setFoodChartData(newFoodChartData);
 
 			// Update fuel chart data
-			const newFuelChartData = await getFuelBarChartData(selectedRange, $selectedFuels ? [$selectedFuels] : []);
+			const newFuelChartData = await getFuelBarChartData(selectedRange, $selectedFuel);
 			setFuelChartData(newFuelChartData);
 
 			// Update utility chart data (only for ranges above 1 year)

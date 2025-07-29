@@ -53,8 +53,7 @@ A modern web application for tracking and analyzing consumer prices in the Bulga
 Create a `.env` file with the following variables:
 
 ```env
-BASE_API_URL_FOOD=https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_fsc_idx?coicop
-BASE_API_URL_ELE=https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nrg_pc_204
+EUROSTAT_API=https://ec.europa.eu/eurostat/api/dissemination/sdmx/3.0/data/dataflow/ESTAT
 FUELO_API_URL=https://api.fuelo.net
 FUELO_API_KEY=your_fuelo_api_key
 ```
@@ -96,33 +95,51 @@ yarn dev
 ```
 src/
 ├── components/              # Reusable Svelte components
-│   ├── chart.svelte        # Food price charts
-│   ├── fuelBarChart.svelte # Fuel price comparison
-│   ├── utilityChart.svelte # Utility price charts
-│   ├── dataRange.svelte    # Time range selector
-│   ├── foodItems.svelte    # Food item selector
-│   ├── fuelItems.svelte    # Fuel type selector
-│   ├── utilityItems.svelte # Utility selector
-│   ├── Form.svelte         # Purchasing power calculator
-│   ├── Header.svelte       # Application header
-│   └── Footer.svelte       # Application footer
+│   ├── charts/             # Chart components
+│   │   ├── foodChart.svelte    # Food price charts
+│   │   ├── fuelBarChart.svelte # Fuel price comparison
+│   │   └── utilityChart.svelte # Utility price charts
+│   ├── main/               # Main interactive components
+│   │   ├── dateRange.svelte    # Time range selector
+│   │   ├── foodItems.svelte    # Food item selector
+│   │   ├── fuelItems.svelte    # Fuel type selector
+│   │   ├── utilityItems.svelte # Utility selector
+│   │   └── Form.svelte         # Purchasing power calculator
+│   └── structural/         # Layout and structural components
+│       ├── Header.svelte       # Application header
+│       ├── Footer.svelte       # Application footer
+│       ├── chartSection.svelte # Chart display section
+│       └── controlSection.svelte # Control panel section
 ├── lib/                    # Core business logic
+│   ├── assets/             # Static assets
+│   │   ├── header-image.webp   # Header background image
+│   │   └── pie-chart-logo.svg  # Application logo
 │   ├── constants.ts        # Data definitions and mappings
 │   ├── interfaces.ts       # TypeScript type definitions
 │   ├── stores.ts          # Svelte stores for state management
-│   ├── foodDataFetcher.ts  # Food price data processing
-│   ├── fuelDataFetcher.ts  # Fuel price data processing
-│   ├── utilityDataFetcher.ts # Utility data processing
-│   ├── dataProcessing.ts   # Eurostat data transformation
-│   ├── dataElectricityProcessing.ts # Electricity data processing
-│   ├── dataWaterProcessing.ts # Water price processing
+│   ├── dataFetcher/        # Data fetching modules
+│   │   ├── dataFetch.ts        # Base data fetching utilities
+│   │   ├── foodDataFetcher.ts  # Food price data processing
+│   │   ├── fuelDataFetcher.ts  # Fuel price data processing
+│   │   └── utilityDataFetcher.ts # Utility data processing
+│   ├── dataManagement/     # Data management utilities
+│   │   └── dataManager.ts      # Central data management
+│   ├── dataProcessing/     # Data transformation modules
+│   │   ├── dataProcessing.ts   # Eurostat data transformation
+│   │   ├── dataElectricityProcessing.ts # Electricity data processing
+│   │   └── dataWaterProcessing.ts # Water price processing
+│   ├── offlineData/        # Static/offline data
+│   │   └── waterPricesAvg.ts   # Average water price data
 │   └── utils/              # Helper utilities
+│       ├── datesAndRanges.ts   # Date and range utilities
+│       └── helperMethods.ts    # General helper functions
 ├── routes/                 # SvelteKit pages and API routes
+│   ├── +layout.svelte     # Application layout
 │   ├── +page.svelte       # Main application page
 │   └── api/               # Backend API endpoints
-│       ├── food-prices/   # Food price data endpoint
-│       ├── fuel-prices/   # Fuel price data endpoint
-│       ├── utility-prices/ # Utility price data endpoint
+│       ├── food-prices/       # Food price data endpoint
+│       ├── fuel-prices/       # Fuel price data endpoint
+│       ├── utility-prices/    # Utility price data endpoint
 │       └── calculate-pp-change/ # Purchasing power calculator
 └── styles/                # Global styles and Tailwind configuration
 ```

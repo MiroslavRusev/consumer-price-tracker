@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { formFields, utilityItems } from '$lib/constants';
 	import type { ChartData, FormCalculationResult } from '$lib/interfaces';
-	import { selectedFuels, currentFuelPrice, historicalFuelPrice, selectedUtilityItems } from '$lib/stores';
+	import { selectedFuel, currentFuelPrice, historicalFuelPrice, selectedUtilityItems } from '$lib/stores';
 	import { fuelItems } from '$lib/constants';
 	import { useDataManager } from '$lib/dataManagement/dataManager';
 
@@ -91,8 +91,8 @@
 	$: utilityPrice = returnUtilityPrice($utilityChartData);
 	// Should selected period, products and fuel on top of the form
 	$: ({ periodString, productsString } = handleSelectedProductsAndPeriod($foodChartData));
-	$: selectedFuelsString = $selectedFuels
-		? fuelItems.find((fuel) => fuel.id === $selectedFuels)?.name
+	$: selectedFuelString = $selectedFuel
+		? fuelItems.find((fuel) => fuel.id === $selectedFuel)?.name
 		: 'Не е избрано гориво';
 	$: selectedUtilityItemsString = getSelectedUtilityItemsString($selectedUtilityItems);
 </script>
@@ -106,7 +106,7 @@
 <div class="bg-slate-100 border-2 border-gray-200 rounded-md p-2 mb-6">
 	<p class="text-amber-600 underline text-base mt-2">Избраният период е: {periodString}</p>
 	<p class="text-amber-600 underline text-base mt-2 mb-2">Избрани продукти: {productsString}</p>
-	<p class="text-amber-600 underline text-base mt-2 mb-2">Избрано гориво: {selectedFuelsString}</p>
+	<p class="text-amber-600 underline text-base mt-2 mb-2">Избрано гориво: {selectedFuelString}</p>
 	<p class="text-amber-600 underline text-base mt-2 mb-2">Избрани услуги: {selectedUtilityItemsString}</p>
 </div>
 <div class="space-y-6">

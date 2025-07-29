@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { BASE_API_URL_ELE } from '$env/static/private';
+import { EUROSTAT_API } from '$env/static/private';
 import type { RequestHandler } from '@sveltejs/kit';
 import { processEurostatElectricityData } from '$lib/dataProcessing/dataElectricityProcessing';
 import { processWaterData } from '$lib/dataProcessing/dataWaterProcessing';
@@ -9,8 +9,20 @@ export const GET: RequestHandler = async ({ url }) => {
 	let structuredData: UtilityApiResponse;
 	try {
 		if (url.searchParams.get('utilityItem') === 'electricity') {
-			// Get all product codes as comma-separated string
-			const apiUrl = `${BASE_API_URL_ELE}`;
+			// The URL is hardcoded because there is no variable for the electricity data
+			// A to do for the future is to create a dynamic time_period which is set to 10 years ago
+			const apiUrl = `${EUROSTAT_API}/nrg_pc_204/1.0/*.*.*.*.*.*.*` +
+				`?c[freq]=S` +
+				`&c[product]=6000` +
+				`&c[nrg_cons]=KWH2500-4999` +
+				`&c[unit]=KWH` +
+				`&c[tax]=I_TAX` +
+				`&c[currency]=NAC` +
+				`&c[geo]=BG` +
+				`&c[TIME_PERIOD]=ge:2015-S1` +
+				`&compress=false` +
+				`&format=json` +
+				`&lang=en`;
 			const response = await fetch(apiUrl);
 
 			if (!response.ok) {

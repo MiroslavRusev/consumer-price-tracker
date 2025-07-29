@@ -16,7 +16,7 @@
 	// Import stores and constants for reset functionality
 	import {
 		selectedFoods,
-		selectedFuels,
+		selectedFuel,
 		selectedUtilityItems,
 		foodStore,
 		fuelStore,
@@ -27,7 +27,7 @@
 	function resetToDefaults() {
 		if (
 			selectedRange !== appDefaults.range ||
-			$selectedFuels !== appDefaults.fuels[0] ||
+			$selectedFuel !== appDefaults.fuels[0] ||
 			$selectedUtilityItems !== appDefaults.utilities ||
 			$selectedFoods.length !== appDefaults.foods.length ||
 			!appDefaults.foods.every((f) => $selectedFoods.includes(f))
@@ -61,7 +61,7 @@
 							d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
 						></path>
 					</svg>
-					Изчисти селекцията
+					Върни по подразбиране
 				</button>
 			</div>
 		</div>
