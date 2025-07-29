@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { FuelItem } from '$lib/interfaces';
 	import { selectedFuels, fuelStore, currentFuelPrice, historicalFuelPrice } from '$lib/stores';
-	import { getFuelData } from '$lib/fuelDataFetcher';
-	import { getDateFromRange } from '$lib/dateFromRange';
+	import { getFuelData } from '$lib/dataFetcher/fuelDataFetcher';
+	import { getDateFromRange } from '$lib/utils/dateFromRange';
 
 	export let selectedRange: string;
 

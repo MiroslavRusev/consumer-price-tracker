@@ -1,4 +1,4 @@
-import { fetchApiData } from '$lib/dataFetch';
+import { fetchApiData } from '$lib/dataFetcher/dataFetch';
 import type { FuelData, FuelRequest, FuelItem, FuelBarChartData, FuelBarData } from '$lib/interfaces';
 import { fuelItems, timeRanges } from '$lib/constants';
 

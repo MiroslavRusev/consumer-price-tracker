@@ -1,5 +1,5 @@
 import { timeRanges, utilityItems } from '$lib/constants';
-import { fetchApiData } from '$lib/dataFetch';
+import { fetchApiData } from '$lib/dataFetcher/dataFetch';
 import type { UtilityPriceData, ChartData, UtilityApiResponse } from '$lib/interfaces';
 
 // Get chart data using real API data

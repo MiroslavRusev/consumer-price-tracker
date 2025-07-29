@@ -1,5 +1,5 @@
 import { timeRanges } from '$lib/constants';
-import { fetchApiData } from '$lib/dataFetch';
+import { fetchApiData } from '$lib/dataFetcher/dataFetch';
 import type { FoodPriceData, ChartData, FoodItem } from '$lib/interfaces';
 
 // Get available food items from API

@@ -1,14 +1,14 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import type { FoodItem, ChartData, FuelItem, UtilityItem, FuelBarChartData } from '$lib/interfaces';
-	import Chart from '../components/chart.svelte';
-	import FuelBarChart from '../components/fuelBarChart.svelte';
-	import UtilityChart from '../components/utilityChart.svelte';
-	import Form from '../components/Form.svelte';
-	import DataRange from '../components/dataRange.svelte';
-	import FoodItems from '../components/foodItems.svelte';
-	import FuelItems from '../components/fuelItems.svelte';
-	import UtilityItems from '../components/utilityItems.svelte';
+	import Chart from '../components/charts/chart.svelte';
+	import FuelBarChart from '../components/charts/fuelBarChart.svelte';
+	import UtilityChart from '../components/charts/utilityChart.svelte';
+	import Form from '../components/main/Form.svelte';
+	import DateRange from '../components/main/dateRange.svelte';
+	import FoodItems from '../components/main/foodItems.svelte';
+	import FuelItems from '../components/main/fuelItems.svelte';
+	import UtilityItems from '../components/main/utilityItems.svelte';
 	import {
 		selectedFoods,
 		foodStore,
@@ -17,9 +17,9 @@
 		selectedUtilityItems,
 		utilityStore
 	} from '$lib/stores';
-	import { getChartData, getFoodItems } from '$lib/foodDataFetcher';
-	import { getFuelItems, getFuelBarChartData } from '$lib/fuelDataFetcher';
-	import { getUtilityChartData } from '$lib/utilityDataFetcher';
+	import { getChartData, getFoodItems } from '$lib/dataFetcher/foodDataFetcher';
+	import { getFuelItems, getFuelBarChartData } from '$lib/dataFetcher/fuelDataFetcher';
+	import { getUtilityChartData } from '$lib/dataFetcher/utilityDataFetcher';
 	import HeaderImage from '$lib/assets/header-image.webp';
 	import { utilityItems as utilityItemsConstants } from '$lib/constants';
 
@@ -186,7 +186,7 @@
 		{#if !loading && !error}
 			<div class="controls-overlap">
 				<div class="max-w-7xl mx-auto px-6 space-y-8">
-					<DataRange bind:selectedRange />
+					<DateRange bind:selectedRange />
 					<FoodItems {foodItems} />
 					<FuelItems {fuelItems} bind:selectedRange />
 					<UtilityItems {utilityItems} />

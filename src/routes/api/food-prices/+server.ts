@@ -1,7 +1,7 @@
 import { json } from '@sveltejs/kit';
 import { BASE_API_URL_FOOD } from '$env/static/private';
 import { productCodes } from '$lib/constants';
-import { processEurostatData } from '$lib/dataProcessing';
+import { processEurostatData } from '$lib/dataProcessing/dataProcessing';
 import type { RequestHandler } from '@sveltejs/kit';
 
 const generateYearMonthRange = (monthsBack: number): string => {

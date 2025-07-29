@@ -1,4 +1,8 @@
-// Type definitions for the food price data structure
+// =============================================================================
+// FOOD-RELATED INTERFACES
+// =============================================================================
+
+/** Base interface for food price data structure used in charts */
 interface FoodPriceData {
 	label: string;
 	data: number[];
@@ -6,24 +10,30 @@ interface FoodPriceData {
 	borderColor: string;
 }
 
-// Type definitions for the utility price data structure
-interface UtilityPriceData {
-	label: string;
-	data: number[];
-	backgroundColor: string;
-	borderColor: string;
-}
-
-// Extended interfaces for internal logic with type discriminators
+/** Extended food price data with type discriminator for internal logic */
 interface FoodPriceDataWithType extends FoodPriceData {
 	type: 'food';
 }
 
-interface UtilityPriceDataWithType extends UtilityPriceData {
-	type: 'utility';
+/** Represents a food item with display properties */
+interface FoodItem {
+	id: string;
+	name: string;
+	color: string;
 }
 
-// Type definitions for fuel bar chart data
+/** API response structure for food price endpoints */
+interface FoodApiResponse {
+	foodItems: FoodItem[];
+	labels: string[];
+	priceData: { [key: string]: number[] };
+}
+
+// =============================================================================
+// FUEL-RELATED INTERFACES
+// =============================================================================
+
+/** Data structure for fuel bar chart visualization */
 interface FuelBarData {
 	label: string;
 	data: number[];
@@ -32,72 +42,26 @@ interface FuelBarData {
 	borderColor: string;
 }
 
-// Type definitions for the chart data structure
-interface ChartData {
-	labels: string[];
-	datasets: (FoodPriceData | UtilityPriceData)[];
-}
-
-// Type definitions for fuel bar chart data structure
+/** Chart data structure specifically for fuel bar charts */
 interface FuelBarChartData {
 	labels: string[];
 	datasets: FuelBarData[];
 }
 
-// Type definitions for the food items
-interface FoodItem {
-	id: string;
-	name: string;
-	color: string;
-}
-
-// Type definitions for the fuel items
+/** Represents a fuel item with display properties */
 interface FuelItem {
 	id: string;
 	name: string;
 	color: string;
 }
 
-// Type definitions for the utility items
-interface UtilityItem {
-	id: string;
-	name: string;
-	color: string;
-}
-
-// Type definitions for form field
-interface FormField {
-	id: string;
-	label: string;
-	type: string;
-	key: string;
-}
-
-// Type definitions for food API response
-interface FoodApiResponse {
-	foodItems: FoodItem[];
-	labels: string[];
-	priceData: { [key: string]: number[] };
-}
-
-interface UtilityApiResponse {
-	utilityItem?: string; // For individual utility API responses (electricity or water)
-	utilityItems?: string[]; // For combined utility responses
-	labels: string[];
-	priceData: { [key: string]: number[] };
-}
-
-// Type definitions for fuel API response
-interface FuelApiResponse {
-	fuelData: FuelData[];
-}
-
-// Type definitions for the fuel request object
+/** Request object for fuel price API calls */
 interface FuelRequest {
 	fuelType: string;
 	date: string;
 }
 
+/** Individual fuel data point from API responses */
 interface FuelData {
 	fuel: string;
 	price: number;
@@ -106,7 +70,83 @@ interface FuelData {
 	status?: string;
 }
 
-// Type definitions for Eurostat API response
+/** API response structure for fuel price endpoints */
+interface FuelApiResponse {
+	fuelData: FuelData[];
+}
+
+// =============================================================================
+// UTILITY-RELATED INTERFACES
+// =============================================================================
+
+/** Base interface for utility price data structure used in charts */
+interface UtilityPriceData {
+	label: string;
+	data: number[];
+	backgroundColor: string;
+	borderColor: string;
+}
+
+/** Extended utility price data with type discriminator for internal logic */
+interface UtilityPriceDataWithType extends UtilityPriceData {
+	type: 'utility';
+}
+
+/** Represents a utility item with display properties */
+interface UtilityItem {
+	id: string;
+	name: string;
+	color: string;
+}
+
+/** API response structure for utility price endpoints */
+interface UtilityApiResponse {
+	utilityItem?: string; // For individual utility API responses (electricity or water)
+	utilityItems?: string[]; // For combined utility responses
+	labels: string[];
+	priceData: { [key: string]: number[] };
+}
+
+// =============================================================================
+// CHART & VISUALIZATION INTERFACES
+// =============================================================================
+
+/** Generic chart data structure for food and utility charts */
+interface ChartData {
+	labels: string[];
+	datasets: (FoodPriceData | UtilityPriceData)[];
+}
+
+// =============================================================================
+// FORM & UI INTERFACES
+// =============================================================================
+
+/** Configuration for form input fields */
+interface FormField {
+	id: string;
+	label: string;
+	type: string;
+	key: string;
+}
+
+/** Result object from form calculation operations */
+interface FormCalculationResult {
+	monthlyBudget: number;
+	monthlyBudgetThen: number;
+	totalExpensesNow: number;
+	totalExpensesThen: number;
+	currentDisposableIncome: number;
+	previousDisposableIncome: number;
+	inflationRate: number;
+	netExpensesDifference: number;
+	previousSalaryValueMatchingCurrentPurchasingPower: number;
+}
+
+// =============================================================================
+// EXTERNAL API INTERFACES
+// =============================================================================
+
+/** Response structure from Eurostat API */
 interface EurostatResponse {
 	dimension: {
 		time?: {
@@ -124,36 +164,33 @@ interface EurostatResponse {
 	value: Record<string, string>;
 }
 
-// Type definitions for form calculation result
-interface FormCalculationResult {
-	monthlyBudget: number;
-	monthlyBudgetThen: number;
-	totalExpensesNow: number;
-	totalExpensesThen: number;
-	currentDisposableIncome: number;
-	previousDisposableIncome: number;
-	inflationRate: number;
-	netExpensesDifference: number;
-	previousSalaryValueMatchingCurrentPurchasingPower: number;
-}
+// =============================================================================
+// EXPORTS
+// =============================================================================
 
 export type {
+	// Food-related
 	FoodPriceData,
 	FoodPriceDataWithType,
-	UtilityPriceData,
-	UtilityPriceDataWithType,
-	ChartData,
-	FuelBarChartData,
-	FuelBarData,
 	FoodItem,
-	FuelItem,
 	FoodApiResponse,
-	FuelApiResponse,
-	EurostatResponse,
-	FormField,
-	FormCalculationResult,
+	// Fuel-related
+	FuelBarData,
+	FuelBarChartData,
+	FuelItem,
 	FuelRequest,
 	FuelData,
+	FuelApiResponse,
+	// Utility-related
+	UtilityPriceData,
+	UtilityPriceDataWithType,
+	UtilityItem,
 	UtilityApiResponse,
-	UtilityItem
+	// Chart & Visualization
+	ChartData,
+	// Form & UI
+	FormField,
+	FormCalculationResult,
+	// External APIs
+	EurostatResponse
 };

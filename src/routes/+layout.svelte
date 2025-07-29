@@ -1,8 +1,8 @@
 <script>
 	let { children } = $props();
 	import '../styles/input.css';
-	import Footer from '../components/Footer.svelte';
-	import Header from '../components/Header.svelte';
+	import Footer from '../components/structural/Footer.svelte';
+	import Header from '../components/structural/Header.svelte';
 </script>
 
 <Header />

@@ -42,10 +42,14 @@ export const foodStore = {
 		selectedFoods.update((foods) => foods.filter((id) => id !== foodId));
 	},
 
-	// Toggle a food selection
+	// Toggle a food selection - prevents deselecting the last item
 	toggle: (foodId: string) => {
 		selectedFoods.update((foods) => {
 			if (foods.includes(foodId)) {
+				// Prevent deselecting if it's the only selected item
+				if (foods.length === 1) {
+					return foods;
+				}
 				return foods.filter((id) => id !== foodId);
 			} else {
 				return [...foods, foodId];
@@ -76,9 +80,16 @@ export const fuelStore = {
 		selectedFuels.update((fuel) => (fuel === fuelId ? '' : fuel));
 	},
 
-	// Toggle a fuel selection (single selection only)
+	// Toggle a fuel selection - prevents deselecting if it's the only selected item
 	toggle: (fuelId: string) => {
-		selectedFuels.update((fuel) => (fuel === fuelId ? '' : fuelId));
+		selectedFuels.update((fuel) => {
+			// If clicking on the currently selected fuel, don't deselect it (keep it selected)
+			if (fuel === fuelId) {
+				return fuel; // Keep the current selection
+			} else {
+				return fuelId; // Select the new fuel
+			}
+		});
 	},
 
 	// Clear selection
@@ -109,10 +120,14 @@ export const utilityStore = {
 		selectedUtilityItems.update((utilities) => utilities.filter((id) => id !== utilityId));
 	},
 
-	// Toggle a utility selection
+	// Toggle a utility selection - prevents deselecting the last item
 	toggle: (utilityId: string) => {
 		selectedUtilityItems.update((utilities) => {
 			if (utilities.includes(utilityId)) {
+				// Prevent deselecting if it's the only selected item
+				if (utilities.length === 1) {
+					return utilities;
+				}
 				return utilities.filter((id) => id !== utilityId);
 			} else {
 				return [...utilities, utilityId];

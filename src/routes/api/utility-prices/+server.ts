@@ -1,8 +1,8 @@
 import { json } from '@sveltejs/kit';
 import { BASE_API_URL_ELE } from '$env/static/private';
 import type { RequestHandler } from '@sveltejs/kit';
-import { processEurostatElectricityData } from '$lib/dataElectricityProcessing';
-import { processWaterData } from '$lib/dataWaterProcessing';
+import { processEurostatElectricityData } from '$lib/dataProcessing/dataElectricityProcessing';
+import { processWaterData } from '$lib/dataProcessing/dataWaterProcessing';
 import type { UtilityApiResponse } from '$lib/interfaces';
 
 export const GET: RequestHandler = async ({ url }) => {
