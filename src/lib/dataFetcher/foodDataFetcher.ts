@@ -14,7 +14,6 @@ export const getFoodItems = async (): Promise<FoodItem[]> => {
 
 // Get chart data using real API data
 export const getChartData = async (selectedRange: string, selectedFoods: string[]): Promise<ChartData> => {
-
 	const data = await fetchApiData({ url: '/api/food-prices' });
 	// Validate that the response is from the correct type
 	if (!('foodItems' in data)) {

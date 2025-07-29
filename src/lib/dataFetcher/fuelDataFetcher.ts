@@ -47,35 +47,35 @@ export const getFuelBarChartData = async (selectedRange: string, selectedFuel: s
 		return { labels: [], datasets: [] };
 	}
 
-		try {
-			// Get current price
-			const currentData = await getFuelData({
-				fuelType: selectedFuel,
-				date: now.toISOString().split('T')[0]
-			});
+	try {
+		// Get current price
+		const currentData = await getFuelData({
+			fuelType: selectedFuel,
+			date: now.toISOString().split('T')[0]
+		});
 
-			// Get previous price
-			const previousData = await getFuelData({
-				fuelType: selectedFuel,
-				date: thenDate.toISOString().split('T')[0]
-			});
+		// Get previous price
+		const previousData = await getFuelData({
+			fuelType: selectedFuel,
+			date: thenDate.toISOString().split('T')[0]
+		});
 
-			datasets.push({
-				label: fuel.name,
-				data: [currentData.price, previousData.price],
-				backgroundColor: [fuel.color, '#b3b3b3'],
-				secondBackgroundColor: '#b3b3b3',
-				borderColor: fuel.color
-			});
-		} catch (error) {
-			console.error(`Error fetching data for ${selectedFuel}:`, error);
-			// Add dataset with zeros if data fetch fails
-			datasets.push({
-				label: fuel.name,
-				data: [0, 0],
-				backgroundColor: [fuel.color, '#b3b3b3'],
-				secondBackgroundColor: fuel.color,
-				borderColor: fuel.color
+		datasets.push({
+			label: fuel.name,
+			data: [currentData.price, previousData.price],
+			backgroundColor: [fuel.color, '#b3b3b3'],
+			secondBackgroundColor: '#b3b3b3',
+			borderColor: fuel.color
+		});
+	} catch (error) {
+		console.error(`Error fetching data for ${selectedFuel}:`, error);
+		// Add dataset with zeros if data fetch fails
+		datasets.push({
+			label: fuel.name,
+			data: [0, 0],
+			backgroundColor: [fuel.color, '#b3b3b3'],
+			secondBackgroundColor: fuel.color,
+			borderColor: fuel.color
 		});
 	}
 

@@ -11,7 +11,8 @@ export const GET: RequestHandler = async ({ url }) => {
 		if (url.searchParams.get('utilityItem') === 'electricity') {
 			// The URL is hardcoded because there is no variable for the electricity data
 			// A to do for the future is to create a dynamic time_period which is set to 10 years ago
-			const apiUrl = `${EUROSTAT_API}/nrg_pc_204/1.0/*.*.*.*.*.*.*` +
+			const apiUrl =
+				`${EUROSTAT_API}/nrg_pc_204/1.0/*.*.*.*.*.*.*` +
 				`?c[freq]=S` +
 				`&c[product]=6000` +
 				`&c[nrg_cons]=KWH2500-4999` +

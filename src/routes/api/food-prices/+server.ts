@@ -23,7 +23,8 @@ export const GET: RequestHandler = async () => {
 		// Get all product codes as comma-separated string
 		const allProductCodes = Object.values(productCodes).join(',');
 
-		const apiUrl = `${EUROSTAT_API}/prc_fsc_idx/1.0/*.*.*.*.*` +
+		const apiUrl =
+			`${EUROSTAT_API}/prc_fsc_idx/1.0/*.*.*.*.*` +
 			`?c[freq]=M` +
 			`&c[unit]=I15` +
 			`&c[indx]=HICP` +

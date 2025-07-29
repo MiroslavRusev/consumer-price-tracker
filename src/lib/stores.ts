@@ -27,7 +27,6 @@ export const historicalFuelPrice = writable<FuelData>({
 
 // Helper functions to work with the store
 export const foodStore = {
-
 	// Toggle a food selection - prevents deselecting the last item
 	toggle: (foodId: string) => {
 		selectedFoods.update((foods) => {
@@ -56,7 +55,6 @@ export const foodStore = {
 
 // Helper functions to work with the fuel store
 export const fuelStore = {
-
 	// Toggle a fuel selection - prevents deselecting if it's the only selected item
 	toggle: (fuelId: string) => {
 		selectedFuel.update((fuel) => {
@@ -82,7 +80,6 @@ export const fuelStore = {
 
 // Helper functions to work with the utility store
 export const utilityStore = {
-
 	// Toggle a utility selection - prevents deselecting the last item
 	toggle: (utilityId: string) => {
 		selectedUtilityItems.update((utilities) => {

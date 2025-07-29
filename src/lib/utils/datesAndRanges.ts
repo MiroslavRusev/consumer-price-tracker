@@ -1,7 +1,7 @@
 import { timeRanges } from '$lib/constants';
 
 // Return the range object from the rangeId
-function getRange(rangeId: string): { id: string, period: string, length: number } | null {
+function getRange(rangeId: string): { id: string; period: string; length: number } | null {
 	const range = timeRanges.find((range) => range.id === rangeId);
 	if (!range) return null;
 	return range;
@@ -14,18 +14,18 @@ export function getDateFromRange(rangeId: string): Date | null {
 
 	const now = new Date();
 	switch (range.period) {
-        case 'months':
-            return new Date(now.getFullYear(), now.getMonth() - range.length, now.getDate());
-        case 'years':
-            return new Date(now.getFullYear() - range.length, now.getMonth(), now.getDate());
-        default:
-            // Fallback to 1 year ago to avoid errors
-            return new Date(now.getFullYear() - 1, now.getMonth(), now.getDate());
-    }
+		case 'months':
+			return new Date(now.getFullYear(), now.getMonth() - range.length, now.getDate());
+		case 'years':
+			return new Date(now.getFullYear() - range.length, now.getMonth(), now.getDate());
+		default:
+			// Fallback to 1 year ago to avoid errors
+			return new Date(now.getFullYear() - 1, now.getMonth(), now.getDate());
+	}
 }
 
 // Get the number of data points to show on monthly chart, use dataPoints as fallback
-export function getMonthlyPointsToShow (rangeId: string, dataPoints: number): number | null { 
+export function getMonthlyPointsToShow(rangeId: string, dataPoints: number): number | null {
 	const range = getRange(rangeId);
 	if (!range) return null;
 
@@ -44,7 +44,7 @@ export function getMonthlyPointsToShow (rangeId: string, dataPoints: number): nu
 }
 
 // Get the number of data points to show on semestrial chart
-export function getSemestrialPointsToShow (rangeId: string): number | null { 
+export function getSemestrialPointsToShow(rangeId: string): number | null {
 	const range = getRange(rangeId);
 	if (!range) return null;
 

@@ -14,14 +14,7 @@
 	const { loading, error, foodItems, fuelItems, utilityItems } = dataManager;
 
 	// Import stores and constants for reset functionality
-	import {
-		selectedFoods,
-		selectedFuel,
-		selectedUtilityItems,
-		foodStore,
-		fuelStore,
-		utilityStore
-	} from '$lib/stores';
+	import { selectedFoods, selectedFuel, selectedUtilityItems, foodStore, fuelStore, utilityStore } from '$lib/stores';
 	import { appDefaults } from '$lib/constants';
 
 	function resetToDefaults() {
