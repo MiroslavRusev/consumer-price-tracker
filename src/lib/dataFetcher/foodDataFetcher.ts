@@ -1,6 +1,6 @@
-import { timeRanges } from '$lib/constants';
-import { fetchApiData } from '$lib/dataFetch';
+import { fetchApiData } from '$lib/dataFetcher/dataFetch';
 import type { FoodPriceData, ChartData, FoodItem } from '$lib/interfaces';
+import { getMonthlyPointsToShow } from '$lib/utils/datesAndRanges';
 
 // Get available food items from API
 export const getFoodItems = async (): Promise<FoodItem[]> => {
@@ -14,11 +14,6 @@ export const getFoodItems = async (): Promise<FoodItem[]> => {
 
 // Get chart data using real API data
 export const getChartData = async (selectedRange: string, selectedFoods: string[]): Promise<ChartData> => {
-	// Filter labels based on selected range
-	const range = timeRanges.find((r) => r.id === selectedRange);
-	if (!range) {
-		return { labels: [], datasets: [] };
-	}
 	const data = await fetchApiData({ url: '/api/food-prices' });
 	// Validate that the response is from the correct type
 	if (!('foodItems' in data)) {
@@ -30,16 +25,9 @@ export const getChartData = async (selectedRange: string, selectedFoods: string[
 	}
 
 	// Calculate how many data points to show based on the range
-	let dataPointsToShow: number;
-	switch (range.period) {
-		case 'months':
-			dataPointsToShow = Math.min(range.length, data.labels.length);
-			break;
-		case 'years':
-			dataPointsToShow = Math.min(range.length * 12, data.labels.length);
-			break;
-		default:
-			dataPointsToShow = data.labels.length;
+	const dataPointsToShow = getMonthlyPointsToShow(selectedRange, data.labels.length);
+	if (!dataPointsToShow) {
+		return { labels: [], datasets: [] };
 	}
 
 	// Get the most recent data points

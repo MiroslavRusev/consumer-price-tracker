@@ -1,43 +1,17 @@
-import { timeRanges, utilityItems } from '$lib/constants';
-import { fetchApiData } from '$lib/dataFetch';
+import { utilityItems } from '$lib/constants';
+import { fetchApiData } from '$lib/dataFetcher/dataFetch';
 import type { UtilityPriceData, ChartData, UtilityApiResponse } from '$lib/interfaces';
+import { getSemestrialPointsToShow } from '$lib/utils/datesAndRanges';
 
 // Get chart data using real API data
 export const getUtilityChartData = async (
 	selectedRange: string,
 	selectedUtilityItems: string[]
 ): Promise<ChartData> => {
-	// Only show utility data for ranges above 1 year
-	const range = timeRanges.find((r) => r.id === selectedRange);
-	if (!range) {
-		return { labels: [], datasets: [] };
-	}
-
 	// Calculate how many data points to show based on the range
 	// Data points are semestrial (half-year), so we need to adjust calculations
-	let dataPointsToShow: number;
-	switch (range.period) {
-		case 'months':
-			// For 3 months and 6 months, show 1 data point to avoid empty values
-			if (range.length <= 6) {
-				dataPointsToShow = 1;
-			} else if (range.length === 12) {
-				dataPointsToShow = 2;
-			} else {
-				throw new Error('Invalid range: ' + range.length);
-			}
-			break;
-		case 'years':
-			// For years, multiply by 2 since we have 2 data points per year
-			dataPointsToShow = range.length * 2;
-			break;
-		default:
-			dataPointsToShow = range.length;
-	}
-
-	// Check what utilities are selected
-
-	if (selectedUtilityItems.length === 0) {
+	const dataPointsToShow = getSemestrialPointsToShow(selectedRange);
+	if (!dataPointsToShow) {
 		return { labels: [], datasets: [] };
 	}
 

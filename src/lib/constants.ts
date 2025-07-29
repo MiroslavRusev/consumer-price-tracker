@@ -81,3 +81,11 @@ export const formFields = [
 		key: 'waterExpense'
 	}
 ];
+
+// Default application selections
+export const appDefaults = {
+	range: '3months',
+	foods: ['bread'],
+	fuels: ['gasoline'],
+	utilities: ['electricity']
+};

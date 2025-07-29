@@ -1,4 +1,4 @@
-import type { FoodApiResponse, FuelApiResponse, UtilityApiResponse } from './interfaces';
+import type { FoodApiResponse, FuelApiResponse, UtilityApiResponse } from '$lib/interfaces';
 
 // Cache for API data - separate cache per URL
 const cache = new Map<string, { data: FoodApiResponse | FuelApiResponse | UtilityApiResponse; timestamp: number }>();

@@ -52,6 +52,12 @@
 									>Fuelo</a
 								>
 							</li>
+							<li>
+								<a
+									href="https://www.sofiyskavoda.bg/ceni-na-vodata"
+									class="text-white hover:text-black transition-colors">Софийска Вода АД</a
+								>
+							</li>
 						{/if}
 					</ul>
 				</div>
