@@ -3,6 +3,11 @@
 	import type { ChartData, FormCalculationResult } from '$lib/interfaces';
 	import { selectedFuels, currentFuelPrice, historicalFuelPrice, selectedUtilityItems } from '$lib/stores';
 	import { fuelItems } from '$lib/constants';
+	import { useDataManager } from '$lib/dataManagement/dataManager';
+
+	// Get chart data from stores instead of props
+	const dataManager = useDataManager();
+	const { foodChartData, utilityChartData } = dataManager;
 
 	let loading: boolean = false;
 	let result: FormCalculationResult | null = null;
@@ -37,16 +42,6 @@
 			loading = false;
 		}
 	}
-
-	export let data: ChartData = {
-		labels: [],
-		datasets: []
-	};
-
-	export let utilityData: ChartData = {
-		labels: [],
-		datasets: []
-	};
 
 	function calculateInflationRate(data: ChartData) {
 		// Process all datasets for inflation calculations (assuming they are food data)
@@ -92,10 +87,10 @@
 	}
 
 	// Calculate inflation rate when data changes
-	$: inflationRate = calculateInflationRate(data);
-	$: utilityPrice = returnUtilityPrice(utilityData);
+	$: inflationRate = calculateInflationRate($foodChartData);
+	$: utilityPrice = returnUtilityPrice($utilityChartData);
 	// Should selected period, products and fuel on top of the form
-	$: ({ periodString, productsString } = handleSelectedProductsAndPeriod(data));
+	$: ({ periodString, productsString } = handleSelectedProductsAndPeriod($foodChartData));
 	$: selectedFuelsString = $selectedFuels
 		? fuelItems.find((fuel) => fuel.id === $selectedFuels)?.name
 		: 'Не е избрано гориво';
