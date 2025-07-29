@@ -100,7 +100,7 @@ export const utilityStore = {
 	},
 
 	// Set specific selection
-	set: (utilityId: string) => {
-		selectedUtilityItems.set([utilityId]);
+	set: (utilityIds: string[]) => {
+		selectedUtilityItems.set(utilityIds);
 	}
 };

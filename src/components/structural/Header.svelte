@@ -1,27 +1,61 @@
 <script>
+	// @ts-nocheck
+
 	import Logo from '$lib/assets/pie-chart-logo.svg';
+	import { page } from '$app/state';
+
+	function handleReload(event) {
+		// If we're already on the home page, reload instead of navigating
+		if (page.url.pathname === '/') {
+			event.preventDefault();
+			window.location.reload();
+		}
+	}
 </script>
 
-<header class="bg-slate-600 border-b border-gray-100 shadow-sm">
-	<div class="header-content mx-auto px-6 py-1">
+<header class="bg-gradient-to-r from-slate-600 via-slate-500 to-slate-600 border-b border-slate-300/20 shadow-lg">
+	<div class="header-content mx-auto px-6 py-3">
 		<div class="flex items-center justify-between">
-			<a href="/" class="flex-1 text-2xl font-bold text-white pt-1 flex items-center">
-				<img src={Logo} alt="Logo" class="w-10 h-10 mr-4" />
-				<span>CPA Calculator</span>
-			</a>
-			<div class="flex-1 flex justify-end">
+			<!-- Logo Section - Far Left -->
+			<div class="flex items-center">
+				<a href="/" class="flex items-center hover:opacity-80 transition-opacity duration-200">
+					<img src={Logo} alt="Logo" class="w-8 h-8" />
+				</a>
+			</div>
+
+			<!-- Navigation Links - Center -->
+			<div class="absolute left-1/2 transform -translate-x-1/2">
+				<nav class="flex items-center space-x-6">
+					<a
+						on:click={handleReload}
+						href="/"
+						class="px-3 py-2 text-white hover:text-white/80 transition-colors duration-200 font-medium"
+					>
+						Начало
+					</a>
+					<a
+						href="/info"
+						class="px-3 py-2 text-white hover:text-white/80 transition-colors duration-200 font-medium"
+					>
+						Информация за проекта
+					</a>
+				</nav>
+			</div>
+
+			<!-- GitHub Button - Far Right -->
+			<div class="flex items-center">
 				<a
 					id="github-social-button"
 					aria-label="Github"
 					target="_blank"
 					href="https://github.com/MiroslavRusev/consumer-price-tracker"
-					class="inline-flex items-center justify-center w-10 h-10 text-white hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all duration-200"
+					class="inline-flex items-center justify-center w-9 h-9 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200 border border-white/10 hover:border-white/20"
 				>
 					<!-- GitHub Mark SVG, from https://github.com/logos -->
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
-						width="20"
-						height="20"
+						width="18"
+						height="18"
 						viewBox="0 0 16 16"
 						fill="currentColor"
 					>

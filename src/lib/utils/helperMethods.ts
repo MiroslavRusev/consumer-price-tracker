@@ -1,3 +1,6 @@
+import type { ChartData } from '$lib/interfaces';
+import { utilityItems } from '$lib/constants';
+
 export const periodToLabels = (timePeriods: string[]): string[] => {
 	const labels = timePeriods.map((period) => {
 		// Handle semester format (YYYY-S1, YYYY-S2)
@@ -15,3 +18,42 @@ export const periodToLabels = (timePeriods: string[]): string[] => {
 	});
 	return labels;
 };
+
+export function calculateInflationRate(data: ChartData) {
+	return data.datasets.map((dataset) => {
+		const values = dataset.data;
+		return (values[values.length - 1] - values[0]) / values[0];
+	});
+}
+
+export function returnUtilityPrice(data: ChartData) {
+	return data.datasets.map((dataset) => {
+		const values = dataset.data;
+		const id = utilityItems.find((item) => item.name === dataset.label)?.id;
+		return { currentPrice: values[values.length - 1], historicalPrice: values[0], id };
+	});
+}
+
+export function handleSelectedProductsAndPeriod(data: ChartData) {
+	const period = data.labels.length;
+	let periodString = '';
+	if (period < 12) {
+		periodString = data.labels.length + ' месеца';
+	} else if (period === 12) {
+		periodString = '1 годинa';
+	} else {
+		periodString = Math.floor(data.labels.length / 12) + ' години';
+	}
+
+	const products = data.datasets;
+	let productsString = '';
+	productsString = products.map((product) => product.label).join(', ');
+	return { periodString, productsString };
+}
+
+export function getSelectedUtilityItemsString(selectedUtilityIds: string[]) {
+	return utilityItems
+		.filter((item) => selectedUtilityIds.includes(item.id))
+		.map((item) => item.name)
+		.join(', ');
+}
