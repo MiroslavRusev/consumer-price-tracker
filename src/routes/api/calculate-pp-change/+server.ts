@@ -2,7 +2,7 @@ import { json } from '@sveltejs/kit';
 import type { RequestHandler } from '@sveltejs/kit';
 import type { FormCalculationResult } from '$lib/interfaces';
 import ValidationError from '$lib/errorHandling';
-import { extractAndValidateFormData } from '$lib/utils/formDataBuilder';
+import { extractAndValidateFormData } from '$lib/utils/formValidator';
 
 export const POST: RequestHandler = async ({ request }) => {
 	try {

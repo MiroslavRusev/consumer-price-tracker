@@ -144,6 +144,10 @@ src/
 └── styles/                # Global styles and Tailwind configuration
 ```
 
+## Form configuration
+
+If you want to extend or modify the purchasing power analysys form please check the [Form Config Manual](README-formConfig)
+
 ## Features in Detail
 
 ### Price Analysis

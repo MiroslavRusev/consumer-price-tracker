@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { FormCalculationResult } from '$lib/interfaces';
+	import { svgExporter } from '$lib/assets/svgExporter';
 
 	export let error: string | null;
 	export let result: FormCalculationResult | null;
@@ -10,14 +11,7 @@
 	<div class="bg-red-50 border border-red-200 rounded-2xl p-6 mt-8">
 		<div class="flex items-start">
 			<div class="flex-shrink-0">
-				<svg class="h-6 w-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
-					></path>
-				</svg>
+				{@html svgExporter.redCheck}
 			</div>
 			<div class="ml-3">
 				<h3 class="text-lg font-medium text-red-800">Грешка при анализа</h3>
@@ -32,14 +26,7 @@
 		<div class="flex items-start mb-6">
 			<div class="flex-shrink-0">
 				<div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
-					<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-						></path>
-					</svg>
+					{@html svgExporter.analysisIcon}
 				</div>
 			</div>
 			<div class="ml-4">
@@ -108,19 +95,7 @@
 					{#if result.previousSalaryValueMatchingCurrentPurchasingPower > result.monthlyBudgetThen}
 						<div class="bg-green-100 border border-green-300 rounded-lg p-4">
 							<div class="flex items-center">
-								<svg
-									class="w-5 h-5 text-green-600 mr-2"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-									></path>
-								</svg>
+								{@html svgExporter.greenCheck}
 								<div class="text-green-800 font-semibold">
 									Вашата покупателна сила се е УВЕЛИЧИЛА с {(
 										result.previousSalaryValueMatchingCurrentPurchasingPower -
@@ -132,19 +107,7 @@
 					{:else}
 						<div class="bg-red-100 border border-red-300 rounded-lg p-4">
 							<div class="flex items-center">
-								<svg
-									class="w-5 h-5 text-red-600 mr-2"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"
-									></path>
-								</svg>
+								{@html svgExporter.redCheck}
 								<div class="text-red-800 font-semibold">
 									Вашата покупателна сила се е НАМАЛИЛА с {(
 										result.monthlyBudgetThen -

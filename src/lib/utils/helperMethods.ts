@@ -19,11 +19,17 @@ export const periodToLabels = (timePeriods: string[]): string[] => {
 	return labels;
 };
 
-export function calculateInflationRate(data: ChartData) {
-	return data.datasets.map((dataset) => {
+export function calculateInflationRate(data: ChartData): number {
+	const inflationRates = data.datasets.map((dataset) => {
 		const values = dataset.data;
 		return (values[values.length - 1] - values[0]) / values[0];
 	});
+
+	// Calculate the average inflation rate
+	const averageInflationRate = inflationRates.reduce((sum, newRate) => sum + newRate, 0) / inflationRates.length;
+
+	// Return the average inflation rate as raw number
+	return averageInflationRate;
 }
 
 export function returnUtilityPrice(data: ChartData) {

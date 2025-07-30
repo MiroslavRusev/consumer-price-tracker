@@ -1,4 +1,5 @@
 <script>
+	import { svgExporter } from '$lib/assets/svgExporter';
 	export let currentStep;
 	export let isStep1Valid;
 	export let isStep2Valid;
@@ -16,9 +17,7 @@
 					: 'bg-gray-200 text-gray-600'}"
 		>
 			{#if currentStep > 1 || isStep1Valid}
-				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-				</svg>
+				{@html svgExporter.stepOne}
 			{:else}
 				1
 			{/if}
@@ -43,9 +42,7 @@
 					: 'bg-gray-200 text-gray-600'}"
 		>
 			{#if isStep2Valid}
-				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-				</svg>
+				{@html svgExporter.stepTwo}
 			{:else}
 				2
 			{/if}
