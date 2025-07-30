@@ -2,6 +2,7 @@
 	import NavButtons from './navButtons.svelte';
 	import FormHeader from './formHeader.svelte';
 	import FormResultsAndErrors from './formResultsAndErrors.svelte';
+	import ProgressIndicator from './progressIndicator.svelte';
 	import { fuelItems } from '$lib/constants';
 	import { createInitialFormData } from '$lib/utils/formDataBuilder';
 	import type { FormCalculationResult, FormData } from '$lib/interfaces';
@@ -87,41 +88,7 @@
 <!-- Multi-step Form -->
 <div class="space-y-6">
 	<!-- Step Progress Indicator -->
-	<div class="flex items-center justify-center space-x-4">
-		{#each Array(totalSteps) as _, i}
-			<div class="flex items-center">
-				<div
-					class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-all duration-200 {i +
-						1 ===
-					currentStep
-						? 'bg-slate-600 text-white ring-4 ring-slate-600 ring-opacity-20'
-						: i + 1 < currentStep
-							? 'bg-green-500 text-white'
-							: i + 1 === 1 && isStep1Valid
-								? 'bg-green-500 text-white'
-								: i + 1 === 2 && isStep2Valid
-									? 'bg-green-500 text-white'
-									: 'bg-gray-200 text-gray-600'}"
-				>
-					{#if i + 1 < currentStep || (i + 1 === 1 && isStep1Valid) || (i + 1 === 2 && isStep2Valid)}
-						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"
-							></path>
-						</svg>
-					{:else}
-						{i + 1}
-					{/if}
-				</div>
-				{#if i < totalSteps - 1}
-					<div
-						class="w-16 h-1 mx-2 rounded-full {i + 1 < currentStep || (isStep1Valid && isStep2Valid)
-							? 'bg-green-500'
-							: 'bg-gray-200'}"
-					></div>
-				{/if}
-			</div>
-		{/each}
-	</div>
+	<ProgressIndicator {currentStep} {isStep1Valid} {isStep2Valid} />
 
 	<!-- Step Titles -->
 	<div class="text-center">
@@ -157,7 +124,6 @@
 							</svg>
 							<span class="text-lg font-semibold text-green-900">Месечен доход в началото на периода</span
 							>
-							<span class="text-red-500 ml-1">*</span>
 						</div>
 						<input
 							bind:value={formData.monthlyBudgetThen}
@@ -206,7 +172,6 @@
 								></path>
 							</svg>
 							<span class="text-lg font-semibold text-green-900">Месечен доход към днешна дата</span>
-							<span class="text-red-500 ml-1">*</span>
 						</div>
 						<input
 							bind:value={formData.monthlyBudgetNow}
@@ -261,7 +226,6 @@
 								></path>
 							</svg>
 							<span class="text-lg font-semibold text-orange-900">Разход храна към днешна дата</span>
-							<span class="text-red-500 ml-1">*</span>
 						</div>
 						<input
 							bind:value={formData.foodExpense}

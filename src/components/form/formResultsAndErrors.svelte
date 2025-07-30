@@ -70,7 +70,8 @@
 				<div class="text-2xl font-bold text-red-500">{result.totalExpensesThen.toFixed(2)} лв.</div>
 			</div>
 			<div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-				<div class="text-sm font-medium text-gray-600 mb-1">Разлика в разходите</div>
+				<div class="text-sm font-medium text-gray-600 mb-1">Нетна разлика в разходите</div>
+				<p class="text-sm text-gray-600 mb-1">преизчислена към настояща дата</p>
 				<div class="text-2xl font-bold {result.netExpensesDifference > 0 ? 'text-red-600' : 'text-green-600'}">
 					{result.netExpensesDifference > 0 ? '+' : ''}{result.netExpensesDifference.toFixed(2)} лв.
 				</div>
@@ -98,7 +99,7 @@
 
 				<div class="border-t border-gray-200 pt-4">
 					<div class="text-sm font-medium text-gray-600 mb-2">
-						Еквивалентен исторически доход (със същата покупателна сила)
+						Еквивалентен исторически доход (със същата покупателна сила като днешния)
 					</div>
 					<div class="text-lg font-semibold text-gray-900 mb-3">
 						{result.previousSalaryValueMatchingCurrentPurchasingPower.toFixed(2)} лв.
