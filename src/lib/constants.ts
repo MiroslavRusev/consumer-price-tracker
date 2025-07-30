@@ -36,56 +36,23 @@ export const fuelItems = [
 ];
 
 export const timeRanges = [
-	{ id: '3months', label: '3 months', period: 'months', length: 3 },
-	{ id: '6months', label: '6 months', period: 'months', length: 6 },
-	{ id: '1year', label: '1 year', period: 'months', length: 12 },
-	{ id: '5years', label: '5 years', period: 'years', length: 5 },
-	{ id: '10years', label: '10 years', period: 'years', length: 10 }
-];
-
-export const formFields = [
-	{
-		id: 'monthly-budget-then',
-		label: 'Месечен доход в началото на периода',
-		type: 'text',
-		key: 'monthlyBudgetThen'
-	},
-	{
-		id: 'monthly-budget-now',
-		label: 'Месечен доход към днешна дата',
-		type: 'text',
-		key: 'monthlyBudget'
-	},
-	{
-		id: 'food-expense',
-		label: 'Разход храна към днешна дата',
-		type: 'text',
-		key: 'foodExpense'
-	},
-	{
-		id: 'fuel-expense',
-		label: 'Разход гориво към днешна дата',
-		type: 'text',
-		key: 'fuelExpense'
-	},
-	{
-		id: 'electricity-expense',
-		label: 'Разход електричество към днешна дата',
-		type: 'text',
-		key: 'electricityExpense'
-	},
-	{
-		id: 'water-expense',
-		label: 'Разход вода към днешна дата',
-		type: 'text',
-		key: 'waterExpense'
-	}
+	{ id: '3months', label: '3 месеца', period: 'months', length: 3 },
+	{ id: '6months', label: '6 месеца', period: 'months', length: 6 },
+	{ id: '1year', label: '1 година', period: 'months', length: 12 },
+	{ id: '5years', label: '5 години', period: 'years', length: 5 },
+	{ id: '10years', label: '10 години', period: 'years', length: 10 }
 ];
 
 // Default application selections
 export const appDefaults = {
 	range: '3months',
 	foods: ['bread'],
-	fuels: ['gasoline'],
+	fuel: 'gasoline',
 	utilities: ['electricity']
+};
+
+// Validation constants for form inputs
+export const VALIDATION_LIMITS = {
+	MAX_VALUE: 1000000, // 1 million limit
+	MIN_POSITIVE_VALUE: 0 // Minimum positive value
 };

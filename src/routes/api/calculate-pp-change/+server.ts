@@ -1,79 +1,31 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from '@sveltejs/kit';
 import type { FormCalculationResult } from '$lib/interfaces';
-import { formFields } from '$lib/constants';
+import ValidationError from '$lib/errorHandling';
+import { extractAndValidateFormData } from '$lib/utils/formValidator';
 
 export const POST: RequestHandler = async ({ request }) => {
 	try {
 		const formData = await request.formData();
 
-		// Validation constants
-		const MAX_VALUE = 1000000; // 1 million limit
-		const MIN_POSITIVE_VALUE = 0; // Minimum positive value
-
-		// Extract and validate all form values
-		const values: Record<string, number> = {};
-		for (const field of formFields) {
-			const rawValue = formData.get(field.id) as string;
-			if (!rawValue || rawValue.trim() === '') {
-				values[field.key] = 0;
-				continue;
-			}
-
-			const value = parseFloat(rawValue);
-			values[field.key] = value;
-			// Validate each value
-			if (isNaN(value)) {
-				return json({ error: `${field.label} не е валидно число` }, { status: 400 });
-			}
-			if (value < MIN_POSITIVE_VALUE) {
-				return json({ error: `${field.label} трябва да има положителна стойност` }, { status: 400 });
-			}
-			if (value > MAX_VALUE) {
-				return json({ error: `${field.label} не може да надвишава 1,000,000` }, { status: 400 });
-			}
-		}
-		// Inflation rate and historical prices calculated programmatically not from user input, so it's not part of form fields
-		values['inflationRate'] = parseFloat(formData.get('inflationRate') as string);
-		values['historicalFuelPrice'] = parseFloat(formData.get('historicalFuelPrice') as string);
-		values['electricityHistoricalPrice'] = parseFloat(formData.get('electricityHistoricalPrice') as string);
-		values['waterHistoricalPrice'] = parseFloat(formData.get('waterHistoricalPrice') as string);
-		values['fuelAmount'] = parseFloat(formData.get('fuelAmount') as string);
-		values['electricityCurrentPrice'] = parseFloat(formData.get('electricityCurrentPrice') as string);
-		values['waterCurrentPrice'] = parseFloat(formData.get('waterCurrentPrice') as string);
-
-		if (isNaN(values['inflationRate'])) {
-			return json({ error: 'Инфлацията не е валидно число' }, { status: 400 });
-		}
-		if (isNaN(values['historicalFuelPrice'])) {
-			return json({ error: 'Историческите цени на горивото не са валидни' }, { status: 400 });
-		}
-		if (isNaN(values['electricityHistoricalPrice'])) {
-			return json({ error: 'Историческите цени на комуналните услуги не са валидни' }, { status: 400 });
-		}
-		if (isNaN(values['fuelAmount'])) {
-			return json({ error: 'Количеството гориво не е валидно число' }, { status: 400 });
-		}
-		if (isNaN(values['electricityCurrentPrice'])) {
-			return json({ error: 'Текущата цена на комуналните услуги не е валидна' }, { status: 400 });
-		}
-
-		// Destructure values for easier access
+		// Extract and validate all form data using centralized configuration
+		const data = extractAndValidateFormData(formData);
+		// Now use the validated data directly with proper typing
 		const {
-			monthlyBudget,
 			monthlyBudgetThen,
+			monthlyBudgetNow,
 			foodExpense,
 			fuelExpense,
-			fuelAmount,
 			electricityExpense,
 			waterExpense,
 			inflationRate,
 			historicalFuelPrice,
-			electricityCurrentPrice,
 			electricityHistoricalPrice,
-			waterCurrentPrice,
-			waterHistoricalPrice
-		} = values;
+			waterHistoricalPrice,
+			fuelAmount,
+			electricityCurrentPrice,
+			waterCurrentPrice
+		} = data;
 
 		// This is a simplified calculation of current expenses
 		const totalExpensesNow = foodExpense + fuelExpense + electricityExpense + waterExpense;
@@ -89,14 +41,14 @@ export const POST: RequestHandler = async ({ request }) => {
 		// Calculate utility expense at the start of the period
 		let electricityExpenseThen = 0;
 		let electricityInflationRate = 0;
-		if (electricityExpense > 0) {
+		if (electricityExpense > 0 && electricityCurrentPrice > 0 && electricityHistoricalPrice > 0) {
 			electricityExpenseThen = (electricityExpense / electricityCurrentPrice) * electricityHistoricalPrice;
 			electricityInflationRate = (electricityExpense - electricityExpenseThen) / electricityExpenseThen;
 		}
 		// Calculate water expense at the start of the period
 		let waterExpenseThen = 0;
 		let waterInflationRate = 0;
-		if (waterExpense > 0) {
+		if (waterExpense > 0 && waterCurrentPrice > 0 && waterHistoricalPrice > 0) {
 			waterExpenseThen = (waterExpense / waterCurrentPrice) * waterHistoricalPrice;
 			waterInflationRate = (waterExpense - waterExpenseThen) / waterExpenseThen;
 		}
@@ -110,7 +62,7 @@ export const POST: RequestHandler = async ({ request }) => {
 			(inflationRate + fuelInflationRate + electricityInflationRate + waterInflationRate) / 4;
 
 		// Calculate the remaining budget for each period
-		const currentDisposableIncome = monthlyBudget - totalExpensesNow;
+		const currentDisposableIncome = monthlyBudgetNow - totalExpensesNow;
 		const previousDisposableIncome = monthlyBudgetThen - totalExpensesThen;
 
 		// Calculate the net expenses difference in current prices
@@ -124,7 +76,7 @@ export const POST: RequestHandler = async ({ request }) => {
 		const previousSalaryValueMatchingCurrentPurchasingPower = currentDisposableIncome + totalExpensesThen;
 
 		const result: FormCalculationResult = {
-			monthlyBudget,
+			monthlyBudget: monthlyBudgetNow,
 			monthlyBudgetThen,
 			totalExpensesNow,
 			totalExpensesThen,
@@ -137,7 +89,9 @@ export const POST: RequestHandler = async ({ request }) => {
 		// Calculate new purchasing power
 		return json(result);
 	} catch (error) {
-		console.error('Error processing form:', error);
+		if (error instanceof ValidationError) {
+			return json({ error: error.message }, { status: 400 });
+		}
 		return json({ error: 'Failed to process form data' }, { status: 500 });
 	}
 };

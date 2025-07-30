@@ -36,8 +36,8 @@ async function initializeData() {
 		} else {
 			foodStore.set(appDefaults.foods);
 		}
-		fuelStore.set(appDefaults.fuels[0]);
-		utilityStore.set(appDefaults.utilities[0]);
+		fuelStore.set(appDefaults.fuel);
+		utilityStore.set(appDefaults.utilities);
 	} catch (err) {
 		console.error('Error loading data:', err);
 		error.set(true);

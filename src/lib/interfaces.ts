@@ -121,12 +121,13 @@ interface ChartData {
 // FORM & UI INTERFACES
 // =============================================================================
 
-/** Configuration for form input fields */
-interface FormField {
-	id: string;
-	label: string;
-	type: string;
-	key: string;
+/** Form data structure for the calculation form */
+interface FormData {
+	monthlyBudgetThen: string;
+	monthlyBudgetNow: string;
+	foodExpense: string;
+	electricityExpense: string;
+	waterExpense: string;
 }
 
 /** Result object from form calculation operations */
@@ -189,7 +190,7 @@ export type {
 	// Chart & Visualization
 	ChartData,
 	// Form & UI
-	FormField,
+	FormData,
 	FormCalculationResult,
 	// External APIs
 	EurostatResponse

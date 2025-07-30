@@ -9,10 +9,18 @@
 		z-index: 10;
 	}
 
-	.overlay-image {
+	.hero-slate {
+		background: linear-gradient(135deg, #475569 0%, #374151 25%, #334155 50%, #1e293b 75%, #0f172a 100%);
 		position: relative;
 		z-index: 1;
-		min-height: 600px;
+		min-height: 85vh;
+	}
+
+	.bg-grid-pattern {
+		background-image:
+			linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+			linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+		background-size: 40px 40px;
 	}
 
 	.chart-container {
@@ -28,7 +36,41 @@
 	.controls-overlap {
 		position: relative;
 		z-index: 3;
-		background: linear-gradient(to bottom, transparent 0%, #f9fafb 30%);
+		background: linear-gradient(to bottom, transparent 0%, rgba(249, 250, 251, 0.8) 20%, #f9fafb 60%);
+		backdrop-filter: blur(10px);
 		padding-top: 2rem;
+		margin-top: -1rem;
+	}
+
+	/* Glass-morphism effect for cards with muted colors */
+	.glass-card {
+		background: rgba(255, 255, 255, 0.95);
+		backdrop-filter: blur(10px);
+		border: 1px solid rgba(148, 163, 184, 0.2);
+		box-shadow: 0 4px 16px rgba(71, 85, 105, 0.1);
+	}
+
+	/* Smooth transitions for interactive elements */
+	.smooth-transition {
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	/* Enhanced focus states with muted colors */
+	.focus-enhanced:focus {
+		outline: none;
+		box-shadow: 0 0 0 3px rgba(100, 116, 139, 0.4);
+		transform: translateY(-1px);
+	}
+
+	/* Muted color palette for selections */
+	.selected-slate {
+		background-color: rgba(100, 116, 139, 0.1);
+		border-color: rgba(100, 116, 139, 0.3);
+		color: rgb(51, 65, 85);
+	}
+
+	.hover-slate:hover {
+		background-color: rgba(148, 163, 184, 0.05);
+		border-color: rgba(148, 163, 184, 0.2);
 	}
 }

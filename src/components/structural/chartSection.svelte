@@ -51,19 +51,28 @@
 </script>
 
 {#if $loading}
-	<div class="flex items-center justify-center min-h-[400px]">
+	<div class="flex items-center justify-center min-h-[500px]">
 		<div class="text-center">
-			<div
-				class="inline-block animate-spin rounded-full h-8 w-8 border-2 border-gray-300 border-t-blue-600 mb-4"
-			></div>
-			<p class="text-gray-600 font-medium">Loading food price data...</p>
+			<div class="relative">
+				<div
+					class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-white/30 border-t-white mb-6"
+				></div>
+				<div
+					class="absolute inset-0 rounded-full border-4 border-transparent border-t-blue-300 animate-spin"
+					style="animation-delay: 0.15s;"
+				></div>
+			</div>
+			<p class="text-white/90 font-medium text-lg">Loading price data...</p>
+			<p class="text-white/70 text-sm mt-2">Fetching latest economic indicators</p>
 		</div>
 	</div>
 {:else if $error}
-	<div class="flex items-center justify-center min-h-[400px]">
-		<div class="text-center">
-			<div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-				<svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+	<div class="flex items-center justify-center min-h-[500px]">
+		<div class="text-center max-w-md">
+			<div
+				class="w-20 h-20 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6 backdrop-blur-sm"
+			>
+				<svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 					<path
 						stroke-linecap="round"
 						stroke-linejoin="round"
@@ -72,44 +81,111 @@
 					></path>
 				</svg>
 			</div>
-			<h3 class="text-lg font-semibold text-gray-900 mb-2">Error loading data</h3>
-			<p class="text-gray-600">Please try refreshing the page</p>
+			<h3 class="text-xl font-semibold text-white mb-3">Unable to load data</h3>
+			<p class="text-white/80 mb-4">There was an issue fetching the latest price information</p>
+			<button
+				class="px-6 py-2 bg-white/20 backdrop-blur-sm text-white rounded-lg border border-white/30 hover:bg-white/30 transition-all duration-200"
+			>
+				Try Again
+			</button>
 		</div>
 	</div>
 {:else}
-	<!-- Chart Section -->
-	<div class="p-8 mb-12">
-		<div class="text-center mb-8">
-			<h1 class="text-3xl font-bold text-white mb-2">Анализатор на потребителските цени</h1>
+	<!-- Modern Charts Section -->
+	<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+		<!-- Food Prices Chart -->
+		<div class="glass-card rounded-2xl p-6 smooth-transition hover:shadow-xl">
+			<div class="flex items-center justify-between mb-6">
+				<div>
+					<h3 class="text-xl font-bold text-gray-900 flex items-center">
+						<span class="w-3 h-3 bg-green-500 rounded-full mr-3"></span>
+						Храни
+					</h3>
+					<p class="text-sm text-gray-600 mt-1">Хармонизиран индекс на потребителските цени (2015=100)</p>
+				</div>
+				<div class="flex space-x-2">
+					<button
+						class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded-lg transition-all duration-200"
+						title="Информация за диаграмата"
+						aria-label="Информация за диаграмата"
+					>
+						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+							></path>
+						</svg>
+					</button>
+				</div>
+			</div>
+			<div class="h-64 flex items-center justify-center">
+				<Chart data={$foodChartData} />
+			</div>
 		</div>
 
-		<!-- Charts Section -->
-		<div class="mb-8">
-			<div
-				class="bg-gray-50 rounded-xl border border-gray-200 p-6 min-h-[300px] flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-6 lg:gap-4"
-			>
-				<div class="flex flex-col items-center justify-center gap-3 w-full lg:flex-1">
-					<div class="chartText mb-4 text-center text-black">
-						<h2 class="text-xl font-semibold">Храни</h2>
-						<p class="text-sm text-center">Хармонизиран индекс на потребителски цени - (базов) 2015=100</p>
-					</div>
-					<Chart data={$foodChartData} />
+		<!-- Utilities Chart -->
+		<div class="glass-card rounded-2xl p-6 smooth-transition hover:shadow-xl">
+			<div class="flex items-center justify-between mb-6">
+				<div>
+					<h3 class="text-xl font-bold text-gray-900 flex items-center">
+						<span class="w-3 h-3 bg-yellow-500 rounded-full mr-3"></span>
+						Комунални услуги
+					</h3>
+					<p class="text-sm text-gray-600 mt-1">Цени на избраните услуги с периодичност 6 месеца</p>
 				</div>
-				<div class="flex flex-col items-center justify-center gap-3 w-full lg:flex-1">
-					<div class="chartText mb-4 text-center text-black">
-						<h2 class="text-xl font-semibold">Комунални услуги</h2>
-						<p class="text-sm text-center">Графика на цените на комуналните услуги на полугодие.</p>
-					</div>
-					<UtilityChart data={$utilityChartData} />
+				<div class="flex space-x-2">
+					<button
+						class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded-lg transition-all duration-200"
+						title="Информация за диаграмата"
+						aria-label="Информация за диаграмата"
+					>
+						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+							></path>
+						</svg>
+					</button>
 				</div>
-				<!-- Fuel Chart -->
-				<div class="flex flex-col items-center justify-center gap-3 w-full lg:flex-1">
-					<div class="chartText mb-4 text-center text-black">
-						<h2 class="text-xl font-semibold">Горива</h2>
-						<p class="text-sm text-center">Цени на горивата сега и в началото на избрания период.</p>
-					</div>
-					<FuelBarChart data={$fuelChartData} />
+			</div>
+			<div class="h-64 flex items-center justify-center">
+				<UtilityChart data={$utilityChartData} />
+			</div>
+		</div>
+
+		<!-- Fuel Chart -->
+		<div class="glass-card rounded-2xl p-6 smooth-transition hover:shadow-xl">
+			<div class="flex items-center justify-between mb-6">
+				<div>
+					<h3 class="text-xl font-bold text-gray-900 flex items-center">
+						<span class="w-3 h-3 bg-blue-500 rounded-full mr-3"></span>
+						Горива
+					</h3>
+					<p class="text-sm text-gray-600 mt-1">Текуща и историческа цена на избраното гориво</p>
 				</div>
+				<div class="flex space-x-2">
+					<button
+						class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded-lg transition-all duration-200"
+						title="Информация за диаграмата"
+						aria-label="Информация за диаграмата"
+					>
+						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+							></path>
+						</svg>
+					</button>
+				</div>
+			</div>
+			<div class="h-64 flex items-center justify-center">
+				<FuelBarChart data={$fuelChartData} />
 			</div>
 		</div>
 	</div>
