@@ -150,11 +150,12 @@
 								<label class="block text-sm font-medium text-slate-800 mb-2">
 									Месечен разход (лв.)
 									<input
-										class="w-full px-4 py-3 bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all duration-200 mt-2"
+										class="w-full px-4 py-3 bg-gray-100 border border-gray-300 rounded-lg cursor-not-allowed text-gray-700 mt-2"
 										type="text"
 										inputmode="numeric"
 										name="fuel-expense"
 										readonly
+										disabled
 										value={$currentFuelPrice.price !== 0
 											? (Number($currentFuelPrice.price) * Number(fuelAmount)).toFixed(2)
 											: ''}
@@ -256,6 +257,13 @@
 				: 0}
 		/>
 		<input type="hidden" name="fuelAmount" value={fuelAmount !== '' && fuelAmount !== null ? fuelAmount : 0} />
+		<input
+			type="hidden"
+			name="fuel-expense"
+			value={$currentFuelPrice.price !== 0
+				? (Number($currentFuelPrice.price) * Number(fuelAmount)).toFixed(2)
+				: ''}
+		/>
 
 		<NavButtons bind:currentStep bind:totalSteps {canProceedToNext} {loading} {canSubmit} />
 	</form>
