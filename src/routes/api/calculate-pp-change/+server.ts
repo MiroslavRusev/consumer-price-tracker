@@ -30,6 +30,12 @@ export const POST: RequestHandler = async ({ request }) => {
 		// This is a simplified calculation of current expenses
 		const totalExpensesNow = foodExpense + fuelExpense + electricityExpense + waterExpense;
 
+		// Calculate the average of only non-zero inflation rates for accurate combined inflation rate
+		const validInflationRates = [];
+
+		// Always include food inflation rate (it should always be present)
+		validInflationRates.push(inflationRate);
+
 		// Handle optional expenses
 		// Calculate fuel expense at the start of the period
 		let fuelExpenseThen = 0;
@@ -37,6 +43,7 @@ export const POST: RequestHandler = async ({ request }) => {
 		if (fuelExpense > 0) {
 			fuelExpenseThen = historicalFuelPrice * fuelAmount;
 			fuelInflationRate = (fuelExpense - fuelExpenseThen) / fuelExpenseThen;
+			validInflationRates.push(fuelInflationRate);
 		}
 		// Calculate utility expense at the start of the period
 		let electricityExpenseThen = 0;
@@ -44,6 +51,7 @@ export const POST: RequestHandler = async ({ request }) => {
 		if (electricityExpense > 0 && electricityCurrentPrice > 0 && electricityHistoricalPrice > 0) {
 			electricityExpenseThen = (electricityExpense / electricityCurrentPrice) * electricityHistoricalPrice;
 			electricityInflationRate = (electricityExpense - electricityExpenseThen) / electricityExpenseThen;
+			validInflationRates.push(electricityInflationRate);
 		}
 		// Calculate water expense at the start of the period
 		let waterExpenseThen = 0;
@@ -51,15 +59,18 @@ export const POST: RequestHandler = async ({ request }) => {
 		if (waterExpense > 0 && waterCurrentPrice > 0 && waterHistoricalPrice > 0) {
 			waterExpenseThen = (waterExpense / waterCurrentPrice) * waterHistoricalPrice;
 			waterInflationRate = (waterExpense - waterExpenseThen) / waterExpenseThen;
+			validInflationRates.push(waterInflationRate);
 		}
 
 		// Calculate total expenses at the start of the period
 		const totalExpensesThen =
 			foodExpense / (1 + inflationRate) + fuelExpenseThen + electricityExpenseThen + waterExpenseThen;
 
-		// Return the average of the three inflation rates so that we can use it to calculate the purchasing power change
+		// Calculate the combined inflation rate using only valid (non-zero) rates
 		const combinedInflationRate =
-			(inflationRate + fuelInflationRate + electricityInflationRate + waterInflationRate) / 4;
+			validInflationRates.length > 0
+				? validInflationRates.reduce((sum, rate) => sum + rate, 0) / validInflationRates.length
+				: inflationRate; // Fallback to food inflation rate if no other rates are available
 
 		// Calculate the remaining budget for each period
 		const currentDisposableIncome = monthlyBudgetNow - totalExpensesNow;
