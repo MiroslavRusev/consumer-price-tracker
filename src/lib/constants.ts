@@ -7,7 +7,11 @@ export const productCodes = {
 	oil: 'CP0115',
 	butter: 'CP01151',
 	potatoes: 'CP01174',
-	sugar: 'CP01181'
+	sugar: 'CP01181',
+	fish: 'CP0113',
+	fruit: 'CP0116',
+	vegetables: 'CP0117',
+	coffee: 'CP0121'
 };
 
 // Define the food items with their Eurostat codes and colors
@@ -20,7 +24,11 @@ export const foodItems = [
 	{ id: 'oil', name: 'Олио', code: 'CP0115', color: '#FFE66D' },
 	{ id: 'butter', name: 'Масло', code: 'CP01151', color: '#FFD700' },
 	{ id: 'potatoes', name: 'Картофи', code: 'CP01174', color: '#33FF5E' },
-	{ id: 'sugar', name: 'Захар', code: 'CP01181', color: '#FF8E53' }
+	{ id: 'sugar', name: 'Захар', code: 'CP01181', color: '#FF8E53' },
+	{ id: 'fish', name: 'Риба', code: 'CP0113', color: '#F54927' },
+	{ id: 'fruit', name: 'Плодове', code: 'CP0116', color: '#E4F527' },
+	{ id: 'vegetables', name: 'Зеленчуци', code: 'CP0117', color: '#27E4F5' },
+	{ id: 'coffee', name: 'Кафе', code: 'CP0121', color: '#613927' }
 ];
 
 export const utilityItems = [

@@ -16,30 +16,39 @@
 <header class="bg-gradient-to-r from-slate-600 via-slate-500 to-slate-600 border-b border-slate-300/20 shadow-lg">
 	<div class="header-content mx-auto px-6 py-3">
 		<div class="flex items-center justify-between">
-			<!-- Logo Section - Far Left -->
+			<!-- Logo and Navigation - Left Side -->
 			<div class="flex items-center">
-				<a href="/" class="flex items-center hover:opacity-80 transition-opacity duration-200">
-					<img src={Logo} alt="Logo" class="w-8 h-8" />
-				</a>
-			</div>
+				<!-- Logo Section -->
+				<div class="flex items-center">
+					<a href="/" class="flex items-center hover:opacity-80 transition-opacity duration-200">
+						<img src={Logo} alt="Logo" class="w-8 h-8" />
+					</a>
+				</div>
 
-			<!-- Navigation Links - Center -->
-			<div class="absolute left-1/2 transform -translate-x-1/2">
-				<nav class="flex items-center space-x-6">
-					<a
-						on:click={handleReload}
-						href="/"
-						class="px-3 py-2 text-white hover:text-white/80 transition-colors duration-200 font-medium"
-					>
-						Начало
-					</a>
-					<a
-						href="/info"
-						class="px-3 py-2 text-white hover:text-white/80 transition-colors duration-200 font-medium"
-					>
-						Информация за проекта
-					</a>
-				</nav>
+				<!-- Navigation Links -->
+				<div class="flex items-center ml-8">
+					<nav class="flex items-center space-x-6">
+						<a
+							on:click={handleReload}
+							href="/"
+							class="px-3 py-2 text-white hover:text-white/80 transition-colors duration-200 font-medium"
+						>
+							Начало
+						</a>
+						<a
+							href="/mortgage"
+							class="px-3 py-2 text-white hover:text-white/80 transition-colors duration-200 font-medium"
+						>
+							Калкулатор за ипотека
+						</a>
+						<a
+							href="/info"
+							class="px-3 py-2 text-white hover:text-white/80 transition-colors duration-200 font-medium"
+						>
+							Информация за проекта
+						</a>
+					</nav>
+				</div>
 			</div>
 
 			<!-- GitHub Button - Far Right -->

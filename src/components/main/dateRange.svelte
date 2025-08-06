@@ -26,7 +26,7 @@
 		</div>
 	</div>
 
-	<div class="space-y-3">
+	<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-3">
 		{#each timeRanges as range (range.id)}
 			<button
 				class="w-full relative px-4 py-4 text-left rounded-xl border smooth-transition focus-enhanced {selectedRange ===
