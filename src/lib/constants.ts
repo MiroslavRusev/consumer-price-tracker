@@ -64,3 +64,13 @@ export const VALIDATION_LIMITS = {
 	MAX_VALUE: 1000000, // 1 million limit
 	MIN_POSITIVE_VALUE: 0 // Minimum positive value
 };
+
+export const mortgageFormDefaults = {
+	monthlyBudget: 1000,
+	loanAmount: 300000,
+	downPayment: 60000,
+	interestRate: 2.55,
+	loanTermYears: 25,
+	extraPaymentPerYear: 0,
+	paymentType: 'annuity'
+};

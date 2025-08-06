@@ -63,3 +63,20 @@ export function getSelectedUtilityItemsString(selectedUtilityIds: string[]) {
 		.map((item) => item.name)
 		.join(', ');
 }
+
+// Helper function to format currency
+export function formatCurrency(amount: number): string {
+	return new Intl.NumberFormat('bg-BG', {
+		style: 'currency',
+		currency: 'BGN',
+		minimumFractionDigits: 2
+	}).format(amount);
+}
+
+// Helper function to format large numbers
+export function formatNumber(amount: number): string {
+	return new Intl.NumberFormat('bg-BG', {
+		minimumFractionDigits: 2,
+		maximumFractionDigits: 2
+	}).format(amount);
+}
