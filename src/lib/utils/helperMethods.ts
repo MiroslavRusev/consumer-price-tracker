@@ -65,11 +65,11 @@ export function getSelectedUtilityItemsString(selectedUtilityIds: string[]) {
 }
 
 // Helper function to format currency
-export function formatCurrency(amount: number): string {
+export function formatCurrency(amount: number, currency: string, digits: number = 2): string {
 	return new Intl.NumberFormat('bg-BG', {
 		style: 'currency',
-		currency: 'BGN',
-		minimumFractionDigits: 2
+		currency: currency,
+		minimumFractionDigits: digits
 	}).format(amount);
 }
 

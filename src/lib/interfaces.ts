@@ -147,7 +147,7 @@ type PaymentType = 'annuity' | 'declining';
 
 interface MortgageCalculationResult {
 	monthlyBudget: number;
-	loanAmount: number;
+	propertyPrice: number;
 	downPayment: number;
 	principalAmount: number;
 	interestRate: number;

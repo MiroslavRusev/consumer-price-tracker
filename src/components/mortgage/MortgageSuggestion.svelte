@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { formatCurrency } from '$lib/utils/helperMethods';
 	import type { EnrichedMortgageCalculationResult } from '$lib/interfaces';
-	let { result }: { result: EnrichedMortgageCalculationResult } = $props();
+	let { result, currency }: { result: EnrichedMortgageCalculationResult; currency: string } = $props();
 </script>
 
 {#if result.paymentPercentageWarning}
@@ -15,19 +15,19 @@
 			<div class="bg-red-50 rounded-lg pt-4">
 				<div class="text-sm text-gray-600 mb-1">Максимална стойност на имота</div>
 				<div class="text-2xl font-bold text-red-600">
-					{formatCurrency(result.maximumRecommendedLoanAmount ?? 0)}
+					{formatCurrency(result.maximumRecommendedLoanAmount ?? 0, currency)}
 				</div>
 			</div>
 			<div class="bg-red-50 rounded-lg pt-4">
 				<div class="text-sm text-gray-600 mb-1">Максимална месечна вноска</div>
 				<div class="text-2xl font-bold text-red-600">
-					{formatCurrency(result.maximumRecommendedMonthlyPayment ?? 0)}
+					{formatCurrency(result.maximumRecommendedMonthlyPayment ?? 0, currency)}
 				</div>
 			</div>
 			<div class="bg-red-50 rounded-lg pt-4">
 				<div class="text-sm text-gray-600 mb-1">Максимално кредитиране</div>
 				<div class="text-2xl font-bold text-red-600">
-					{formatCurrency(result.maximumRecommendedPrincipal ?? 0)}
+					{formatCurrency(result.maximumRecommendedPrincipal ?? 0, currency)}
 				</div>
 			</div>
 		</div>
@@ -43,19 +43,19 @@
 			<div class="bg-green-50 rounded-lg pt-4">
 				<div class="text-sm text-gray-600 mb-1">Максимална стойност на имота</div>
 				<div class="text-2xl font-bold text-green-600">
-					{formatCurrency(result.maximumRecommendedLoanAmount ?? 0)}
+					{formatCurrency(result.maximumRecommendedLoanAmount ?? 0, currency)}
 				</div>
 			</div>
 			<div class="bg-green-50 rounded-lg pt-4">
 				<div class="text-sm text-gray-600 mb-1">Максимална месечна вноска</div>
 				<div class="text-2xl font-bold text-green-600">
-					{formatCurrency(result.maximumRecommendedMonthlyPayment ?? 0)}
+					{formatCurrency(result.maximumRecommendedMonthlyPayment ?? 0, currency)}
 				</div>
 			</div>
 			<div class="bg-green-50 rounded-lg pt-4">
 				<div class="text-sm text-gray-600 mb-1">Максимално кредитиране</div>
 				<div class="text-2xl font-bold text-green-600">
-					{formatCurrency(result.maximumRecommendedPrincipal ?? 0)}
+					{formatCurrency(result.maximumRecommendedPrincipal ?? 0, currency)}
 				</div>
 			</div>
 		</div>

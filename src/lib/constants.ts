@@ -66,11 +66,12 @@ export const VALIDATION_LIMITS = {
 };
 
 export const mortgageFormDefaults = {
-	monthlyBudget: 1000,
-	loanAmount: 300000,
+	monthlyBudget: 4000,
+	propertyPrice: 300000,
 	downPayment: 60000,
 	interestRate: 2.55,
 	loanTermYears: 25,
 	extraPaymentPerYear: 0,
-	paymentType: 'annuity'
+	paymentType: 'annuity',
+	currency: 'BGN'
 };

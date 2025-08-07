@@ -1,25 +1,26 @@
 <script lang="ts">
 	import { mortgageFormDefaults } from '$lib/constants';
 	import type { EnrichedMortgageCalculationResult } from '$lib/interfaces';
-	let { monthlyBudget, loanAmount, downPayment, interestRate, loanTermYears, extraPaymentPerYear, paymentType } =
-		mortgageFormDefaults;
+	import { formatCurrency } from '$lib/utils/helperMethods';
 
-	// Form fields
+	let { monthlyBudget, propertyPrice, downPayment, interestRate, loanTermYears, extraPaymentPerYear, paymentType } =
+		mortgageFormDefaults;
 
 	export let loading: boolean = false;
 	export let error: string | null = null;
 	export let result: EnrichedMortgageCalculationResult | null = null;
+	export let currency: string = mortgageFormDefaults.currency;
 
 	// Reactive calculations
 	$: loanTermMonths = loanTermYears * 12;
-	$: principalAmount = loanAmount - downPayment;
+	$: principalAmount = propertyPrice - downPayment;
 
 	// Form validation
 	$: isValid =
 		monthlyBudget > 0 &&
-		loanAmount > 0 &&
+		propertyPrice > 0 &&
 		downPayment >= 0 &&
-		downPayment < loanAmount &&
+		downPayment < propertyPrice &&
 		interestRate >= 0 &&
 		interestRate <= 50 &&
 		loanTermYears > 0 &&
@@ -60,33 +61,75 @@
 
 <div class="bg-white rounded-xl shadow-lg p-6 space-y-6">
 	<form onsubmit={handleSubmit} class="space-y-6">
-		<!-- Monthly Budget-->
-		<div class="bg-gray-50 border border-gray-200 rounded-xl p-6">
-			<label class="block">
-				<div class="flex items-center mb-3">
-					<svg class="w-6 h-6 text-gray-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"
-						></path>
-					</svg>
-					<span class="text-lg font-semibold text-gray-900">Месечен доход</span>
-				</div>
-				<input
-					type="number"
-					name="monthlyBudget"
-					bind:value={monthlyBudget}
-					disabled={loading}
-					min="1000"
-					step="50"
-					class="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all duration-200"
-					placeholder="Въведете доходът си в началото на периода"
-				/>
-			</label>
-		</div>
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+			<!-- Monthly Budget-->
+			<div class="bg-gray-50 border border-gray-200 rounded-xl p-6">
+				<label class="block">
+					<div class="flex items-center mb-3">
+						<svg class="w-6 h-6 text-gray-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"
+							></path>
+						</svg>
+						<span class="text-lg font-semibold text-gray-900">Месечен доход</span>
+					</div>
+					<input
+						type="number"
+						name="monthlyBudget"
+						bind:value={monthlyBudget}
+						disabled={loading}
+						min="1000"
+						step="50"
+						class="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all duration-200"
+						placeholder="Въведете месечния си доход"
+					/>
+					<div class="text-sm text-gray-700 mt-2">Месечен доход в {currency}</div>
+				</label>
+			</div>
+			<!-- Currency -->
+			<div class="bg-gray-50 border border-gray-200 rounded-xl p-6">
+				<div>
+					<div class="flex items-center mb-3">
+						<svg class="w-6 h-6 text-gray-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"
+							></path>
+						</svg>
+						<span class="text-lg font-semibold text-gray-900">Валута</span>
+					</div>
+					<div class="flex gap-6">
+						<label class="flex items-center cursor-pointer">
+							<input
+								type="radio"
+								name="currency"
+								value="BGN"
+								bind:group={currency}
+								checked={currency === 'BGN'}
+								class="mr-2"
+							/>
+							<span class="text-gray-700 font-medium">BGN</span>
+						</label>
+						<label class="flex items-center cursor-pointer">
+							<input
+								type="radio"
+								name="currency"
+								value="EUR"
+								bind:group={currency}
+								checked={currency === 'EUR'}
+								class="mr-2"
+							/>
+							<span class="text-gray-700 font-medium">EUR</span>
+						</label>
+					</div>
+					<div class="text-sm text-gray-700 mt-2">Промяната е само за визуализация</div>
+				</div>
+			</div>
 			<!-- Loan Amount -->
 			<div class="bg-blue-50 border border-blue-200 rounded-xl p-6">
 				<label class="block">
@@ -103,14 +146,15 @@
 					</div>
 					<input
 						type="number"
-						name="loanAmount"
-						bind:value={loanAmount}
+						name="propertyPrice"
+						bind:value={propertyPrice}
 						disabled={loading}
 						min="1000"
 						step="1000"
 						class="w-full px-4 py-3 bg-white border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
 						placeholder="Въведете стойността на имота в лева"
 					/>
+					<div class="text-sm text-blue-700 mt-2">Стойност на имота в {currency}</div>
 				</label>
 			</div>
 
@@ -139,7 +183,7 @@
 						placeholder="Въведете първоначалната вноска в лева"
 					/>
 					<div class="text-sm text-green-700 mt-2">
-						Сума за кредитиране: {principalAmount.toLocaleString('bg-BG')} лв.
+						Сума за кредитиране: {formatCurrency(principalAmount, currency, 0)}
 					</div>
 				</label>
 			</div>
@@ -170,7 +214,6 @@
 						max="50"
 						step="0.01"
 						class="w-full px-4 py-3 bg-white border border-purple-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200"
-						placeholder="2.55"
 					/>
 					<div class="text-sm text-purple-700 mt-2">% годишен лихвен процент</div>
 				</label>
@@ -198,7 +241,6 @@
 						max="50"
 						step="1"
 						class="w-full px-4 py-3 bg-white border border-orange-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200"
-						placeholder="25"
 					/>
 					<!-- Hidden input for API - months -->
 					<input type="hidden" name="loanTermMonths" value={loanTermMonths} />
@@ -231,7 +273,6 @@
 					min="0"
 					step="100"
 					class="w-full px-4 py-3 bg-white border border-yellow-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200"
-					placeholder="0"
 				/>
 				<div class="text-sm text-yellow-700 mt-2">Допълнителна сума за намаляване на главницата (по избор)</div>
 			</label>

@@ -4,8 +4,11 @@
 	import type { EnrichedMortgageCalculationResult } from '$lib/interfaces';
 	import { formatCurrency } from '$lib/utils/helperMethods';
 
-	export let result: EnrichedMortgageCalculationResult | null = null;
-	export let error: string | null = null;
+	let {
+		result,
+		error,
+		currency
+	}: { result: EnrichedMortgageCalculationResult | null; error: string | null; currency: string } = $props();
 </script>
 
 {#if error}
@@ -30,7 +33,7 @@
 {#if result}
 	<div class="space-y-6 mt-6">
 		<!-- Summary Card -->
-		<MortgageSummary {result} />
+		<MortgageSummary {result} {currency} />
 
 		{#if result.paymentType === 'annuity'}
 			<!-- Annuity Payments Results -->
@@ -39,7 +42,9 @@
 				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 					<div class="bg-blue-50 rounded-lg p-4 text-center">
 						<div class="text-sm text-gray-600 mb-1">Месечна вноска</div>
-						<div class="text-2xl font-bold text-blue-600">{formatCurrency(result.monthlyPayment ?? 0)}</div>
+						<div class="text-2xl font-bold text-blue-600">
+							{formatCurrency(result.monthlyPayment ?? 0, currency)}
+						</div>
 					</div>
 					<div class="bg-blue-50 rounded-lg p-4 text-center">
 						<div class="text-sm text-gray-600 mb-1">Процент на месечната вноска от дохода</div>
@@ -56,12 +61,14 @@
 					<div class="bg-red-50 rounded-lg p-4 text-center">
 						<div class="text-sm text-gray-600 mb-1">Общ лихвен разход</div>
 						<div class="text-2xl font-bold text-orange-600">
-							{formatCurrency(result.totalInterest ?? 0)}
+							{formatCurrency(result.totalInterest ?? 0, currency)}
 						</div>
 					</div>
 					<div class="bg-gray-50 rounded-lg p-4 text-center">
 						<div class="text-sm text-gray-600 mb-1">Обща сума за връщане</div>
-						<div class="text-2xl font-bold text-gray-900">{formatCurrency(result.totalAmount ?? 0)}</div>
+						<div class="text-2xl font-bold text-gray-900">
+							{formatCurrency(result.totalAmount ?? 0, currency)}
+						</div>
 					</div>
 				</div>
 			</div>
@@ -72,17 +79,23 @@
 				<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
 					<div class="bg-orange-50 rounded-lg p-4 text-center">
 						<div class="text-sm text-gray-600 mb-1">Първа вноска</div>
-						<div class="text-xl font-bold text-orange-600">{formatCurrency(result.firstPayment ?? 0)}</div>
+						<div class="text-xl font-bold text-orange-600">
+							{formatCurrency(result.firstPayment ?? 0, currency)}
+						</div>
 						<div class="text-xs text-gray-500">най-висока</div>
 					</div>
 					<div class="bg-yellow-50 rounded-lg p-4 text-center">
 						<div class="text-sm text-gray-600 mb-1">Средна вноска</div>
-						<div class="text-xl font-bold text-yellow-600">{formatCurrency(result.middlePayment ?? 0)}</div>
+						<div class="text-xl font-bold text-yellow-600">
+							{formatCurrency(result.middlePayment ?? 0, currency)}
+						</div>
 						<div class="text-xs text-gray-500">в средата на периода</div>
 					</div>
 					<div class="bg-green-50 rounded-lg p-4 text-center">
 						<div class="text-sm text-gray-600 mb-1">Последна вноска</div>
-						<div class="text-xl font-bold text-green-600">{formatCurrency(result.lastPayment ?? 0)}</div>
+						<div class="text-xl font-bold text-green-600">
+							{formatCurrency(result.lastPayment ?? 0, currency)}
+						</div>
 						<div class="text-xs text-gray-500">най-ниска</div>
 					</div>
 				</div>
@@ -102,45 +115,46 @@
 					<div class="bg-red-50 rounded-lg p-4 text-center">
 						<div class="text-sm text-gray-600 mb-1">Общ лихвен разход</div>
 						<div class="text-2xl font-bold text-red-600">
-							{formatCurrency(result.totalInterestDecline ?? 0)}
+							{formatCurrency(result.totalInterestDecline ?? 0, currency)}
 						</div>
 					</div>
 					<div class="bg-gray-50 rounded-lg p-4 text-center">
 						<div class="text-sm text-gray-600 mb-1">Обща сума за връщане</div>
 						<div class="text-2xl font-bold text-gray-900">
-							{formatCurrency(result.totalAmountDecline ?? 0)}
+							{formatCurrency(result.totalAmountDecline ?? 0, currency)}
 						</div>
 					</div>
 				</div>
 			</div>
 		{/if}
 		<!-- Suggestions -->
-		<MortgageSuggestion {result} />
+		<MortgageSuggestion {result} {currency} />
 
 		{#if result.extraPaymentPerYear > 0}
 			<!-- Extra Payments Results -->
 			<div class="bg-green-50 border border-green-200 rounded-xl p-6">
 				<h3 class="text-xl font-bold text-gray-900 mb-4">
-					Резултат с допълнителна вноска от {formatCurrency(result.extraPaymentPerYear)} годишно
+					Резултат с допълнителна вноска от {formatCurrency(result.extraPaymentPerYear, currency)} годишно
 				</h3>
 				<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 					<div class="bg-white rounded-lg p-4 text-center border border-green-200">
 						<div class="text-sm text-gray-600 mb-1">Общ лихвен разход</div>
 						<div class="text-xl font-bold text-green-600">
-							{formatCurrency(result.totalInterestWithExtra ?? 0)}
+							{formatCurrency(result.totalInterestWithExtra ?? 0, currency)}
 						</div>
 						<div class="text-xs text-green-700 mt-1">
 							Икономия: {formatCurrency(
 								(result.paymentType === 'annuity'
 									? (result.totalInterest ?? 0)
-									: (result.totalInterestDecline ?? 0)) - (result.totalInterestWithExtra ?? 0)
+									: (result.totalInterestDecline ?? 0)) - (result.totalInterestWithExtra ?? 0),
+								currency
 							)}
 						</div>
 					</div>
 					<div class="bg-white rounded-lg p-4 text-center border border-green-200">
 						<div class="text-sm text-gray-600 mb-1">Обща сума за връщане</div>
 						<div class="text-xl font-bold text-gray-900">
-							{formatCurrency(result.totalAmountWithExtra ?? 0)}
+							{formatCurrency(result.totalAmountWithExtra ?? 0, currency)}
 						</div>
 					</div>
 					<div class="bg-white rounded-lg p-4 text-center border border-green-200">

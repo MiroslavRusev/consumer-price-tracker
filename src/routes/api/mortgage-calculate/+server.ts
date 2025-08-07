@@ -14,7 +14,7 @@ export const POST: RequestHandler = async ({ request }) => {
 
 		// Extract and validate form data
 		const monthlyBudget = parseFloat(formData.get('monthlyBudget') as string) || 0;
-		const loanAmount = parseFloat(formData.get('loanAmount') as string) || 0;
+		const propertyPrice = parseFloat(formData.get('propertyPrice') as string) || 0;
 		const downPayment = parseFloat(formData.get('downPayment') as string) || 0;
 		const interestRate = parseFloat(formData.get('interestRate') as string) || 0;
 		const loanTermMonths = parseInt(formData.get('loanTermMonths') as string) || 0;
@@ -23,33 +23,39 @@ export const POST: RequestHandler = async ({ request }) => {
 
 		// Validation
 		if (monthlyBudget <= 0) {
-			return json({ error: 'Monthly budget must be greater than 0' }, { status: 400 });
+			return json({ error: 'Месечният доход трябва да е по-голям от 0' }, { status: 400 });
 		}
-		if (loanAmount <= 0) {
-			return json({ error: 'Loan amount must be greater than 0' }, { status: 400 });
+		if (propertyPrice <= 0) {
+			return json({ error: 'Стойността на имота трябва да е по-голяма от 0' }, { status: 400 });
 		}
-		if (downPayment < 0 || downPayment >= loanAmount) {
-			return json({ error: 'Down payment must be between 0 and loan amount' }, { status: 400 });
+		if (downPayment < 0 || downPayment >= propertyPrice) {
+			return json({ error: 'Сумата на самоучастие трябва да е между 0 и сумата на имота' }, { status: 400 });
 		}
 		if (interestRate < 0 || interestRate > 50) {
-			return json({ error: 'Interest rate must be between 0 and 50%' }, { status: 400 });
+			return json({ error: 'Процентът на лихвата трябва да е между 0 и 50%' }, { status: 400 });
 		}
-		if (loanTermMonths <= 0 || loanTermMonths > 600) {
-			return json({ error: 'Loan term must be between 1 and 600 months' }, { status: 400 });
+		if (loanTermMonths <= 0 || loanTermMonths > 360) {
+			return json({ error: 'Срокът на кредита трябва да е между 1 и 360 месеца' }, { status: 400 });
 		}
 		if (extraPaymentPerYear < 0) {
-			return json({ error: 'Extra payment cannot be negative' }, { status: 400 });
+			return json({ error: 'Допълнителната годишна вноска не може да е отрицателна' }, { status: 400 });
+		}
+		if (extraPaymentPerYear > propertyPrice - downPayment) {
+			return json(
+				{ error: 'Допълнителната годишна вноска не може да е по-голяма от сумата за кредитиране' },
+				{ status: 400 }
+			);
 		}
 		if (!['annuity', 'declining'].includes(paymentType)) {
 			return json({ error: 'Payment type must be either "annuity" or "declining"' }, { status: 400 });
 		}
 
-		const principalAmount = loanAmount - downPayment;
+		const principalAmount = propertyPrice - downPayment;
 		const monthlyRate = interestRate / 100 / 12;
 
 		const result: EnrichedMortgageCalculationResult = {
 			monthlyBudget,
-			loanAmount,
+			propertyPrice,
 			downPayment,
 			principalAmount,
 			interestRate,

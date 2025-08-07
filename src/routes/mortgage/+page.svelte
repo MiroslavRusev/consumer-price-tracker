@@ -1,10 +1,12 @@
 <script lang="ts">
 	import MortgageForm from '$lib/../components/mortgage/MortgageForm.svelte';
 	import MortgageResults from '$lib/../components/mortgage/MortgageResults.svelte';
+	import { mortgageFormDefaults } from '$lib/constants';
 	import type { EnrichedMortgageCalculationResult } from '$lib/interfaces';
 
 	let error: string | null;
 	let result: EnrichedMortgageCalculationResult | null;
+	let currency: string = mortgageFormDefaults.currency;
 </script>
 
 <svelte:head>
@@ -24,9 +26,9 @@
 		</div>
 
 		<!-- Mortgage Form -->
-		<MortgageForm bind:error bind:result />
+		<MortgageForm bind:error bind:result bind:currency />
 
 		<!-- Results -->
-		<MortgageResults {result} {error} />
+		<MortgageResults {result} {error} {currency} />
 	</div>
 </div>
