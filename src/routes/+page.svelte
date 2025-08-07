@@ -26,11 +26,9 @@
 		<!-- Hero Content -->
 		<div class="relative z-10 max-w-7xl mx-auto px-6 pt-12 pb-6">
 			<div class="text-center mb-8">
-				<h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 leading-tight">
-					Анализатор на потребителските цени
-				</h1>
+				<h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 leading-tight">Анализатор на потребителските цени</h1>
 				<p class="text-lg md:text-xl text-slate-200 mb-2 font-light">
-					Проследете промените в покупателната сила въз основа на актуални икономически данни
+					Проследете промените в цените на основните продукти и услуги, и тяхното влияние върху покупателната сила
 				</p>
 				<div class="flex items-center justify-center text-slate-300 text-sm">
 					<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -45,10 +43,12 @@
 				</div>
 			</div>
 
-			<ChartSection bind:selectedRange />
+			<ControlsSection bind:selectedRange />
 		</div>
 
-		<ControlsSection bind:selectedRange />
+		<div class="max-w-7xl mx-auto px-6 py-8">
+			<ChartSection bind:selectedRange />
+		</div>
 	</div>
 
 	<!-- Form Section with Better Integration -->

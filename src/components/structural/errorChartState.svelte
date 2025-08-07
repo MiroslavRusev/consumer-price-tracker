@@ -1,8 +1,6 @@
 <div class="flex items-center justify-center min-h-[500px]">
 	<div class="text-center max-w-md">
-		<div
-			class="w-20 h-20 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6 backdrop-blur-sm"
-		>
+		<div class="w-20 h-20 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6 backdrop-blur-sm">
 			<svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 				<path
 					stroke-linecap="round"

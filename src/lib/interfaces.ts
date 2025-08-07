@@ -143,6 +143,44 @@ interface FormCalculationResult {
 	previousSalaryValueMatchingCurrentPurchasingPower: number;
 }
 
+type PaymentType = 'annuity' | 'declining';
+
+interface MortgageCalculationResult {
+	monthlyBudget: number;
+	propertyPrice: number;
+	downPayment: number;
+	principalAmount: number;
+	interestRate: number;
+	loanTermMonths: number;
+	extraPaymentPerYear: number;
+	paymentType: PaymentType;
+}
+interface EnrichedMortgageCalculationResult extends MortgageCalculationResult {
+	// For annuity payments
+	monthlyPayment?: number;
+	totalInterest?: number;
+	totalAmount?: number;
+
+	// For declining payments
+	firstPayment?: number;
+	middlePayment?: number;
+	lastPayment?: number;
+	totalInterestDecline?: number;
+	totalAmountDecline?: number;
+
+	// With extra payments
+	totalInterestWithExtra?: number;
+	totalAmountWithExtra?: number;
+	monthsSavedWithExtra?: number;
+	paymentPercentageFromIncome?: number;
+
+	// Validation and recommendations
+	paymentPercentageWarning?: boolean;
+	maximumRecommendedLoanAmount?: number;
+	maximumRecommendedPrincipal?: number;
+	maximumRecommendedMonthlyPayment?: number;
+}
+
 // =============================================================================
 // EXTERNAL API INTERFACES
 // =============================================================================
@@ -192,6 +230,9 @@ export type {
 	// Form & UI
 	FormData,
 	FormCalculationResult,
+	PaymentType,
+	MortgageCalculationResult,
+	EnrichedMortgageCalculationResult,
 	// External APIs
 	EurostatResponse
 };

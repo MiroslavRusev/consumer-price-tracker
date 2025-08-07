@@ -33,15 +33,6 @@
 		z-index: 1;
 	}
 
-	.controls-overlap {
-		position: relative;
-		z-index: 3;
-		background: linear-gradient(to bottom, transparent 0%, rgba(249, 250, 251, 0.8) 20%, #f9fafb 60%);
-		backdrop-filter: blur(10px);
-		padding-top: 2rem;
-		margin-top: -1rem;
-	}
-
 	/* Glass-morphism effect for cards with muted colors */
 	.glass-card {
 		background: rgba(255, 255, 255, 0.95);

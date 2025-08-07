@@ -3,17 +3,7 @@
 	import { Line } from 'svelte5-chartjs';
 	import type { ChartData } from '$lib/interfaces';
 
-	import {
-		Chart as ChartJS,
-		Title,
-		Tooltip,
-		Legend,
-		LineElement,
-		LinearScale,
-		PointElement,
-		CategoryScale,
-		LineController
-	} from 'chart.js';
+	import { Chart as ChartJS, Title, Tooltip, Legend, LineElement, LinearScale, PointElement, CategoryScale, LineController } from 'chart.js';
 
 	ChartJS.register(Title, Tooltip, Legend, LineElement, LinearScale, PointElement, CategoryScale, LineController);
 

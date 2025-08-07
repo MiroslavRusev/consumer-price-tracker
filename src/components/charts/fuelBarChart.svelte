@@ -3,16 +3,7 @@
 	import { Bar } from 'svelte5-chartjs';
 	import type { FuelBarChartData } from '$lib/interfaces';
 
-	import {
-		Chart as ChartJS,
-		Title,
-		Tooltip,
-		Legend,
-		BarElement,
-		LinearScale,
-		CategoryScale,
-		BarController
-	} from 'chart.js';
+	import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, LinearScale, CategoryScale, BarController } from 'chart.js';
 
 	ChartJS.register(Title, Tooltip, Legend, BarElement, LinearScale, CategoryScale, BarController);
 

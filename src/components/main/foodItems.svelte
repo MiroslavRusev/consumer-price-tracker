@@ -37,9 +37,7 @@
 	<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-3">
 		{#each foodItems as food (food.id)}
 			<button
-				class="relative px-3 py-3 text-center rounded-lg border smooth-transition focus-enhanced group {$selectedFoods.includes(
-					food.id
-				)
+				class="relative px-3 py-3 text-center rounded-lg border smooth-transition focus-enhanced group {$selectedFoods.includes(food.id)
 					? 'bg-green-50 border-green-200 text-green-900 shadow-sm ring-2 ring-green-500 ring-opacity-20'
 					: 'bg-white border-gray-200 text-gray-700 hover-slate hover:shadow-sm'}"
 				on:click={() => handleFoodSelect(food.id)}
@@ -51,14 +49,11 @@
 					{#if $selectedFoods.includes(food.id)}
 						<div class="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
 							<svg class="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"
-								></path>
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
 							</svg>
 						</div>
 					{:else}
-						<div
-							class="w-4 h-4 border-2 border-gray-300 rounded-full group-hover:border-gray-400 transition-colors"
-						></div>
+						<div class="w-4 h-4 border-2 border-gray-300 rounded-full group-hover:border-gray-400 transition-colors"></div>
 					{/if}
 				</div>
 			</button>

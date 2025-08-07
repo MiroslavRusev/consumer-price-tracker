@@ -23,17 +23,8 @@
 
 	// Get data from stores
 	const dataManager = useDataManager();
-	const {
-		loading,
-		error,
-		foodItems,
-		foodChartData,
-		fuelChartData,
-		utilityChartData,
-		setFoodChartData,
-		setFuelChartData,
-		setUtilityChartData
-	} = dataManager;
+	const { loading, error, foodItems, foodChartData, fuelChartData, utilityChartData, setFoodChartData, setFuelChartData, setUtilityChartData } =
+		dataManager;
 
 	// Reactive statement to update chart data when selections change
 	$: if (!$loading && $foodItems.length > 0) {

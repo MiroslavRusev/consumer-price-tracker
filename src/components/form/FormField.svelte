@@ -19,16 +19,13 @@
 
 	// Dynamic styling based on validation state
 	$: inputClasses = (() => {
-		const baseClasses =
-			'w-full px-4 py-3 bg-white border rounded-lg focus:ring-2 focus:border-transparent transition-all duration-200 text-lg';
+		const baseClasses = 'w-full px-4 py-3 bg-white border rounded-lg focus:ring-2 focus:border-transparent transition-all duration-200 text-lg';
 
 		if (validation.isEmpty) {
 			return `${baseClasses} border-gray-300 focus:ring-gray-500`;
 		}
 
-		return validation.isValid
-			? `${baseClasses} border-green-500 focus:ring-green-500`
-			: `${baseClasses} border-red-300 focus:ring-red-500`;
+		return validation.isValid ? `${baseClasses} border-green-500 focus:ring-green-500` : `${baseClasses} border-red-300 focus:ring-red-500`;
 	})();
 </script>
 
