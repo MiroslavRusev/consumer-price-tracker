@@ -42,9 +42,7 @@
 				<div class="flex flex-wrap items-center gap-4">
 					<h3 class="text-lg font-semibold text-gray-900">Текущ избор:</h3>
 					<div class="flex flex-wrap gap-3">
-						<span
-							class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-slate-100 text-slate-800"
-						>
+						<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-slate-100 text-slate-800">
 							<svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 								<path
 									stroke-linecap="round"
@@ -56,9 +54,7 @@
 							{timeRanges.find((range) => range.id === selectedRange)?.label}
 						</span>
 						{#if selectedCount.foods > 0}
-							<span
-								class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800"
-							>
+							<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
 								<svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 									<path
 										stroke-linecap="round"
@@ -70,23 +66,14 @@
 								{selectedCount.foods}/{selectedCount.totalFoods} Храни
 							</span>
 						{/if}
-						<span
-							class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800"
-						>
+						<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
 							<svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M13 10V3L4 14h7v7l9-11h-7z"
-								></path>
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
 							</svg>
 							{fuelItemsConstants.find((item) => item.id === $selectedFuel)?.name}
 						</span>
 						{#if selectedCount.utilities > 0}
-							<span
-								class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-800"
-							>
+							<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-800">
 								<svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 									<path
 										stroke-linecap="round"

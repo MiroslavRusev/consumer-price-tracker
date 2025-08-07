@@ -3,8 +3,7 @@
 	import type { EnrichedMortgageCalculationResult } from '$lib/interfaces';
 	import { formatCurrency } from '$lib/utils/helperMethods';
 
-	let { monthlyBudget, propertyPrice, downPayment, interestRate, loanTermYears, extraPaymentPerYear, paymentType } =
-		mortgageFormDefaults;
+	let { monthlyBudget, propertyPrice, downPayment, interestRate, loanTermYears, extraPaymentPerYear, paymentType } = mortgageFormDefaults;
 
 	export let loading: boolean = false;
 	export let error: string | null = null;
@@ -105,25 +104,11 @@
 					</div>
 					<div class="flex gap-6">
 						<label class="flex items-center cursor-pointer">
-							<input
-								type="radio"
-								name="currency"
-								value="BGN"
-								bind:group={currency}
-								checked={currency === 'BGN'}
-								class="mr-2"
-							/>
+							<input type="radio" name="currency" value="BGN" bind:group={currency} checked={currency === 'BGN'} class="mr-2" />
 							<span class="text-gray-700 font-medium">BGN</span>
 						</label>
 						<label class="flex items-center cursor-pointer">
-							<input
-								type="radio"
-								name="currency"
-								value="EUR"
-								bind:group={currency}
-								checked={currency === 'EUR'}
-								class="mr-2"
-							/>
+							<input type="radio" name="currency" value="EUR" bind:group={currency} checked={currency === 'EUR'} class="mr-2" />
 							<span class="text-gray-700 font-medium">EUR</span>
 						</label>
 					</div>
@@ -163,11 +148,7 @@
 				<label class="block">
 					<div class="flex items-center mb-3">
 						<svg class="w-6 h-6 text-green-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
 							></path>
 						</svg>
 						<span class="text-lg font-semibold text-green-900">Първоначална вноска</span>
@@ -256,12 +237,7 @@
 			<label class="block">
 				<div class="flex items-center mb-3">
 					<svg class="w-6 h-6 text-yellow-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-						></path>
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
 					</svg>
 					<span class="text-lg font-semibold text-yellow-900">Допълнителна годишна вноска</span>
 				</div>
@@ -319,9 +295,7 @@
 					/>
 					<div>
 						<div class="font-medium text-gray-900">Намаляващи вноски</div>
-						<div class="text-sm text-gray-600">
-							Намаляващи месечни вноски - първоначално по-високи, после по-ниски
-						</div>
+						<div class="text-sm text-gray-600">Намаляващи месечни вноски - първоначално по-високи, после по-ниски</div>
 					</div>
 				</label>
 			</div>
@@ -336,8 +310,7 @@
 			>
 				{#if loading}
 					<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" fill="none" viewBox="0 0 24 24">
-						<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"
-						></circle>
+						<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
 						<path
 							class="opacity-75"
 							fill="currentColor"

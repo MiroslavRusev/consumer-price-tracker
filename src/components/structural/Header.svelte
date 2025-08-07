@@ -4,6 +4,8 @@
 	import Logo from '$lib/assets/pie-chart-logo.svg';
 	import { page } from '$app/state';
 
+	let isMobileMenuOpen = false;
+
 	function handleReload(event) {
 		// If we're already on the home page, reload instead of navigating
 		if (page.url.pathname === '/') {
@@ -11,48 +13,48 @@
 			window.location.reload();
 		}
 	}
+
+	function toggleMobileMenu() {
+		isMobileMenuOpen = !isMobileMenuOpen;
+	}
+
+	function closeMobileMenu() {
+		isMobileMenuOpen = false;
+	}
 </script>
 
 <header class="bg-gradient-to-r from-slate-600 via-slate-500 to-slate-600 border-b border-slate-300/20 shadow-lg">
 	<div class="header-content mx-auto px-6 py-3">
 		<div class="flex items-center justify-between">
-			<!-- Logo and Navigation - Left Side -->
-			<div class="flex items-center">
-				<!-- Logo Section -->
-				<div class="flex items-center">
-					<a href="/" class="flex items-center hover:opacity-80 transition-opacity duration-200">
-						<img src={Logo} alt="Logo" class="w-8 h-8" />
-					</a>
-				</div>
+			<!-- Logo and Navigation Section -->
+			<div class="flex items-center space-x-8">
+				<a href="/" class="flex items-center hover:opacity-80 transition-opacity duration-200">
+					<img src={Logo} alt="Logo" class="w-8 h-8" />
+				</a>
 
-				<!-- Navigation Links -->
-				<div class="flex items-center ml-8">
+				<!-- Desktop Navigation - Hidden on mobile/tablet -->
+				<div class="hidden lg:flex items-center space-x-6">
 					<nav class="flex items-center space-x-6">
 						<a
-							on:click={handleReload}
+							onclick={handleReload}
 							href="/"
 							class="px-3 py-2 text-white hover:text-white/80 transition-colors duration-200 font-medium"
 						>
 							Начало
 						</a>
-						<a
-							href="/mortgage"
-							class="px-3 py-2 text-white hover:text-white/80 transition-colors duration-200 font-medium"
-						>
-							Калкулатор за ипотека
+						<a href="/mortgage" class="px-3 py-2 text-white hover:text-white/80 transition-colors duration-200 font-medium">
+							Ипотечен калкулатор
 						</a>
-						<a
-							href="/info"
-							class="px-3 py-2 text-white hover:text-white/80 transition-colors duration-200 font-medium"
-						>
+						<a href="/info" class="px-3 py-2 text-white hover:text-white/80 transition-colors duration-200 font-medium">
 							Информация за проекта
 						</a>
 					</nav>
 				</div>
 			</div>
 
-			<!-- GitHub Button - Far Right -->
-			<div class="flex items-center">
+			<!-- Right Side: GitHub Button and Mobile Menu Button -->
+			<div class="flex items-center space-x-2 justify-end">
+				<!-- GitHub Button -->
 				<a
 					id="github-social-button"
 					aria-label="Github"
@@ -61,13 +63,7 @@
 					class="inline-flex items-center justify-center w-9 h-9 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200 border border-white/10 hover:border-white/20"
 				>
 					<!-- GitHub Mark SVG, from https://github.com/logos -->
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="18"
-						height="18"
-						viewBox="0 0 16 16"
-						fill="currentColor"
-					>
+					<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 16 16" fill="currentColor">
 						<path
 							d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
 							0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52
@@ -79,7 +75,80 @@
 						/>
 					</svg>
 				</a>
+
+				<!-- Mobile Menu Button - Visible on tablet and smaller -->
+				<button
+					onclick={toggleMobileMenu}
+					aria-label="Toggle mobile menu"
+					class="lg:hidden inline-flex items-center justify-center w-9 h-9 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200 border border-white/10 hover:border-white/20"
+				>
+					<!-- Hamburger Icon -->
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="18"
+						height="18"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						class={isMobileMenuOpen ? 'hidden' : 'block'}
+					>
+						<line x1="3" y1="6" x2="21" y2="6"></line>
+						<line x1="3" y1="12" x2="21" y2="12"></line>
+						<line x1="3" y1="18" x2="21" y2="18"></line>
+					</svg>
+					<!-- Close Icon -->
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="18"
+						height="18"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						class={isMobileMenuOpen ? 'block' : 'hidden'}
+					>
+						<line x1="18" y1="6" x2="6" y2="18"></line>
+						<line x1="6" y1="6" x2="18" y2="18"></line>
+					</svg>
+				</button>
 			</div>
 		</div>
+
+		<!-- Mobile Menu Dropdown - Visible on tablet and smaller when toggled -->
+		{#if isMobileMenuOpen}
+			<div class="lg:hidden border-t border-slate-300/20">
+				<div class="px-6 py-4 space-y-2">
+					<a
+						onclick={(e) => {
+							handleReload(e);
+							closeMobileMenu();
+						}}
+						href="/"
+						class="block px-3 py-2 text-white hover:text-white/80 hover:bg-white/10 rounded-lg transition-all duration-200 font-medium"
+					>
+						Начало
+					</a>
+					<a
+						onclick={closeMobileMenu}
+						href="/mortgage"
+						class="block px-3 py-2 text-white hover:text-white/80 hover:bg-white/10 rounded-lg transition-all duration-200 font-medium"
+					>
+						Ипотечен калкулатор
+					</a>
+					<a
+						onclick={closeMobileMenu}
+						href="/info"
+						class="block px-3 py-2 text-white hover:text-white/80 hover:bg-white/10 rounded-lg transition-all duration-200 font-medium"
+					>
+						Информация за проекта
+					</a>
+				</div>
+			</div>
+		{/if}
 	</div>
 </header>

@@ -156,9 +156,7 @@
 										name="fuel-expense"
 										readonly
 										disabled
-										value={$currentFuelPrice.price !== 0
-											? (Number($currentFuelPrice.price) * Number(fuelAmount)).toFixed(2)
-											: ''}
+										value={$currentFuelPrice.price !== 0 ? (Number($currentFuelPrice.price) * Number(fuelAmount)).toFixed(2) : ''}
 										placeholder="Автоматично изчислено"
 									/>
 								</label>
@@ -223,46 +221,32 @@
 
 		<!-- Calculated Hidden Fields -->
 		<input type="hidden" name="inflationRate" value={inflationRate} />
-		<input
-			type="hidden"
-			name="historicalFuelPrice"
-			value={$currentFuelPrice.price !== 0 ? $historicalFuelPrice.price : ''}
-		/>
+		<input type="hidden" name="historicalFuelPrice" value={$currentFuelPrice.price !== 0 ? $historicalFuelPrice.price : ''} />
 		<input
 			type="hidden"
 			name="electricityHistoricalPrice"
-			value={$selectedUtilityItems.includes('electricity')
-				? utilityPrice.find((item) => item.id === 'electricity')?.historicalPrice
-				: 0}
+			value={$selectedUtilityItems.includes('electricity') ? utilityPrice.find((item) => item.id === 'electricity')?.historicalPrice : 0}
 		/>
 		<input
 			type="hidden"
 			name="electricityCurrentPrice"
-			value={$selectedUtilityItems.includes('electricity')
-				? utilityPrice.find((item) => item.id === 'electricity')?.currentPrice
-				: 0}
+			value={$selectedUtilityItems.includes('electricity') ? utilityPrice.find((item) => item.id === 'electricity')?.currentPrice : 0}
 		/>
 		<input
 			type="hidden"
 			name="waterHistoricalPrice"
-			value={$selectedUtilityItems.includes('water')
-				? utilityPrice.find((item) => item.id === 'water')?.historicalPrice
-				: 0}
+			value={$selectedUtilityItems.includes('water') ? utilityPrice.find((item) => item.id === 'water')?.historicalPrice : 0}
 		/>
 		<input
 			type="hidden"
 			name="waterCurrentPrice"
-			value={$selectedUtilityItems.includes('water')
-				? utilityPrice.find((item) => item.id === 'water')?.currentPrice
-				: 0}
+			value={$selectedUtilityItems.includes('water') ? utilityPrice.find((item) => item.id === 'water')?.currentPrice : 0}
 		/>
 		<input type="hidden" name="fuelAmount" value={fuelAmount !== '' && fuelAmount !== null ? fuelAmount : 0} />
 		<input
 			type="hidden"
 			name="fuel-expense"
-			value={$currentFuelPrice.price !== 0
-				? (Number($currentFuelPrice.price) * Number(fuelAmount)).toFixed(2)
-				: ''}
+			value={$currentFuelPrice.price !== 0 ? (Number($currentFuelPrice.price) * Number(fuelAmount)).toFixed(2) : ''}
 		/>
 
 		<NavButtons bind:currentStep bind:totalSteps {canProceedToNext} {loading} {canSubmit} />

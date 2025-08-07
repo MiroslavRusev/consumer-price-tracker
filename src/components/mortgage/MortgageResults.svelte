@@ -4,23 +4,14 @@
 	import type { EnrichedMortgageCalculationResult } from '$lib/interfaces';
 	import { formatCurrency } from '$lib/utils/helperMethods';
 
-	let {
-		result,
-		error,
-		currency
-	}: { result: EnrichedMortgageCalculationResult | null; error: string | null; currency: string } = $props();
+	let { result, error, currency }: { result: EnrichedMortgageCalculationResult | null; error: string | null; currency: string } = $props();
 </script>
 
 {#if error}
 	<div class="bg-red-50 border border-red-200 rounded-xl p-6 mt-6">
 		<div class="flex items-center">
 			<svg class="w-6 h-6 text-red-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-				<path
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-				></path>
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
 			</svg>
 			<div>
 				<h3 class="text-lg font-semibold text-red-900">Грешка при изчислението</h3>
@@ -144,9 +135,8 @@
 						</div>
 						<div class="text-xs text-green-700 mt-1">
 							Икономия: {formatCurrency(
-								(result.paymentType === 'annuity'
-									? (result.totalInterest ?? 0)
-									: (result.totalInterestDecline ?? 0)) - (result.totalInterestWithExtra ?? 0),
+								(result.paymentType === 'annuity' ? (result.totalInterest ?? 0) : (result.totalInterestDecline ?? 0)) -
+									(result.totalInterestWithExtra ?? 0),
 								currency
 							)}
 						</div>
@@ -161,8 +151,7 @@
 						<div class="text-sm text-gray-600 mb-1">Спестени месеци</div>
 						<div class="text-xl font-bold text-blue-600">{result.monthsSavedWithExtra ?? 0}</div>
 						<div class="text-xs text-blue-700 mt-1">
-							{Math.floor((result.monthsSavedWithExtra ?? 0) / 12)} г. и {(result.monthsSavedWithExtra ??
-								0) % 12} м.
+							{Math.floor((result.monthsSavedWithExtra ?? 0) / 12)} г. и {(result.monthsSavedWithExtra ?? 0) % 12} м.
 						</div>
 					</div>
 				</div>

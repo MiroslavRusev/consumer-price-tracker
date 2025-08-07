@@ -48,8 +48,7 @@
 		<div class="flex items-center">
 			<div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
 				<svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"
-					></path>
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
 				</svg>
 			</div>
 			<div>
@@ -62,8 +61,7 @@
 	<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-3">
 		{#each fuelItems as fuel (fuel.id)}
 			<button
-				class="w-full relative px-4 py-4 text-left rounded-xl border smooth-transition focus-enhanced group {$selectedFuel ===
-				fuel.id
+				class="w-full relative px-4 py-4 text-left rounded-xl border smooth-transition focus-enhanced group {$selectedFuel === fuel.id
 					? 'bg-blue-50 border-blue-200 text-blue-900 ring-2 ring-blue-500 ring-opacity-20 shadow-sm'
 					: 'bg-white border-gray-200 text-gray-700 hover:bg-blue-50 hover:border-blue-200 hover:shadow-sm'}"
 				on:click={() => handleFuelSelect(fuel)}
@@ -75,14 +73,11 @@
 					{#if $selectedFuel === fuel.id}
 						<div class="flex items-center">
 							<svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"
-								></path>
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
 							</svg>
 						</div>
 					{:else}
-						<div
-							class="w-4 h-4 border-2 border-gray-300 rounded-full group-hover:border-gray-400 transition-colors"
-						></div>
+						<div class="w-4 h-4 border-2 border-gray-300 rounded-full group-hover:border-gray-400 transition-colors"></div>
 					{/if}
 				</div>
 			</button>

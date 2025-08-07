@@ -98,8 +98,7 @@
 								{@html svgExporter.greenCheck}
 								<div class="text-green-800 font-semibold">
 									Вашата покупателна сила се е УВЕЛИЧИЛА с {(
-										result.previousSalaryValueMatchingCurrentPurchasingPower -
-										result.monthlyBudgetThen
+										result.previousSalaryValueMatchingCurrentPurchasingPower - result.monthlyBudgetThen
 									).toFixed(2)} лв.
 								</div>
 							</div>
@@ -110,8 +109,7 @@
 								{@html svgExporter.redCheck}
 								<div class="text-red-800 font-semibold">
 									Вашата покупателна сила се е НАМАЛИЛА с {(
-										result.monthlyBudgetThen -
-										result.previousSalaryValueMatchingCurrentPurchasingPower
+										result.monthlyBudgetThen - result.previousSalaryValueMatchingCurrentPurchasingPower
 									).toFixed(2)} лв.
 								</div>
 							</div>

@@ -49,14 +49,11 @@
 					{#if $selectedUtilityItems.includes(utility.id)}
 						<div class="flex items-center">
 							<svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"
-								></path>
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
 							</svg>
 						</div>
 					{:else}
-						<div
-							class="w-4 h-4 border-2 border-gray-300 rounded-full group-hover:border-gray-400 transition-colors"
-						></div>
+						<div class="w-4 h-4 border-2 border-gray-300 rounded-full group-hover:border-gray-400 transition-colors"></div>
 					{/if}
 				</div>
 			</button>

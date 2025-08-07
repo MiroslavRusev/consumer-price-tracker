@@ -20,9 +20,7 @@
 	<div class="max-w-6xl mx-auto px-6 py-12">
 		<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 			<div>
-				<h3 class="text-lg font-semibold text-white mb-3 underline underline-offset-4">
-					Анализатор на потребителските цени
-				</h3>
+				<h3 class="text-lg font-semibold text-white mb-3 underline underline-offset-4">Анализатор на потребителските цени</h3>
 				<p class="text-white leading-relaxed">
 					Анализирайте отношението на потребителските цени към доходите на база инфлацията в различни периоди.
 				</p>
@@ -48,14 +46,11 @@
 								>
 							</li>
 							<li>
-								<a href="https://fuelo.net/" class="text-white hover:text-black transition-colors"
-									>Fuelo</a
-								>
+								<a href="https://fuelo.net/" class="text-white hover:text-black transition-colors">Fuelo</a>
 							</li>
 							<li>
-								<a
-									href="https://www.sofiyskavoda.bg/ceni-na-vodata"
-									class="text-white hover:text-black transition-colors">Софийска Вода АД</a
+								<a href="https://www.sofiyskavoda.bg/ceni-na-vodata" class="text-white hover:text-black transition-colors"
+									>Софийска Вода АД</a
 								>
 							</li>
 						{/if}
@@ -65,9 +60,7 @@
 
 			{#if showSocialLinks}
 				<div>
-					<h3 class="text-lg font-semibold text-white mb-3 underline underline-offset-4">
-						Github source code
-					</h3>
+					<h3 class="text-lg font-semibold text-white mb-3 underline underline-offset-4">Github source code</h3>
 					<div class="flex space-x-3">
 						<a
 							href="https://github.com/MiroslavRusev/consumer-price-tracker"
@@ -76,13 +69,7 @@
 							class="inline-flex items-center justify-center text-white hover:text-black"
 						>
 							<!-- GitHub Mark SVG, from https://github.com/logos -->
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="20"
-								height="20"
-								viewBox="0 0 16 16"
-								fill="currentColor"
-							>
+							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
 								<path
 									d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
 							0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52
