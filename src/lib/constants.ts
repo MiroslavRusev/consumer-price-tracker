@@ -47,6 +47,7 @@ export const timeRanges = [
 	{ id: '3months', label: '3 месеца', period: 'months', length: 3 },
 	{ id: '6months', label: '6 месеца', period: 'months', length: 6 },
 	{ id: '1year', label: '1 година', period: 'months', length: 12 },
+	{ id: '3years', label: '3 години', period: 'years', length: 3 },
 	{ id: '5years', label: '5 години', period: 'years', length: 5 },
 	{ id: '10years', label: '10 години', period: 'years', length: 10 }
 ];
