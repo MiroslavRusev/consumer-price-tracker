@@ -77,4 +77,4 @@ export const mortgageFormDefaults = {
 	currency: 'EUR'
 };
 
-export const eurConversionRate = 1.95583
+export const eurConversionRate = 1.95583;

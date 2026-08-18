@@ -224,7 +224,6 @@
 					<div class="text-sm text-yellow-700 mt-2">Допълнителна сума за намаляване на главницата (по избор)</div>
 				</label>
 			</div>
-
 		</div>
 		<!-- Payment Type -->
 		<div class="bg-slate-50 border border-slate-200 rounded-xl p-6">

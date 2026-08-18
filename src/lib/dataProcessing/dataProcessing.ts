@@ -5,7 +5,11 @@ import type { FoodApiResponse, EurostatResponse } from '$lib/interfaces';
 export const processEurostatData = (rawData: unknown): FoodApiResponse => {
 	const dataset = rawData as EurostatResponse;
 	// Check if the data from API is valid
-	if (!dataset?.dimension?.time?.category?.index || !dataset?.dimension?.coicop18?.category?.index || !dataset?.value) {
+	if (
+		!dataset?.dimension?.time?.category?.index ||
+		!dataset?.dimension?.coicop18?.category?.index ||
+		!dataset?.value
+	) {
 		return { foodItems: [], labels: [], priceData: {} };
 	}
 
