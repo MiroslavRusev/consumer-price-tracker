@@ -1,6 +1,6 @@
 import { fetchApiData } from '$lib/dataFetcher/dataFetch';
 import type { FuelData, FuelRequest, FuelItem, FuelBarChartData, FuelBarData } from '$lib/interfaces';
-import { fuelItems } from '$lib/constants';
+import { fuelItems, eurConversionRate } from '$lib/constants';
 import { getDateFromRange } from '$lib/utils/datesAndRanges';
 
 export const getFuelItems = async (): Promise<FuelItem[]> => {

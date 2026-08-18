@@ -39,7 +39,7 @@
 				padding: 12,
 				callbacks: {
 					label: function (context) {
-						return `${context.dataset.label}: ${context.parsed.y.toFixed(2)} лв.`;
+						return `${context.dataset.label}: ${context.parsed.y.toFixed(2)} EUR`;
 					}
 				}
 			}
@@ -68,7 +68,7 @@
 						size: 11
 					},
 					callback: function (value) {
-						return value + ' лв.';
+						return value + ' EUR';
 					}
 				}
 			}
