@@ -42,7 +42,7 @@ export function returnUtilityPrice(data: ChartData) {
 
 export function handleSelectedProductsAndPeriod(data: ChartData) {
 	const period = data.labels.length;
-	let periodString = '';
+	let periodString;
 	if (period < 12) {
 		periodString = data.labels.length + ' месеца';
 	} else if (period === 12) {
@@ -52,8 +52,7 @@ export function handleSelectedProductsAndPeriod(data: ChartData) {
 	}
 
 	const products = data.datasets;
-	let productsString = '';
-	productsString = products.map((product) => product.label).join(', ');
+	const productsString = products.map((product) => product.label).join(', ');
 	return { periodString, productsString };
 }
 
