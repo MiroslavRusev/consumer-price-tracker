@@ -148,7 +148,7 @@
 						<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 							<div>
 								<label class="block text-sm font-medium text-slate-800 mb-2">
-									Месечен разход (лв.)
+									Месечен разход (EUR)
 									<input
 										class="w-full px-4 py-3 bg-gray-100 border border-gray-300 rounded-lg cursor-not-allowed text-gray-700 mt-2"
 										type="text"

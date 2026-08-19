@@ -14,18 +14,17 @@ export const GET: RequestHandler = async ({ url }) => {
 			const apiUrl =
 				`${EUROSTAT_API}/nrg_pc_204/1.0/*.*.*.*.*.*.*` +
 				`?c[freq]=S` +
-				`&c[product]=6000` +
+				`&c[siec]=E7000` +
 				`&c[nrg_cons]=KWH2500-4999` +
 				`&c[unit]=KWH` +
 				`&c[tax]=I_TAX` +
-				`&c[currency]=NAC` +
+				`&c[currency]=EUR` +
 				`&c[geo]=BG` +
 				`&c[TIME_PERIOD]=ge:2015-S1` +
 				`&compress=false` +
 				`&format=json` +
 				`&lang=en`;
 			const response = await fetch(apiUrl);
-
 			if (!response.ok) {
 				throw new Error(`HTTP error! status: ${response.status}`);
 			}

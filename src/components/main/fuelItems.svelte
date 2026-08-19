@@ -91,12 +91,12 @@
 				<div class="grid grid-cols-2 gap-3 text-sm">
 					<div class="bg-blue-50 rounded-lg p-3">
 						<div class="text-blue-600 font-medium">Текуща</div>
-						<div class="text-blue-900 font-semibold">{$currentFuelPrice.price.toFixed(2)} лв./л</div>
+						<div class="text-blue-900 font-semibold">{$currentFuelPrice.price.toFixed(2)} EUR/л</div>
 					</div>
 					{#if $historicalFuelPrice.price}
 						<div class="bg-gray-50 rounded-lg p-3">
 							<div class="text-gray-600 font-medium">В началото на периода</div>
-							<div class="text-gray-900 font-semibold">{$historicalFuelPrice.price.toFixed(2)} лв./л</div>
+							<div class="text-gray-900 font-semibold">{$historicalFuelPrice.price.toFixed(2)} EUR/л</div>
 						</div>
 					{/if}
 				</div>

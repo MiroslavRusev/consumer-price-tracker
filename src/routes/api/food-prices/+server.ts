@@ -24,11 +24,11 @@ export const GET: RequestHandler = async () => {
 		const allProductCodes = Object.values(productCodes).join(',');
 
 		const apiUrl =
-			`${EUROSTAT_API}/prc_fsc_idx/1.0/*.*.*.*.*` +
+			`${EUROSTAT_API}/prc_fpmt_m/1.0/*.*.*.*.*` +
 			`?c[freq]=M` +
-			`&c[unit]=I15` +
+			`&c[unit]=I25` +
 			`&c[indx]=HICP` +
-			`&c[coicop]=${allProductCodes}` +
+			`&c[coicop18]=${allProductCodes}` +
 			`&c[geo]=BG` +
 			`&c[TIME_PERIOD]=${generateYearMonthRange(120)}` +
 			`&compress=false` +

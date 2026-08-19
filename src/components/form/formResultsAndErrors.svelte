@@ -38,11 +38,11 @@
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
 			<div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
 				<div class="text-sm font-medium text-gray-600 mb-1">Текущ месечен доход</div>
-				<div class="text-2xl font-bold text-green-600">{result.monthlyBudget.toFixed(2)} лв.</div>
+				<div class="text-2xl font-bold text-green-600">{result.monthlyBudget.toFixed(2)} EUR</div>
 			</div>
 			<div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
 				<div class="text-sm font-medium text-gray-600 mb-1">Исторически месечен доход</div>
-				<div class="text-2xl font-bold text-slate-600">{result.monthlyBudgetThen.toFixed(2)} лв.</div>
+				<div class="text-2xl font-bold text-slate-600">{result.monthlyBudgetThen.toFixed(2)} EUR</div>
 			</div>
 			<div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
 				<div class="text-sm font-medium text-gray-600 mb-1">Процент инфлация</div>
@@ -50,17 +50,17 @@
 			</div>
 			<div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
 				<div class="text-sm font-medium text-gray-600 mb-1">Текущи разходи</div>
-				<div class="text-2xl font-bold text-red-600">{result.totalExpensesNow.toFixed(2)} лв.</div>
+				<div class="text-2xl font-bold text-red-600">{result.totalExpensesNow.toFixed(2)} EUR</div>
 			</div>
 			<div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
 				<div class="text-sm font-medium text-gray-600 mb-1">Исторически разходи</div>
-				<div class="text-2xl font-bold text-red-500">{result.totalExpensesThen.toFixed(2)} лв.</div>
+				<div class="text-2xl font-bold text-red-500">{result.totalExpensesThen.toFixed(2)} EUR</div>
 			</div>
 			<div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
 				<div class="text-sm font-medium text-gray-600 mb-1">Нетна разлика в разходите</div>
 				<p class="text-sm text-gray-600 mb-1">преизчислена към настояща дата</p>
 				<div class="text-2xl font-bold {result.netExpensesDifference > 0 ? 'text-red-600' : 'text-green-600'}">
-					{result.netExpensesDifference > 0 ? '+' : ''}{result.netExpensesDifference.toFixed(2)} лв.
+					{result.netExpensesDifference > 0 ? '+' : ''}{result.netExpensesDifference.toFixed(2)} EUR
 				</div>
 			</div>
 		</div>
@@ -73,13 +73,13 @@
 					<div>
 						<div class="text-sm font-medium text-gray-600 mb-1">Текущ разполагаем доход</div>
 						<div class="text-xl font-bold text-slate-600">
-							{result.currentDisposableIncome.toFixed(2)} лв.
+							{result.currentDisposableIncome.toFixed(2)} EUR
 						</div>
 					</div>
 					<div>
 						<div class="text-sm font-medium text-gray-600 mb-1">Исторически разполагаем доход</div>
 						<div class="text-xl font-bold text-slate-500">
-							{result.previousDisposableIncome.toFixed(2)} лв.
+							{result.previousDisposableIncome.toFixed(2)} EUR
 						</div>
 					</div>
 				</div>
@@ -89,7 +89,7 @@
 						Еквивалентен исторически доход (със същата покупателна сила като днешния)
 					</div>
 					<div class="text-lg font-semibold text-gray-900 mb-3">
-						{result.previousSalaryValueMatchingCurrentPurchasingPower.toFixed(2)} лв.
+						{result.previousSalaryValueMatchingCurrentPurchasingPower.toFixed(2)} EUR
 					</div>
 
 					{#if result.previousSalaryValueMatchingCurrentPurchasingPower > result.monthlyBudgetThen}
@@ -99,7 +99,7 @@
 								<div class="text-green-800 font-semibold">
 									Вашата покупателна сила се е УВЕЛИЧИЛА с {(
 										result.previousSalaryValueMatchingCurrentPurchasingPower - result.monthlyBudgetThen
-									).toFixed(2)} лв.
+									).toFixed(2)} EUR
 								</div>
 							</div>
 						</div>
@@ -110,7 +110,7 @@
 								<div class="text-red-800 font-semibold">
 									Вашата покупателна сила се е НАМАЛИЛА с {(
 										result.monthlyBudgetThen - result.previousSalaryValueMatchingCurrentPurchasingPower
-									).toFixed(2)} лв.
+									).toFixed(2)} EUR
 								</div>
 							</div>
 						</div>

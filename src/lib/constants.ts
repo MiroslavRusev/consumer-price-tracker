@@ -1,34 +1,34 @@
 export const productCodes = {
-	bread: 'CP01113',
-	pork: 'CP01122',
-	poultry: 'CP01124',
+	bread: 'CP011131',
+	pork: 'CP011222',
+	poultry: 'CP011224',
 	milk: 'CP01141',
-	eggs: 'CP01147',
+	eggs: 'CP01148',
 	oil: 'CP0115',
-	butter: 'CP01151',
-	potatoes: 'CP01174',
+	butter: 'CP01152',
+	potatoes: 'CP011751',
 	sugar: 'CP01181',
 	fish: 'CP0113',
 	fruit: 'CP0116',
 	vegetables: 'CP0117',
-	coffee: 'CP0121'
+	coffee: 'CP01220'
 };
 
 // Define the food items with their Eurostat codes and colors
 export const foodItems = [
-	{ id: 'bread', name: 'Хляб', code: 'CP01113', color: '#D4A574' },
-	{ id: 'pork', name: 'Свинско месо', code: 'CP01122', color: '#8B0000' },
-	{ id: 'poultry', name: 'Птиче месо', code: 'CP01124', color: '#FFB6C1' },
+	{ id: 'bread', name: 'Хляб', code: 'CP011131', color: '#D4A574' },
+	{ id: 'pork', name: 'Свинско месо', code: 'CP011222', color: '#8B0000' },
+	{ id: 'poultry', name: 'Птиче месо', code: 'CP011224', color: '#FFB6C1' },
 	{ id: 'milk', name: 'Мляко', code: 'CP01141', color: '#3371FF' },
-	{ id: 'eggs', name: 'Яйца', code: 'CP01147', color: '#FFFACD' },
+	{ id: 'eggs', name: 'Яйца', code: 'CP01148', color: '#FFFACD' },
 	{ id: 'oil', name: 'Олио', code: 'CP0115', color: '#FFE66D' },
-	{ id: 'butter', name: 'Масло', code: 'CP01151', color: '#FFD700' },
-	{ id: 'potatoes', name: 'Картофи', code: 'CP01174', color: '#33FF5E' },
+	{ id: 'butter', name: 'Масло', code: 'CP01152', color: '#FFD700' },
+	{ id: 'potatoes', name: 'Картофи', code: 'CP011751', color: '#33FF5E' },
 	{ id: 'sugar', name: 'Захар', code: 'CP01181', color: '#FF8E53' },
 	{ id: 'fish', name: 'Риба', code: 'CP0113', color: '#F54927' },
 	{ id: 'fruit', name: 'Плодове', code: 'CP0116', color: '#E4F527' },
 	{ id: 'vegetables', name: 'Зеленчуци', code: 'CP0117', color: '#27E4F5' },
-	{ id: 'coffee', name: 'Кафе', code: 'CP0121', color: '#613927' }
+	{ id: 'coffee', name: 'Кафе', code: 'CP01220', color: '#613927' }
 ];
 
 export const utilityItems = [
@@ -74,5 +74,7 @@ export const mortgageFormDefaults = {
 	loanTermYears: 25,
 	extraPaymentPerYear: 0,
 	paymentType: 'annuity',
-	currency: 'BGN'
+	currency: 'EUR'
 };
+
+export const eurConversionRate = 1.95583;

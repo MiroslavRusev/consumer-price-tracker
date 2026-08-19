@@ -193,7 +193,7 @@ interface EurostatResponse {
 				index: Record<string, string>;
 			};
 		};
-		coicop?: {
+		coicop18?: {
 			category: {
 				label: Record<string, string>;
 				index: Record<string, number>;

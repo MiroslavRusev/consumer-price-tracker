@@ -23,7 +23,8 @@ export default ts.config(
 		rules: {
 			'no-undef': 'off',
 			'@typescript-eslint/no-unused-vars': 'warn',
-			'no-console': ['error', { allow: ['warn', 'error'] }]
+			'no-console': ['error', { allow: ['warn', 'error'] }],
+			'svelte/no-navigation-without-resolve': ['error', { ignoreLinks: true }]
 		}
 	},
 	{

@@ -11,5 +11,10 @@ export const GET: RequestHandler = async ({ url }) => {
 
 	const response = await fetch(apiUrl);
 	const data = await response.json();
+	const dateFromRequest = new Date(date || '');
+	// Handle EUR adoption in Bulgaria
+	if (dateFromRequest && dateFromRequest < new Date('2026-01-01')) {
+		data.price /= 1.95583;
+	}
 	return json(data);
 };

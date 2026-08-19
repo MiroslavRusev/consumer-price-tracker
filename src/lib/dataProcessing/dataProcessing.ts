@@ -5,7 +5,11 @@ import type { FoodApiResponse, EurostatResponse } from '$lib/interfaces';
 export const processEurostatData = (rawData: unknown): FoodApiResponse => {
 	const dataset = rawData as EurostatResponse;
 	// Check if the data from API is valid
-	if (!dataset?.dimension?.time?.category?.index || !dataset?.dimension?.coicop?.category?.index || !dataset?.value) {
+	if (
+		!dataset?.dimension?.time?.category?.index ||
+		!dataset?.dimension?.coicop18?.category?.index ||
+		!dataset?.value
+	) {
 		return { foodItems: [], labels: [], priceData: {} };
 	}
 
@@ -13,8 +17,8 @@ export const processEurostatData = (rawData: unknown): FoodApiResponse => {
 	// Get list of time labels from API
 	const timeLabels = dimension.time!.category.index;
 	// Get list of coicop categories from API
-	const coicopCategories = dimension.coicop!.category.label;
-	const coicopIndex = dimension.coicop!.category.index;
+	const coicopCategories = dimension.coicop18!.category.label;
+	const coicopIndex = dimension.coicop18!.category.index;
 	// Create time labels array
 	const timePeriods = Object.keys(timeLabels).sort();
 
