@@ -54,7 +54,7 @@ Create a `.env` file with the following variables:
 
 ```env
 EUROSTAT_API=https://ec.europa.eu/eurostat/api/dissemination/sdmx/3.0/data/dataflow/ESTAT
-FUELO_API_URL=https://api.fuelo.net
+FUELO_API_URL=http://fuelo.net/api/price
 FUELO_API_KEY=your_fuelo_api_key
 ```
 
