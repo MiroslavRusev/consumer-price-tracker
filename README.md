@@ -1,6 +1,6 @@
 # Consumer Price Analysis Tool
 
-A modern web application for tracking and analyzing consumer prices in the Bulgarian market. Built with SvelteKit, TypeScript, and Chart.js, this tool provides comprehensive price analysis across food, fuel, and utility categories.
+A modern web application for tracking and analyzing consumer prices in the Bulgarian market. Built with SvelteKit, TypeScript, and Chart.js, this tool provides comprehensive price analysis across food, fuel, and utility categories, plus a mortgage calculator for planning property purchases.
 
 ## Features
 
@@ -8,6 +8,7 @@ A modern web application for tracking and analyzing consumer prices in the Bulga
 - **Real-time Data Integration**: Fetches live data from Eurostat API for food prices and Fuelo API for fuel prices
 - **Flexible Time Ranges**: Analyze price trends from 3 months to 10 years
 - **Purchasing Power Calculator**: Calculate how price changes affect your budget and purchasing power
+- **Mortgage Calculator**: Estimate mortgage payments (annuity or declining), maximum affordable loan amount, and the effect of extra yearly payments
 - **Bulgarian Market Focus**: Specialized for Bulgarian market analysis with Bulgarian language interface
 - **Responsive Design**: Modern UI built with Tailwind CSS
 - **Fast Performance**: Lightweight SvelteKit application with optimized data fetching
@@ -50,12 +51,14 @@ A modern web application for tracking and analyzing consumer prices in the Bulga
 
 ### Environment Variables
 
-Create a `.env` file with the following variables:
+Create a `.env` file with the following variables (see [.env.example](.env.example)):
 
 ```env
-EUROSTAT_API=https://ec.europa.eu/eurostat/api/dissemination/sdmx/3.0/data/dataflow/ESTAT
+EUROSTAT_API="https://ec.europa.eu/eurostat/api/dissemination/sdmx/3.0/data/dataflow/ESTAT"
 FUELO_API_URL=http://fuelo.net/api/price
 FUELO_API_KEY=your_fuelo_api_key
+MAX_VALUE=1000000
+MIN_POSITIVE_VALUE=0
 ```
 
 ### Installation
@@ -63,8 +66,8 @@ FUELO_API_KEY=your_fuelo_api_key
 1. Clone the repository:
 
 ```bash
-git clone <repository-url>
-cd svetle
+git clone git@github.com:MiroslavRusev/consumer-price-tracker.git
+cd consumer-price-tracker
 ```
 
 2. Install dependencies:
@@ -99,24 +102,42 @@ src/
 │   │   ├── foodChart.svelte    # Food price charts
 │   │   ├── fuelBarChart.svelte # Fuel price comparison
 │   │   └── utilityChart.svelte # Utility price charts
+│   ├── form/               # Purchasing power calculator form
+│   │   ├── Form.svelte         # Multi-step form container
+│   │   ├── FormField.svelte    # Reusable form field
+│   │   ├── formHeader.svelte   # Form header/step title
+│   │   ├── formResultsAndErrors.svelte # Results & validation errors
+│   │   ├── navButtons.svelte   # Step navigation buttons
+│   │   └── progressIndicator.svelte # Step progress indicator
 │   ├── main/               # Main interactive components
 │   │   ├── dateRange.svelte    # Time range selector
 │   │   ├── foodItems.svelte    # Food item selector
 │   │   ├── fuelItems.svelte    # Fuel type selector
-│   │   ├── utilityItems.svelte # Utility selector
-│   │   └── Form.svelte         # Purchasing power calculator
+│   │   └── utilityItems.svelte # Utility selector
+│   ├── mortgage/           # Mortgage calculator components
+│   │   ├── MortgageForm.svelte     # Mortgage input form
+│   │   ├── MortgageResults.svelte  # Calculation results
+│   │   ├── MortgageSuggestion.svelte # Max affordable loan suggestion
+│   │   └── MortgageSummary.svelte  # Summary of payments/interest
 │   └── structural/         # Layout and structural components
 │       ├── Header.svelte       # Application header
 │       ├── Footer.svelte       # Application footer
 │       ├── chartSection.svelte # Chart display section
-│       └── controlSection.svelte # Control panel section
+│       ├── controlSection.svelte # Control panel section
+│       ├── errorChartState.svelte # Chart error state
+│       ├── loadingChartState.svelte # Chart loading state
+│       └── informationModals/  # Per-category info modals
+│           ├── foodInfoModal.svelte
+│           ├── fuelInfoModal.svelte
+│           └── utilityModal.svelte
 ├── lib/                    # Core business logic
 │   ├── assets/             # Static assets
-│   │   ├── header-image.webp   # Header background image
-│   │   └── pie-chart-logo.svg  # Application logo
+│   │   ├── pie-chart-logo.svg  # Application logo
+│   │   └── svgExporter.ts      # Chart-to-SVG export helper
 │   ├── constants.ts        # Data definitions and mappings
 │   ├── interfaces.ts       # TypeScript type definitions
 │   ├── stores.ts          # Svelte stores for state management
+│   ├── errorHandling.ts    # Shared error handling utilities
 │   ├── dataFetcher/        # Data fetching modules
 │   │   ├── dataFetch.ts        # Base data fetching utilities
 │   │   ├── foodDataFetcher.ts  # Food price data processing
@@ -132,21 +153,27 @@ src/
 │   │   └── waterPricesAvg.ts   # Average water price data
 │   └── utils/              # Helper utilities
 │       ├── datesAndRanges.ts   # Date and range utilities
-│       └── helperMethods.ts    # General helper functions
+│       ├── helperMethods.ts    # General helper functions
+│       ├── formDataBuilder.ts  # Centralized form field config (see below)
+│       ├── formValidator.ts    # Centralized form validation (see below)
+│       └── mortgageCalculations.ts # Mortgage payment/loan calculations
 ├── routes/                 # SvelteKit pages and API routes
 │   ├── +layout.svelte     # Application layout
-│   ├── +page.svelte       # Main application page
+│   ├── +page.svelte       # Main application page (price analysis)
+│   ├── info/+page.svelte  # Info/about page
+│   ├── mortgage/+page.svelte # Mortgage calculator page
 │   └── api/               # Backend API endpoints
 │       ├── food-prices/       # Food price data endpoint
 │       ├── fuel-prices/       # Fuel price data endpoint
 │       ├── utility-prices/    # Utility price data endpoint
-│       └── calculate-pp-change/ # Purchasing power calculator
+│       ├── calculate-pp-change/ # Purchasing power calculator
+│       └── mortgage-calculate/  # Mortgage calculator endpoint
 └── styles/                # Global styles and Tailwind configuration
 ```
 
 ## Form configuration
 
-If you want to extend or modify the purchasing power analysys form please check the [Form Config Manual](README-formConfig)
+If you want to extend or modify the purchasing power analysys form please check the [Form Config Manual](README-formConfig.md)
 
 ## Features in Detail
 
@@ -161,6 +188,13 @@ If you want to extend or modify the purchasing power analysys form please check 
 - Input your income and expenses to see how inflation affects your purchasing power
 - Compare historical vs. current budget requirements
 - Factor in actual price changes across all tracked categories
+
+### Mortgage Calculator
+
+- Calculate monthly payments for annuity or declining payment types
+- Estimate the maximum loan amount you can afford based on monthly budget
+- Model the effect of extra yearly payments on total interest and loan term
+- Available at `/mortgage`
 
 ### Data Processing
 

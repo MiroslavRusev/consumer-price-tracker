@@ -1,10 +1,10 @@
 {
-	"name": "svetle",
+	"name": "Consumer Price Analysis Tool",
 	"description": "Consumer price analysis tool for Bulgarian market.",
 	"version": "0.0.1",
 	"private": true,
 	"type": "module",
-	"author": "Miroslav Rusev <miroslav.rusev@living.homes>",
+	"author": "Miroslav Rusev <miroslav.rusev@jakala.com>",
 	"license": "MIT",
 	"resolutions": {
 		"yaml": "^2.4.2",
