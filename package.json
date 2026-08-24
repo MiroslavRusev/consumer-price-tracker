@@ -1,5 +1,5 @@
 {
-	"name": "Consumer Price Analysis Tool",
+	"name": "consumer-price-tracker",
 	"description": "Consumer price analysis tool for Bulgarian market.",
 	"version": "0.0.1",
 	"private": true,
