@@ -30,7 +30,8 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
-		"lint": "prettier --check . && eslint ."
+		"lint": "prettier --check . && eslint .",
+		"check:data-sources": "node --env-file=.env scripts/check-data-sources.mjs"
 	},
 	"dependencies": {
 		"@sveltejs/adapter-auto": "^9.0.0",
