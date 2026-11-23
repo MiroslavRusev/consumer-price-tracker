@@ -11,7 +11,7 @@ export const productCodes = {
 	fish: 'CP0113',
 	fruit: 'CP0116',
 	vegetables: 'CP0117',
-	coffee: 'CP01220'
+	coffee: 'CP0122'
 };
 
 // Define the food items with their Eurostat codes and colors
@@ -28,7 +28,7 @@ export const foodItems = [
 	{ id: 'fish', name: 'Риба', code: 'CP0113', color: '#F54927' },
 	{ id: 'fruit', name: 'Плодове', code: 'CP0116', color: '#E4F527' },
 	{ id: 'vegetables', name: 'Зеленчуци', code: 'CP0117', color: '#27E4F5' },
-	{ id: 'coffee', name: 'Кафе', code: 'CP01220', color: '#613927' }
+	{ id: 'coffee', name: 'Кафе', code: 'CP0122', color: '#613927' }
 ];
 
 export const utilityItems = [
