@@ -38,7 +38,7 @@
 		{#each foodItems as food (food.id)}
 			<button
 				class="relative px-3 py-3 text-center rounded-lg border smooth-transition focus-enhanced group {$selectedFoods.includes(food.id)
-					? 'bg-green-50 border-green-200 text-green-900 shadow-xs ring-2 ring-green-500 ring-opacity-20'
+					? 'bg-green-50 border-green-200 text-green-900 shadow-xs ring-2 ring-green-500/20'
 					: 'bg-white border-gray-200 text-gray-700 hover-slate hover:shadow-xs'}"
 				on:click={() => handleFoodSelect(food.id)}
 			>
