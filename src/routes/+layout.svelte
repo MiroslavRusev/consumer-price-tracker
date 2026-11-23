@@ -1,7 +1,7 @@
 <script>
 	let { children } = $props();
 	import '../styles/input.css';
-	import { dev } from '$app/environment';
+	import { dev } from '$app/env';
 	import { injectAnalytics } from '@vercel/analytics/sveltekit';
 	import Footer from '../components/structural/Footer.svelte';
 	import Header from '../components/structural/Header.svelte';

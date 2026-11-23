@@ -62,8 +62,8 @@
 		{#each fuelItems as fuel (fuel.id)}
 			<button
 				class="w-full relative px-4 py-4 text-left rounded-xl border smooth-transition focus-enhanced group {$selectedFuel === fuel.id
-					? 'bg-blue-50 border-blue-200 text-blue-900 ring-2 ring-blue-500 ring-opacity-20 shadow-sm'
-					: 'bg-white border-gray-200 text-gray-700 hover:bg-blue-50 hover:border-blue-200 hover:shadow-sm'}"
+					? 'bg-blue-50 border-blue-200 text-blue-900 ring-2 ring-blue-500 ring-opacity-20 shadow-xs'
+					: 'bg-white border-gray-200 text-gray-700 hover:bg-blue-50 hover:border-blue-200 hover:shadow-xs'}"
 				on:click={() => handleFuelSelect(fuel)}
 			>
 				<div class="flex items-center justify-between">

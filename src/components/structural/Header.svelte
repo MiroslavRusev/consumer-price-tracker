@@ -23,7 +23,7 @@
 	}
 </script>
 
-<header class="bg-gradient-to-r from-slate-600 via-slate-500 to-slate-600 border-b border-slate-300/20 shadow-lg">
+<header class="bg-linear-to-r from-slate-600 via-slate-500 to-slate-600 border-b border-slate-300/20 shadow-lg">
 	<div class="header-content mx-auto px-6 py-3">
 		<div class="flex items-center justify-between">
 			<!-- Logo and Navigation Section -->

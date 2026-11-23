@@ -1,6 +1,6 @@
 <div class="flex items-center justify-center min-h-[500px]">
 	<div class="text-center max-w-md">
-		<div class="w-20 h-20 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6 backdrop-blur-sm">
+		<div class="w-20 h-20 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6 backdrop-blur-xs">
 			<svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 				<path
 					stroke-linecap="round"
@@ -13,7 +13,7 @@
 		<h3 class="text-xl font-semibold text-white mb-3">Unable to load data</h3>
 		<p class="text-white/80 mb-4">There was an issue fetching the latest price information</p>
 		<button
-			class="px-6 py-2 bg-white/20 backdrop-blur-sm text-white rounded-lg border border-white/30 hover:bg-white/30 transition-all duration-200"
+			class="px-6 py-2 bg-white/20 backdrop-blur-xs text-white rounded-lg border border-white/30 hover:bg-white/30 transition-all duration-200"
 		>
 			Try Again
 		</button>

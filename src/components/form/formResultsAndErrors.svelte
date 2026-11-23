@@ -10,7 +10,7 @@
 {#if error}
 	<div class="bg-red-50 border border-red-200 rounded-2xl p-6 mt-8">
 		<div class="flex items-start">
-			<div class="flex-shrink-0">
+			<div class="shrink-0">
 				{@html svgExporter.redCheck}
 			</div>
 			<div class="ml-3">
@@ -22,9 +22,9 @@
 {/if}
 
 {#if result}
-	<div class="bg-gradient-to-br from-green-50 to-slate-50 border border-green-200 rounded-2xl p-8 mt-8">
+	<div class="bg-linear-to-br from-green-50 to-slate-50 border border-green-200 rounded-2xl p-8 mt-8">
 		<div class="flex items-start mb-6">
-			<div class="flex-shrink-0">
+			<div class="shrink-0">
 				<div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
 					{@html svgExporter.analysisIcon}
 				</div>
@@ -36,27 +36,27 @@
 		</div>
 
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-			<div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+			<div class="bg-white rounded-xl p-6 shadow-xs border border-gray-100">
 				<div class="text-sm font-medium text-gray-600 mb-1">Текущ месечен доход</div>
 				<div class="text-2xl font-bold text-green-600">{result.monthlyBudget.toFixed(2)} EUR</div>
 			</div>
-			<div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+			<div class="bg-white rounded-xl p-6 shadow-xs border border-gray-100">
 				<div class="text-sm font-medium text-gray-600 mb-1">Исторически месечен доход</div>
 				<div class="text-2xl font-bold text-slate-600">{result.monthlyBudgetThen.toFixed(2)} EUR</div>
 			</div>
-			<div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+			<div class="bg-white rounded-xl p-6 shadow-xs border border-gray-100">
 				<div class="text-sm font-medium text-gray-600 mb-1">Процент инфлация</div>
 				<div class="text-2xl font-bold text-orange-600">{result.inflationRate.toFixed(2)}%</div>
 			</div>
-			<div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+			<div class="bg-white rounded-xl p-6 shadow-xs border border-gray-100">
 				<div class="text-sm font-medium text-gray-600 mb-1">Текущи разходи</div>
 				<div class="text-2xl font-bold text-red-600">{result.totalExpensesNow.toFixed(2)} EUR</div>
 			</div>
-			<div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+			<div class="bg-white rounded-xl p-6 shadow-xs border border-gray-100">
 				<div class="text-sm font-medium text-gray-600 mb-1">Исторически разходи</div>
 				<div class="text-2xl font-bold text-red-500">{result.totalExpensesThen.toFixed(2)} EUR</div>
 			</div>
-			<div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+			<div class="bg-white rounded-xl p-6 shadow-xs border border-gray-100">
 				<div class="text-sm font-medium text-gray-600 mb-1">Нетна разлика в разходите</div>
 				<p class="text-sm text-gray-600 mb-1">преизчислена към настояща дата</p>
 				<div class="text-2xl font-bold {result.netExpensesDifference > 0 ? 'text-red-600' : 'text-green-600'}">
@@ -66,7 +66,7 @@
 		</div>
 
 		<!-- Purchasing Power Comparison -->
-		<div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+		<div class="bg-white rounded-xl p-6 shadow-xs border border-gray-100">
 			<h4 class="text-lg font-semibold text-gray-900 mb-4">Анализ на покупателната сила</h4>
 			<div class="space-y-4">
 				<div class="grid grid-cols-1 md:grid-cols-2 gap-4">

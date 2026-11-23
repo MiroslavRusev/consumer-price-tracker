@@ -28,7 +28,7 @@
 
 		{#if result.paymentType === 'annuity'}
 			<!-- Annuity Payments Results -->
-			<div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+			<div class="bg-white border border-gray-200 rounded-xl p-6 shadow-xs">
 				<h3 class="text-xl font-bold text-gray-900 mb-4">Анюитетни вноски</h3>
 				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 					<div class="bg-blue-50 rounded-lg p-4 text-center">
@@ -65,7 +65,7 @@
 			</div>
 		{:else}
 			<!-- Declining Payments Results -->
-			<div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+			<div class="bg-white border border-gray-200 rounded-xl p-6 shadow-xs">
 				<h3 class="text-xl font-bold text-gray-900 mb-4">Намаляващи вноски</h3>
 				<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
 					<div class="bg-orange-50 rounded-lg p-4 text-center">

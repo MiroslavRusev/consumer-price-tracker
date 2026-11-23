@@ -5,7 +5,7 @@
 	let { result, currency }: { result: EnrichedMortgageCalculationResult; currency: string } = $props();
 </script>
 
-<div class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6">
+<div class="bg-linear-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6">
 	<h3 class="text-xl font-bold text-gray-900 mb-4">Обобщение</h3>
 	<div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
 		<div>

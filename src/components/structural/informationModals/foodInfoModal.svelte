@@ -50,7 +50,7 @@
 					Този график показва промените в цените на храните въз основа на официалните данни от Евростат. Индексът използва 2015 година като
 					базова година (2015=100).
 				</p>
-				<div class="bg-green-50 border-l-4 border-green-500 p-4 rounded">
+				<div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-sm">
 					<h4 class="font-semibold text-green-800 mb-2">Как да четете графиката:</h4>
 					<ul class="list-disc list-inside space-y-1 text-green-700">
 						<li>Стойност над 100 означава, че цените са се увеличили спрямо 2015 г.</li>

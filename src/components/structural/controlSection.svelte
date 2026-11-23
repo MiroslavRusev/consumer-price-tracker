@@ -90,7 +90,7 @@
 
 				<!-- Reset Button -->
 				<button
-					class="inline-flex items-center px-6 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 font-medium shadow-sm hover:bg-slate-100 hover:border-slate-300 focus-enhanced smooth-transition"
+					class="inline-flex items-center px-6 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 font-medium shadow-xs hover:bg-slate-100 hover:border-slate-300 focus-enhanced smooth-transition"
 					on:click={resetToDefaults}
 				>
 					<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

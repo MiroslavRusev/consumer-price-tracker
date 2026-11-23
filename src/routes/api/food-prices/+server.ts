@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { EUROSTAT_API } from '$env/static/private';
+import { EUROSTAT_API } from '$app/env/private';
 import { productCodes } from '$lib/constants';
 import { processEurostatData } from '$lib/dataProcessing/dataProcessing';
 import type { RequestHandler } from '@sveltejs/kit';

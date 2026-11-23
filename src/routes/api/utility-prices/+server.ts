@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { EUROSTAT_API } from '$env/static/private';
+import { EUROSTAT_API } from '$app/env/private';
 import type { RequestHandler } from '@sveltejs/kit';
 import { processEurostatElectricityData } from '$lib/dataProcessing/dataElectricityProcessing';
 import { processWaterData } from '$lib/dataProcessing/dataWaterProcessing';
