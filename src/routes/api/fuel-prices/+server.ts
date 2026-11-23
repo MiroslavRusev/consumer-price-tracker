@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { FUELO_API_URL, FUELO_API_KEY } from '$env/static/private';
+import { FUELO_API_URL, FUELO_API_KEY } from '$app/env/private';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async ({ url }) => {

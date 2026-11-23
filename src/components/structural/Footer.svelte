@@ -42,16 +42,18 @@
 							<li>
 								<a
 									href="https://ec.europa.eu/eurostat/databrowser/view/prc_fsc_idx/default/table?lang=en&category=prc.prc_oth"
-									class="text-white hover:text-black transition-colors">Eurostat</a
+									class="text-white hover:text-black transition-colors"
 								>
+									Eurostat
+								</a>
 							</li>
 							<li>
 								<a href="https://fuelo.net/" class="text-white hover:text-black transition-colors">Fuelo</a>
 							</li>
 							<li>
-								<a href="https://www.sofiyskavoda.bg/ceni-na-vodata" class="text-white hover:text-black transition-colors"
-									>Софийска Вода АД</a
-								>
+								<a href="https://www.sofiyskavoda.bg/ceni-na-vodata" class="text-white hover:text-black transition-colors">
+									Софийска Вода АД
+								</a>
 							</li>
 						{/if}
 					</ul>

@@ -40,8 +40,8 @@
 				class="relative px-4 py-4 text-left rounded-xl border smooth-transition focus-enhanced group {$selectedUtilityItems.includes(
 					utility.id
 				)
-					? 'bg-purple-50 border-purple-200 text-purple-900 shadow-sm ring-2 ring-purple-500 ring-opacity-20'
-					: 'bg-white border-gray-200 text-gray-700 hover-slate hover:shadow-sm'}"
+					? 'bg-purple-50 border-purple-200 text-purple-900 shadow-xs ring-2 ring-purple-500/20'
+					: 'bg-white border-gray-200 text-gray-700 hover-slate hover:shadow-xs'}"
 				on:click={() => handleUtilitySelect(utility.id)}
 			>
 				<div class="flex items-center justify-between">

@@ -49,7 +49,7 @@
 					Графиката показва развитието на цените за основните комунални услуги като електричество и водоснабдяване за периода от 2015 година
 					до днес.
 				</p>
-				<div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded">
+				<div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-sm">
 					<h4 class="font-semibold text-yellow-800 mb-2">Особености на данните:</h4>
 					<ul class="list-disc list-inside space-y-1 text-yellow-700">
 						<li>Данните се актуализират на всеки 6 месеца</li>

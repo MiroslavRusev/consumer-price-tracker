@@ -26,7 +26,7 @@
 		</div>
 
 		<!-- Mortgage Form -->
-		<MortgageForm bind:error bind:result bind:currency />
+		<MortgageForm bind:error bind:result />
 
 		<!-- Results -->
 		<MortgageResults {result} {error} {currency} />

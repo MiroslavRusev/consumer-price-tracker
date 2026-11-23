@@ -30,8 +30,8 @@
 		{#each timeRanges as range (range.id)}
 			<button
 				class="w-full relative px-4 py-4 text-left rounded-xl border smooth-transition focus-enhanced {selectedRange === range.id
-					? 'selected-slate ring-2 ring-slate-500 ring-opacity-20 shadow-sm'
-					: 'bg-white border-gray-200 text-gray-700 hover-slate hover:shadow-sm'}"
+					? 'selected-slate ring-2 ring-slate-500/20 shadow-xs'
+					: 'bg-white border-gray-200 text-gray-700 hover-slate hover:shadow-xs'}"
 				on:click={() => handleRangeSelect(range.id)}
 			>
 				<div class="flex items-center justify-between">

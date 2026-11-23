@@ -49,7 +49,7 @@
 					Графиката показва динамиката на цените на основните горива в България - бензин, дизел, автогаз (LPG) и метан. Данните отразяват
 					средните национални цени на дребно.
 				</p>
-				<div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
+				<div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-sm">
 					<h4 class="font-semibold text-blue-800 mb-2">Показаната цена е крайна и включва:</h4>
 					<ul class="list-disc list-inside space-y-1 text-blue-700">
 						<li>Цена на суровината (нефт/газ)</li>

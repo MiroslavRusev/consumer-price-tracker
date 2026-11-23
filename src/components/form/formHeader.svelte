@@ -14,25 +14,25 @@
 </div>
 
 <!-- Selected Configuration Summary -->
-<div class="bg-gradient-to-r from-slate-50 to-gray-50 border border-slate-200 rounded-2xl p-5 mb-6">
+<div class="bg-linear-to-r from-slate-50 to-gray-50 border border-slate-200 rounded-2xl p-5 mb-6">
 	<h3 class="text-lg font-semibold text-slate-900 mb-3 flex items-center">
 		{@html svgExporter.greenCheck}
 		Конфигурация на анализа
 	</h3>
 	<div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
-		<div class="bg-white/80 backdrop-blur-sm rounded-lg p-3">
+		<div class="bg-white/80 backdrop-blur-xs rounded-lg p-3">
 			<div class="font-medium text-slate-900">Период</div>
 			<div class="text-slate-700">{periodString}</div>
 		</div>
-		<div class="bg-white/80 backdrop-blur-sm rounded-lg p-3">
+		<div class="bg-white/80 backdrop-blur-xs rounded-lg p-3">
 			<div class="font-medium text-slate-900">Продукти</div>
 			<div class="text-slate-700 text-xs">{productsString}</div>
 		</div>
-		<div class="bg-white/80 backdrop-blur-sm rounded-lg p-3">
+		<div class="bg-white/80 backdrop-blur-xs rounded-lg p-3">
 			<div class="font-medium text-slate-900">Гориво</div>
 			<div class="text-slate-700">{selectedFuelString}</div>
 		</div>
-		<div class="bg-white/80 backdrop-blur-sm rounded-lg p-3">
+		<div class="bg-white/80 backdrop-blur-xs rounded-lg p-3">
 			<div class="font-medium text-slate-900">Услуги</div>
 			<div class="text-slate-700 text-xs">{selectedUtilityItemsString}</div>
 		</div>
